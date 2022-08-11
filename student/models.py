@@ -9,9 +9,10 @@ class Student(models.Model):
    
     @property
     def get_name(self):
-        return self.user.first_name+" "+self.user.last_name
+        self.user.name = self.user.first_name+" "+self.user.last_name
+        return self.user.name
     @property
     def get_instance(self):
         return self
     def __str__(self):
-        return self.user.first_name
+        return self.user.name

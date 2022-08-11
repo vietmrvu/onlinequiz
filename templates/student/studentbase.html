@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" dir="ltr">
+<title>Learning System Online</title>
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
 
 <head>
   <meta charset="utf-8">
@@ -175,8 +177,8 @@
   <div class="sidebar">
     <center>
 
-      <img src="{% static "image/student.png" %}" class="profile_image" alt="">
-      <h4>{{request.user.first_name}}</h4>
+      <img src="{% static 'image/student.png' %}" class="profile_image" alt="">
+      <h4>{{request.user}}</h4>
       <h6 style="color: rgb(255, 255, 255);">( Student )</h6>
 
     </center>

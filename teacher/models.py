@@ -6,13 +6,14 @@ class Teacher(models.Model):
     profile_pic= models.ImageField(upload_to='profile_pic/Teacher/',null=True,blank=True)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
-    status= models.BooleanField(default=False)
+    status= models.BooleanField(default=True)
     salary=models.PositiveIntegerField(null=True)
     @property
     def get_name(self):
-        return self.user.first_name+" "+self.user.last_name
+        self.user.name = self.user.first_name+" "+self.user.last_name
+        return self.user.name
     @property
     def get_instance(self):
         return self
     def __str__(self):
-        return self.user.first_name
+        return self.user.name

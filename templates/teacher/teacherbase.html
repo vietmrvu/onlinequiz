@@ -4,7 +4,8 @@
 
 <head>
   <meta charset="utf-8">
- 
+ <title>Learning System Online</title>
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
 
   <style media="screen">
     a:link {
@@ -175,8 +176,8 @@
   <div class="sidebar">
     <center>
 
-      <img src="{% static "image/teacher.png" %}" class="profile_image" alt="">
-      <h4>{{request.user.first_name}}</h4>
+      <img src="{% static 'image/teacher.png' %}" class="profile_image" alt="">
+      <h4>{{request.user}}</h4>
       <h6 style="color: rgb(255, 255, 255);">( Teacher )</h6>
 
     </center>
