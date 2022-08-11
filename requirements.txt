@@ -1,12 +1,8 @@
 backports.zoneinfo==0.2.1
 dj-database-url==1.0.0
 Django==4.0.6
-django-allauth==0.51.0
-django-autoslug==1.9.8
 django-browser-reload==1.6.0
-django-ckeditor==6.4.2
 django-cors-headers==3.13.0
-django-crispy-forms==1.14.0
 django-widget-tweaks==1.4.12
 graphene==2.1.9
 graphene-django==2.15.0
