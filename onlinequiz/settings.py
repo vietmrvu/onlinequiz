@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'onlinequiz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dfmu1mf61gnvtn',
+        'USER': 'sqmmksdegkwpnj',
+        'PASSWORD': 'ce3439daec36c419484d80bbd90d00fee442d3b6cfc3e55ba81007a6928ba83d',
+        'HOST': 'ec2-44-208-88-195.compute-1.amazonaws.com',
+        'PORT':  '5432',
     }
 }
 
