@@ -8,6 +8,7 @@ from django.conf import settings
 from datetime import date, timedelta
 from quiz import models as QMODEL
 from teacher import models as TMODEL
+from django.views.decorators.csrf import csrf_exempt
 
 
 #for showing signup/login button for student
@@ -80,11 +81,11 @@ def start_exam_view(request,pk):
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
+@csrf_exempt
 def calculate_marks_view(request):
     if request.COOKIES.get('course_id') is not None:
         course_id = request.COOKIES.get('course_id')
         course=QMODEL.Course.objects.get(id=course_id)
-        
         total_marks=0
         questions=QMODEL.Question.objects.all().filter(course=course)
         for i in range(len(questions)):
