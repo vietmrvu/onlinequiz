@@ -39,13 +39,18 @@
         </tr>
       </thead>
       {% for t in results %}
+      {% if forloop.counter <= 2 %}
+           
       <tr>
 
         <td> {{t.exam}}</td>
         <td> {{t.marks}}</td>
         <td>Attemp {{ forloop.counter }}</td>
+
         <td> {{t.date}}</td>
       </tr>
+      {% else %}
+      {% endif %}
       {% endfor %}
     </table>
   </div>

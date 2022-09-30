@@ -102,7 +102,7 @@ def calculate_marks_view(request):
         result.save()
 
         return HttpResponseRedirect('view-result')
-
+        
 
 
 @login_required(login_url='studentlogin')
