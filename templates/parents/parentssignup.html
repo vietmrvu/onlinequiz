@@ -48,21 +48,32 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="mobile">Mobile</label>
-          {% render_field teacherForm.mobile|attr:'required:true'  class="form-control" placeholder="Mobile" %}
+          {% render_field parentsForm.mobile|attr:'required:true'  class="form-control" placeholder="Mobile" %}
         </div>
         <div class="form-group col-md-6">
           <label for="address">Address</label>
-          {% render_field teacherForm.address|attr:'required:true'  class="form-control" placeholder="Address" %}
+          {% render_field parentsForm.address|attr:'required:true'  class="form-control" placeholder="Address" %}
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="profile_pic">Profile Picture</label>
-          {% render_field teacherForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
+          {% render_field parentsForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
         </div>
         
       </div>
+       <div class="form-row">
+        <label for="student_model">Your child</label>
+        <div class="form-group col-md-12">
+          
+          {{parentsForm.student_model }}
+
+
+        </div>
+        
+      </div>
+
 
 
     <button type="submit" class="btn btn-primary">Sign Up</button>
