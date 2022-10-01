@@ -5,7 +5,7 @@ from . import models
 class ParentsUserForm(forms.ModelForm):
     class Meta:
         model=User
-        fields=['first_name','last_name','username','password','student_model']
+        fields=['first_name','last_name','username','password']
         widgets = {
         # 'student_model':forms.CheckboxSelectMultiple(),
         'password': forms.PasswordInput()

@@ -28,10 +28,14 @@ def is_teacher(user):
 def is_student(user):
     return user.groups.filter(name='STUDENT').exists()
 
+def is_parents(user):
+    return user.groups.filter(name='PARENTS').exists()
+
 def afterlogin_view(request):
     if is_student(request.user):      
         return redirect('student/student-dashboard')
-                
+    if is_parents(request.user):
+        return redirect('parents/parents-dashboard')
     elif is_teacher(request.user):
         accountapproval=TMODEL.Teacher.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
