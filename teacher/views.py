@@ -37,7 +37,6 @@ def teacher_signup_view(request):
     return render(request,'teacher/teachersignup.html',context=mydict)
 
 
-
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
 

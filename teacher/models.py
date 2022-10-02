@@ -14,7 +14,7 @@ class Teacher(models.Model):
     grade=models.IntegerField(choices=CLASS, default=0)
     @property
     def get_name(self):
-        self.user.name = self.user.first_name+" "+self.user.last_name + " " + self.grade
+        self.user.name = self.user.first_name+" "+self.user.last_name + " " + str(self.grade)
         return self.user.name
     @property
     def get_instance(self):
