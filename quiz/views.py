@@ -61,7 +61,7 @@ def admin_dashboard_view(request):
     'total_teacher':TMODEL.Teacher.objects.all().filter(status=True).count(),
     'total_course':models.Course.objects.all().count(),
     'total_question':models.Question.objects.all().count(),
-    'total_parents':MODEL.Parents.objects.all().count(),
+    'total_parents':PMODEL.Parents.objects.all().count(),
     }
     return render(request,'quiz/admin_dashboard.html',context=dict)
 
