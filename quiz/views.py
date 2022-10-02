@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.core.mail import send_mail
 from teacher import models as TMODEL
 from student import models as SMODEL
+from parents import models as PMODEL
 from teacher import forms as TFORM
 from student import forms as SFORM
 from django.contrib.auth.models import User
@@ -60,6 +61,7 @@ def admin_dashboard_view(request):
     'total_teacher':TMODEL.Teacher.objects.all().filter(status=True).count(),
     'total_course':models.Course.objects.all().count(),
     'total_question':models.Question.objects.all().count(),
+    'total_parents':MODEL.Parents.objects.all().count(),
     }
     return render(request,'quiz/admin_dashboard.html',context=dict)
 

@@ -20,4 +20,5 @@ class Teacher(models.Model):
     def get_instance(self):
         return self
     def __str__(self):
+        self.user.name = self.user.first_name+" "+self.user.last_name + " " + self.grade
         return self.user.name
