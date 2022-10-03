@@ -31,7 +31,7 @@ def parents_signup_view(request):
             parents=parentsForm.save(commit=False)
             parents.user=user
             parents.save()
-            my_parents_group = Group.objects.get_or_create(name='parents')
+            my_parents_group = Group.objects.get_or_create(name='PARENTS')
             my_parents_group[0].user_set.add(user)
         return HttpResponseRedirect('parentslogin')
     return render(request,'parents/parentssignup.html',context=mydict)
@@ -39,7 +39,7 @@ def parents_signup_view(request):
 
 
 def is_parents(user):
-    return user.groups.filter(name='parents').exists()
+    return user.groups.filter(name='PARENTS').exists()
 
 @login_required(login_url='parentslogin')
 @user_passes_test(is_parents)

@@ -38,11 +38,7 @@ def afterlogin_view(request):
     if is_parents(request.user):
         return redirect('parents/parents-dashboard')
     if is_teacher(request.user):
-        accountapproval=TMODEL.Teacher.objects.all().filter(user_id=request.user.id,status=True)
-        if accountapproval:
-            return redirect('teacher/teacher-dashboard')
-        else:
-            return render(request,'teacher/teacher_wait_for_approval.html')
+        return redirect('teacher/teacher-dashboard')
     else:
         return redirect('admin-dashboard')
 
@@ -58,7 +54,7 @@ def adminclick_view(request):
 def admin_dashboard_view(request):
     dict={
     'total_student':SMODEL.Student.objects.all().count(),
-    'total_teacher':TMODEL.Teacher.objects.all().filter(status=True).count(),
+    'total_teacher':TMODEL.Teacher.objects.all().count(),
     'total_course':models.Course.objects.all().count(),
     'total_question':models.Question.objects.all().count(),
     'total_parents':PMODEL.Parents.objects.all().count(),
@@ -68,7 +64,7 @@ def admin_dashboard_view(request):
 @login_required(login_url='adminlogin')
 def admin_teacher_view(request):
     dict={
-    'total_teacher':TMODEL.Teacher.objects.all().filter(status=True).count(),
+    'total_teacher':TMODEL.Teacher.objects.all().count(),
     'pending_teacher':TMODEL.Teacher.objects.all().filter(status=False).count(),
     'salary':TMODEL.Teacher.objects.all().filter(status=True).aggregate(Sum('salary'))['salary__sum'],
     }

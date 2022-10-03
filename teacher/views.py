@@ -33,11 +33,10 @@ def teacher_signup_view(request):
             teacher.save()
             my_teacher_group = Group.objects.get_or_create(name='TEACHER')
             my_teacher_group[0].user_set.add(user)
-        else:
-            userForm=forms.TeacherUserForm(request.POST)
-            teacherForm=forms.TeacherForm(request.POST,request.FILES)
+            print(my_teacher_group[0])
         return HttpResponseRedirect('teacherlogin')
     return render(request,'teacher/teachersignup.html',context=mydict)
+
 
 
 def is_teacher(user):

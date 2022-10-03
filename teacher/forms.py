@@ -13,5 +13,5 @@ class TeacherUserForm(forms.ModelForm):
 class TeacherForm(forms.ModelForm):
     class Meta:
         model=models.Teacher
-        fields=['address','mobile','profile_pic','salary', 'grade', 'class_model']
+        fields=['address','mobile','profile_pic','class_model','grade']
 
