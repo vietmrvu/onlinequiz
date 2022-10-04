@@ -117,7 +117,7 @@ def view_result_view(request):
 def check_marks_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
     student = models.Student.objects.get(user_id=request.user.id)
-    results= QMODEL.Result.objects.all().filter(exam=course).filter(student=student)
+    results= QMODEL.Result.objects.all().filter(exam=course,student=student)
     return render(request,'student/check_marks.html',{'results':results})
 
 @login_required(login_url='studentlogin')

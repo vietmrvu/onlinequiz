@@ -5,10 +5,8 @@ class Course(models.Model):
    course_name = models.CharField(max_length=50)
    question_number = models.PositiveIntegerField()
    total_marks = models.PositiveIntegerField()
-   grade = models.ManyToManyField(TMODEL.Teacher)
    atempt = models.PositiveIntegerField(default=2)
    def __str__(self):
-        self.name = self.course_name + " "+self.grade
         return self.course_name
 
 class Question(models.Model):
