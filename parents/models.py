@@ -8,6 +8,13 @@ class Parents(models.Model):
     mobile = models.CharField(max_length=20,null=False)
     status= models.BooleanField(default=True)
     student_model = models.ManyToManyField(Student)
-    def __str__(self):
-        self.user.name = self.user.first_name+" "+self.user.last_name + " " + self.grade
+    @property
+    def get_name(self):
+        self.user.name = self.user.first_name+" "+self.user.last_name + " " + str(self.grade)
         return self.user.name
+    @property
+    def get_instance(self):
+        return self
+    def __str__(self):
+        self.user
+        return self.user
