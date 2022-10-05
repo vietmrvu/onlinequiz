@@ -15,5 +15,5 @@ class Student(models.Model):
     def get_instance(self):
         return self
     def __str__(self):
-        self.user
-        return self.user
+        self.user.name = self.user.first_name+" "+self.user.last_name
+        return self.user.name

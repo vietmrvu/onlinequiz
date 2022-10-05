@@ -10,11 +10,11 @@ class Parents(models.Model):
     student_model = models.ManyToManyField(Student)
     @property
     def get_name(self):
-        self.user.name = self.user.first_name+" "+self.user.last_name + " " + str(self.grade)
+        self.user.name = self.user.first_name+" "+self.user.last_name
         return self.user.name
     @property
     def get_instance(self):
         return self
     def __str__(self):
-        self.user
-        return self.user
+        self.user.name = self.user.first_name+" "+self.user.last_name 
+        return self.user.name

@@ -156,7 +156,10 @@ def admin_view_student_view(request):
     students= SMODEL.Student.objects.all()
     return render(request,'quiz/admin_view_student.html',{'students':students})
 
-
+@login_required(login_url='adminlogin')
+def admin_view_parents_view(request):
+    parents= PMODEL.Parents.objects.all()
+    return render(request,'quiz/admin_view_parents.html',{'parents':parents})
 
 @login_required(login_url='adminlogin')
 def update_student_view(request,pk):

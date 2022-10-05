@@ -16,7 +16,7 @@ urlpatterns = [
     path('contactus', views.contactus_view),
     path('afterlogin', views.afterlogin_view,name='afterlogin'),
 
-
+    path('admin-view-parents', views.admin_view_parents_view,name='admin-view-parents'),
 
     path('adminclick', views.adminclick_view),
     path('adminlogin', LoginView.as_view(template_name='quiz/adminlogin.html'),name='adminlogin'),

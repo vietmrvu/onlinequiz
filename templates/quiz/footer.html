@@ -12,49 +12,211 @@
     /*---------------------------------------
    Social section
 -----------------------------------------*/
-    footer {
-      padding: 0px 0px 0px 0px;
-      background-color: #212529;
-      margin: 0px;
+   
+footer.footer a {
+    color: white;
+}
+footer.footer{
+  margin:  0;
+  padding: 0; 
+  box-sizing: border-box;
+    font-family: tahoma;
+    margin-top: 85px; 
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 100px;
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+footer.footer .container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+footer.footer .container .noi-dung{
+    margin-right: 30px;
+}
+
+footer.footer  .container .noi-dung.about{
+    width:60%;
+}
+footer.footer .container .noi-dung.about h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+footer.footer .container .noi-dung.about h2:before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+}
+
+footer.footer .container .noi-dung.about p{
+    color: #999;
+}
+
+footer.footer .about .social-icon{
+    margin-top: 20px;
+    display: flex;
+}
+
+footer.footer .about .social-icon li {
+    list-style: none;
+}
+footer.footer .about .social-icon li a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+footer.footer .about .social-icon li a:hover{
+    background: #f00;
+}
+
+footer.footer .about .social-icon li a .fa{
+    color: #fff;
+    font-size: 20px;
+}
+
+.links h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.links h2{
+     position: relative;
+     color: #fff;
+     font-weight: 500;
+     margin-bottom: 15px;
+ }
+.links h2::before{
+     content: '';
+     position: absolute;
+     bottom: -5px;
+     left: 0;
+     width: 50px;
+     height: 2px;
+     background: #f00;
+ }
+.links{
+    position: relative;
+    width: 25%;
+ }
+ .links ul li{
+     list-style: none;
+ }
+ .links ul li a{
+     color: #999;
+     text-decoration: none;
+     margin-bottom: 10px;
+     display: inline-block;
+ }
+.links ul li a:hover{
+     color: #fff;
+ }
+
+.contact h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.contact h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+}
+
+.contact{
+    width: calc(35% - 60px);
+    margin-right: 0 !important;
+}
+
+.contact .info{
+    position: relative;
+}
+.contact .info li{
+    display: flex;
+    margin-bottom: 16px;
+}
+.contact .info li span:nth-child(1) {
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.contact .info li span{
+    color: #999;
+}
+
+.contact .info li a{
+    color: #999;
+    text-decoration: none;
+}
+
+
+@media  (max-width: 768px){
+    footer.footer{
+        padding: 40px;
+        
     }
-
-    .fa {
-      padding: 20px;
-      font-size: 23px;
-      width: 60px;
-      text-align: center;
-      text-decoration: none;
-      margin: 5px 2px;
-      border-radius: 50%;
+    footer.footer .container{
+        flex-direction: column;
     }
-
-    .fa:hover {
-      opacity: 0.5;
-      text-decoration: none;
+    footer.footer .container .noi-dung{
+        margin-right: 0;
+        margin-bottom: 40px;
     }
-
-
-
-    p {
-      text-align: center;
-
+    footer.footer .container, .noi-dung.about, .links, .contact{
+        width: 100%;
     }
+}
+
+
+
   </style>
 </head>
 
 <footer>
-
-  <br>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
-        <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
-          <p  style="color:white;">
-            Copyright &copy; Vũ Việt's Learning System </p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="footer-container">
+       <footer class="footer" style="    margin-top: 85px; ">
+          <div class="container">
+            <!--Bắt Đầu Nội Dung Giới Thiệu-->
+            <div class="noi-dung about">
+                <h2>About us</h2>
+                <p> I'm a developer and I hope you guys like to visit my site. It's just a personal blog, all things in this blog about I and my knowledge from technology. Also this webpage can be my fanpage if you want to communicate with me. More information, click at the social link. </p>
+        <p><a>Email: vuviet.thd@gmail.com</a></p>
+                <ul class="social-icon">
+                    <li><a href="http://vietmrvu.github.io/intro/"><img width="25" height="25" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAApVBMVEX////W4eoqRX+myv/b5u6ozP8mQn0cO3ogPHgjQHyqzv+s0f8TN3gePXsZOXkALHP19/pUaJTt8vYAL3TDz90XNXPm7fJykMQMM3bI1OAyS4OZo7xcb5mnsMU9VIi8yNhNaZ8AJ3FJXo56iapEX5Zmg7ixvtBqeZ+XuuzZ3OWfw/N7mswAIm85VY6PseRzgaSNl7NXcqXA1/XK2/GWrtWGptgAF2tdJ1ZhAAAK9ElEQVR4nO1baXeqSBCN2CyNtBtKABEUjaiZRDMzmf//06aqGlxZGvPy5pw5qQ/z5iTira5be5Onpx/5kR/5kR95TIZjj12INx7+RmzPY50S+T1ajEuxL7QYfyf6sAE91wHtMByPh7/aHuWGv8fvJLPVKI3jNB0dZrtfZhFPDZ0Fq9R3TG6gcOEs49Xk98F3vCRyTUMjKf4Ry3DzVfixGjwLMp8jJjenPHzTjOnUQjUMJ0y+Aq/meoA/D02A49bbx+t2uwfZfr6sNdSB+6vHPVLR+h228hGKLz67PVuXYvfs7XNogVp+6j2Ir3j8Dst8wJku3gG9i6Ln//TsZwuI4WL3CLwi+yCjPoBonz07h9X3XbtHyuj2/mMKnjB4QANV8wO+0DRrve11Jf52/RaGb4uXT51U0J+BBqPPvg2fjcD9rMVeHh8Q1+B6kAis6dsz/lDvvYKCPG3piar05/hreVjAt/+MuZanAUt77cHPeq9gA2f1PfgdiU84wLz9F2Mb1MDxKSlNP7pghN4z+IHTJh+0wEf+F3B2vfeshX/jg6wTdDrBZhU7GuoGNOj6B9d4+C32J/wunN+GU/Lw7DmMdWYQGqABardHEuaq+C38r58jSCvz+OpRFqQO6gfhYb9YmqFqghbxd+b/BfHDya2GGWgwfQUSbPCIgVptbJF/TvbvwQEBP7njjo0wJPY6fUIclBRQhc/jv+AfQn9S4jsBhsIzmGALn4hVOhTl/C/tf+bfKcPvsKOjGfgp+83QlgoJWdkBbvnXSvFBYkObvtvEgUIcDFvhL/Qz/1X47CA066XXtT+nKk6g2n/c8l95/g7b+BqHSNS3kCdGTfiq/VdE9u8W/Bvl/EsJfM14Ay/cw+fSJgXU8Dsy/yjwTwJxEEI2RgXihpKo6IHK/BcKGKRA2ByHivhClX+SgAMFWA5AgYamQMkAt/Ffyz/KxAUF0AmtRidUwsfsfsm/EdTjs5mj8Q8Iw3eIgujLBsDEBva3VfnHiOFUjuxXUzOPtQoo5ACWYJNN/UfO/339KXlC20I1WnDNr82EKkmQQbdlhHtl/mFizIRmLDANQC3oT+qcUMUAM0gA/tY+8d+Iz+bYEEApwExspJ265lzBAB1ssSCvw/lNzGvN+ImLlKHGazDAkXWq8RWysDeDrBpiaf2kSTTaNEVAAl5iWOAB9jt4rAvNanUmamSAdeYhGOAZQrorFwDcD1d1KrBJCJ+zXnvSACKDz1Zz0ATPZiFOoGHeXoED4Ohh+lkNPufYDmFPCh6g+RQxVfgNMcCSuI+ImFKwu9JElC4djDAnq2oEJjiyEz6p3D9QoqmKg/osxI5czlvTT+htYNqErD7czUeggkjLHyX+qR3Eee2978cB/bxqVVCrADug9QVaABkAPvOUEqR9UZ6KWEL8v+Qjc28yz72lSoE6H2QjCGZjuYL/QBNCDPiFJXExiL51+4jkn/AxbM6fqPLCOgNg/TPDHbY2H5DTPjmlgIuHx6fznfCdgn9df9/3Ln/X3gex/jvR+AmbuxdZVcD9w/h4arJ3TsFwYf8T/3r3Q4jNpXblXlidhqj+Oxk8BgpQe4vTPi3gwK/l01AizegMAvwXKVPXF5ZMACcpT0WVPkj4farjkNZJAVq5UBowl9IXJ3+AjscTyxOj4F/vAb7mry4VKPfCSh+k88s+4tjPLWCCD2Sxi4HpRmTRFXipHxT4F/wjvjm6PlIrBYj/jD6ClZB/YF2D3urAOklkggr9EWkANs8NDec/81+C30oBJvEJYj5A3hd6PmZict7EoqBnAiZwJ4R/5t8m/Oj2S1sokCwLAIkP3SUkIh1aCzeh4EeCXPKDSGgCqGYT7cz/2kIL3Z2qDQX/CF/iz1x0PPjqraxFXDq9hyZaolvtYAgOg4v8X/B/vzJoQ0GQyTYSGgGNp9BeUjXegiZmHtvQo5k0co6w5ZvwE/9V+MoKsPz+hey/xPNPIBEYa/hyG/pLHstPbcA1BX7nHNJUlN7wf2d/dQVYcoE/kP1nAPXFwv5u62M9ptyBXbczQw4Gske4iP97/lsoMFr+E+S/mw3y+ZOthMbX2F9gSwhfj1bauHLoHcbUJeX8k/9F5XVSSQFwLpHl+M5p/oApi0wgHVzEGwY/hT4tRDfMuNbIv6oCFP/u7Gz/vP9m2OSHMBbpXdSAmxEQBcB9NNZKXOb/cv4VFbjI/yf+5W+gIgMI+mF3TY3xIMxSaE9wDXw0c/xeLX6FAlfFCPcPef4/8Z8/jKOhpBlGI3lJBdT7eDU2g9kP93G29L/K6lJejC7Lsay/F/xfNF1yOfNKgbZdWJa8nysUsF7tev5RysvxuSE51//c/lfzJ4Qihvozjse2/f7yRhdjJwpee3vEF5X271S2xSeE7Gz/a/7z3yeUbF9s7HbxYuzzDQ6MTojruPdtWMs/Sjl+4YVs5V/zfzd/sgTHASt8l1dU9h6GzhDMOsSt8MvUwMfr8KuaUumFbO7f8H8/f8KMgk2htX63e7qOQwJtXjy8nkC39A+1U15VWy69EJOtkE3O3K3aP7AgIjBr/bzd49hPQ0JC9Vrj4liLXzmdkheyDIPbq+L/rMLMF3QpNX1bQ49OTxzoJ/14U49fOZo9kXGBgGVS4HNevX8NMldQh4IxgCnTA9sZPp+xpim7Cp/Gm4jnFWDjN+2f2GQV0nU5tGekMa4OZncT0v1zlQqAEwRAu7Mjh4LjlNx/3FhhQ9chLsbgEIjwZwp7tppVKeRZEzwQ/xdqjuY3718mKRJALSG0zIbRDF/DAHKAZQXvlQKcM+bN+Dh/Dqhm7vCJmcqaq0aBYeLk6+wM+7wmc8r5Y0DnH4MH8lTlrqF2Vwx+RFcaO4zF2wu4O3yaP2VLPsQKVbEnUDcAdBSmJBRSEK/au5zPj0XJkT0Lro99FQIq06AUCEK61gIX9Bs8QM4fkv8nzIt+k8ZSavGfwAdNVBF6ayeo/Z5L/gnfLO8/2xlgmBpU1sbQ3ob1+MS/xB+i/UVN/6FuAACmKxVIqkZcj4/7pwv+6+u/qgGwsS8sUKvAHf/l80drA5APGJ6cMIxqH7jmv6/Mf20WlgKZ3fXkv35SjW9c81/Xf14/2YSPFZ1u+Fd9WqyXf0tyE/93+4dKaX6LBnqwPk7jkwFeLVSc/1H+mzwQBeZb6u4wDstr0RX/OL5UzJ9ljzbjE7CBqfDY10rjgNH+4RH+myOABMZLBzkY4/h/39ve5X/V+O8oRABJsIRGDH0FNzLurR9KfPcR/lUcgAQyXJ8AUtx+Ha46PG/uX8e/Ov/K+E8b3Pahtca4ARTxvFCBsckBZ4HH+G/xOmNYtMU71MBw0mOCOTGYZxpOQ/k1Rbv4VwqAQhKnYNnDl6Bg0HB5nIY+NeDCkW/IRu38r92LhDibyj4LPNExitkDZ64/ImlK4v+78KEpEKe3zrxjPJBvKXPhmplcmo2p/nwL/1I8zDV5rD2NJ6s0DsM4zeb5QXajfiv7P/A67W6AGmSnJ4eed84iiRCt7P/Qy+U7BBHu7L567aKlptx/dlrTfxIvxVtCR1y/gjlMIgdD8/r+5Rebv8Ba4Rbm9B7scOzt5oeYVgL9sHFkK47/pb8wSELHELkCQRrypS/o5tjPGi7sT/LlPy3YhHH+/qMpZCIwTDdKVF/1/yr8pWjC4Nz0IS0HjeuPb4BHCtJRtJonzdsPEvaL4VHIF1r8kcu3yX/7Zz5S8I+syg3/W//c6j/8U68f+ZEf+ZH/mfwLUwrg761m2pUAAAAASUVORK5CYII=" class="lazyloaded" data-ll-status="loaded"></a></li>
+                    <li><a href="https://www.youtube.com/channel/UCG4b8a0cvRGbJ96IXuV45AA"><img width="25" height="25" src="https://quattran.vn/wp-content/uploads/2021/09/youtube_icon.png" class="lazyloaded" data-ll-status="loaded"></i></a></li>
+                </ul>
+            </div>
+    </footer>
 </footer>
 
 </html>
