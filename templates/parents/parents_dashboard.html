@@ -1,4 +1,4 @@
-{% extends 'teacher/teacherbase.html' %}
+{% extends 'parents/parentsbase.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -77,8 +77,8 @@
         <div class="col-md-4 col-xl-4">
             <div class="card bg-c-green order-card">
               <div class="card-block">
-                <h6 class="m-b-20">Your Child </h6>
-                <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{total_student}}</span></h2>
+                <h6 class="m-b-20">Your Child Course </h6>
+                <h2 class="text-right"><i class=" fas fa-book f-left"></i><span>:))</span></h2>
                 
               </div>
             </div>
@@ -87,8 +87,8 @@
       <div class="col-md-4 col-xl-4">
         <div class="card bg-c-yellow order-card">
           <div class="card-block">
-            <h6 class="m-b-20">Your Child's Exams</h6>
-           <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
+            <h6 class="m-b-20"><h6 class="m-b-20"><a href="parents-view-student-marks" style="text-decoration: none;color:white;">Your Child's Mark</a> </h6></h6>
+           <h2 class="text-right"><i class="fas fa-sort-numeric-up f-left"></i><span>{{total_course}}</span></h2>
             
           </div>
         </div>

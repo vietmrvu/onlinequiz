@@ -30,7 +30,7 @@ def is_student(user):
     return user.groups.filter(name='STUDENT').exists()
 
 def is_parents(user):
-    return user.groups.filter(name='PARENTS').exists()
+    return user.groups.filter(name='parents').exists()
 
 def afterlogin_view(request):
     if is_student(request.user):      
@@ -40,7 +40,7 @@ def afterlogin_view(request):
     if is_teacher(request.user):
         return redirect('teacher/teacher-dashboard')
     else:
-        return redirect('admin-dashboard')
+        return redirect('')
 
 
 

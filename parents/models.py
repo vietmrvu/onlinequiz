@@ -7,14 +7,14 @@ class Parents(models.Model):
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
     status= models.BooleanField(default=True)
-    student_model = models.ManyToManyField(Student)
+    student_model = models.ForeignKey(Student,on_delete=models.CASCADE,default=True)
     @property
     def get_name(self):
-        self.user.name = self.user.first_name+" "+self.user.last_name
+        self.user.name = self.user.first_name+" "+self.user.last_name+" "+self.student_model
         return self.user.name
     @property
     def get_instance(self):
         return self
     def __str__(self):
-        self.user.name = self.user.first_name+" "+self.user.last_name 
+        self.user.name = self.user.first_name+" "+self.user.last_name +" "+str(self.student_model)
         return self.user.name
