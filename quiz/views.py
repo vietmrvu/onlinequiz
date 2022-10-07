@@ -40,7 +40,7 @@ def afterlogin_view(request):
     if is_teacher(request.user):
         return redirect('teacher/teacher-dashboard')
     else:
-        return redirect('')
+        return redirect('admin-dashboard')
 
 
 
