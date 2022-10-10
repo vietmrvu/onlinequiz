@@ -26,3 +26,8 @@ class QuestionForm(forms.ModelForm):
         widgets = {
             'question': forms.Textarea(attrs={'rows': 3, 'cols': 50})
         }
+
+class DocsForm(forms.ModelForm):
+    class Meta:
+        model=models.Docs
+        fields=['title','video','content','slug','user']

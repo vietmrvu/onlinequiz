@@ -4,10 +4,16 @@ from student.models import Student
 from teacher.models import Teacher
 from ckeditor.fields import RichTextField
 class Course(models.Model):
-   course_name = models.CharField(max_length=50)
+   course_name = models.CharField(max_length=500)
    question_number = models.PositiveIntegerField()
    total_marks = models.PositiveIntegerField()
    atempt = models.PositiveIntegerField(default=2)
+   def __str__(self):
+        return self.course_name
+
+class Scratch(models.Model):
+   course_name = models.CharField(max_length=500)
+   iframe=models.TextField()
    def __str__(self):
         return self.course_name
 
@@ -29,13 +35,13 @@ class Result(models.Model):
     date = models.DateTimeField(auto_now=True)
 
 class Docs(models.Model):
-    title = models.CharField(max_length=1000, null=True, blank=True)
+    title = models.CharField(max_length=100,  default=True)
+    video = models.TextField()
     content = RichTextField()
-    slug = models.SlugField(max_length=1000, null=True, blank=True)
+    slug = models.SlugField(max_length=200,  default=True)
     user = models.ForeignKey(Teacher,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
-    video_iframe = models.CharField(max_length=1000, null=True, blank=True)
     def __str__(self):
         return self.title
 
@@ -43,13 +49,3 @@ class Docs(models.Model):
     def save(self, *args, **kwargs):
         super(Docs, self).save(*args, **kwargs)
 
-
-class ScratchDocs(models.Model):
-    docs_name = models.CharField(max_length=1000, null=True, blank=True)
-    iframe = models.CharField(max_length=1000, null=True, blank=True)
-    def __str__(self):
-        return self.docs_name
-
-
-    def save(self, *args, **kwargs):
-        super(Docs, self).save(*args, **kwargs)

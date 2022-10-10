@@ -143,3 +143,17 @@ def approve_parents_view(request,pk):
         parents.status=True
         parents.save()
     return render(request,'')
+
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def teacher_add_docs_view(request):
+    courseForm=QFORM.DocsForm()
+    if request.method=='POST':
+        courseForm=QFORM.DocsForm()
+        if courseForm.is_valid():        
+            courseForm.save()
+        else:
+            print("form is invalid")
+        return HttpResponseRedirect('/teacher/teacher-view-exam')
+    return render(request,'teacher/teacher_add_exam.html',{'courseForm':courseForm})
