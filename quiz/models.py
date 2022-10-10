@@ -1,6 +1,8 @@
 from django.db import models
 from teacher import models as TMODEL
 from student.models import Student
+from teacher.models import Teacher
+from ckeditor.fields import RichTextField
 class Course(models.Model):
    course_name = models.CharField(max_length=50)
    question_number = models.PositiveIntegerField()
@@ -25,3 +27,29 @@ class Result(models.Model):
     exam = models.ForeignKey(Course,on_delete=models.CASCADE)
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
+
+class Docs(models.Model):
+    title = models.CharField(max_length=1000, null=True, blank=True)
+    content = RichTextField()
+    slug = models.SlugField(max_length=1000, null=True, blank=True)
+    user = models.ForeignKey(Teacher,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    upload_to = models.DateTimeField(auto_now=True)
+    video_iframe = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.title
+
+
+    def save(self, *args, **kwargs):
+        super(Docs, self).save(*args, **kwargs)
+
+
+class ScratchDocs(models.Model):
+    docs_name = models.CharField(max_length=1000, null=True, blank=True)
+    iframe = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.docs_name
+
+
+    def save(self, *args, **kwargs):
+        super(Docs, self).save(*args, **kwargs)

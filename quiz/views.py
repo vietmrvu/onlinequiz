@@ -38,7 +38,11 @@ def afterlogin_view(request):
     if is_parents(request.user):
         return redirect('parents/parents-dashboard')
     if is_teacher(request.user):
-        return redirect('teacher/teacher-dashboard')
+        accountapproval=TMODEL.Teacher.objects.all().filter(user_id=request.user.id,status=True)
+        if accountapproval:
+            return redirect('teacher/teacher-dashboard')
+        else:
+            return render(request,'teacher/teacher_wait_for_approval.html')
     else:
         return redirect('admin-dashboard')
 

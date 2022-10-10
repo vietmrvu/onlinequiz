@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'student',
     'parents',
     'widget_tweaks',
+    'ckeditor'
 
 ]
 

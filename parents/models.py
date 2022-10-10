@@ -6,7 +6,7 @@ class Parents(models.Model):
     profile_pic= models.ImageField(upload_to='profile_pic/Teacher/',null=True,blank=True)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
-    status= models.BooleanField(default=True)
+    status= models.BooleanField(default=False)
     student_model = models.ForeignKey(Student,on_delete=models.CASCADE,default=True)
     @property
     def get_name(self):

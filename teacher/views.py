@@ -8,6 +8,7 @@ from django.conf import settings
 from datetime import date, timedelta
 from quiz import models as QMODEL
 from student import models as SMODEL
+from parents import models as PMODEL
 from quiz import forms as QFORM
 
 
@@ -49,7 +50,9 @@ def teacher_dashboard_view(request):
     
     'total_course':QMODEL.Course.objects.all().count(),
     'total_question':QMODEL.Question.objects.all().count(),
-    'total_student':SMODEL.Student.objects.all().count()
+    'total_student':SMODEL.Student.objects.all().count(),
+    'total_parents_p':PMODEL.Parents.objects.all().filter(status=False).count(),
+    'total_student_p':SMODEL.Student.objects.all().filter(status=False).count()
     }
     return render(request,'teacher/teacher_dashboard.html',context=dict)
 
@@ -123,3 +126,20 @@ def remove_question_view(request,pk):
     question=QMODEL.Question.objects.get(id=pk)
     question.delete()
     return HttpResponseRedirect('/teacher/teacher-view-question')
+
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def teacher_view_pending_parents_view(request):
+    parents= PMODEL.Teacher.objects.all().filter(status=False)
+    return render(request,'',{'parents':parents})
+
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def approve_parents_view(request,pk):
+    if request.method=='POST':
+        parents= PMODEL.Teacher.objects.get(id=pk)
+        parents.status=True
+        parents.save()
+    return render(request,'')
