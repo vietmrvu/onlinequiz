@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-TAG = ((0, "LSĐL"), (1, "Toán"), (2, "Văn"), (3, "Anh"))
+# TAG = ((0, "LSĐL"), (1, "Toán"), (2, "Văn"), (3, "Anh"))
 CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 class Tag(models.Model):
     name = models.CharField(max_length=2000,null=False, default=True)
@@ -25,3 +25,4 @@ class Teacher(models.Model):
     def __str__(self):
         self.user
         return self.user
+    #<iframe allowtransparency=“true” width=“485” height=“402” src="{{}}embed“ frameborder=”0" allowfullscreen></iframe>

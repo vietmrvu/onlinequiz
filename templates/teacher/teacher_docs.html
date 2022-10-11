@@ -1,4 +1,4 @@
-{% extends 'student/studentbase.html' %}
+{% extends 'teacher/teacherbase.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -69,42 +69,33 @@
     }
     </style>
   </head>
+<br><br>
 
-   <ul class="notification-drop" style=" position: fixed; right: 0px; z-index: 5">
-    <li class="item">
-      <i class="fa fa-bell-o notification-bell" aria-hidden="true"></i> <span class="btn__badge pulse-button ">{{total_course}}</span>     
-      <ul>
-        <li><a href="/student/student-exam"><i class="fas fa-book"></i><span> Mission</span></a></li>
-        <li><a href="/student/student-exam"><i class="fas fa-book"></i><span> Docs</span></a></li>
-        <li><a href="/student/student-exam"><i class="fas fa-book"></i><span> ScratchDocs</span></a></li>
-      </ul>
-    </li>
-  </ul>
-        <br><br><br>
   <div class="container">
-
     <div class="row">
-      
-  
       <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-yellow order-card">
+        <div class="card bg-c-blue order-card">
           <div class="card-block">
-            <h6 class="m-b-20">Total Exams Available</h6>
-           <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
+            <h6 class="m-b-20"> <a href="teacher-add-docs" style="text-decoration: none;color:white;">Add Docs</a> </h6>
+            <h2 class="text-right"><i class="fas fa-plus f-left"></i></h2>
             
           </div>
         </div>
       </div>
   
       <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-pink order-card">
+        <div class="card bg-c-green order-card">
           <div class="card-block">
-            <h6 class="m-b-20">Total Questions</h6>
-            <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{total_question}}</span></h2>
+            <h6 class="m-b-20"><a href="teacher-view-docs" style="text-decoration: none;color:white;">View Docs</a> </h6>
+            <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
             
           </div>
         </div>
       </div>
+  
+     
+  
+     
     </div>
   </div>
 

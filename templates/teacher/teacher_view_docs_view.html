@@ -1,0 +1,27 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+
+<style>
+	* {
+		font-family: tahoma
+	}
+</style>
+<section>
+    <div class="container" style="justify-content: center; display: flex; flex-wrap: wrap;">
+	<h1>{{docs.title}}</h1>
+
+    <div class="col-xl-8 col-lg-10 mx-auto">
+        <div class="text-content" style="margin-left: 10px">
+
+
+            {{docs.content|safe}}
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+{% endblock %}

@@ -30,4 +30,5 @@ class QuestionForm(forms.ModelForm):
 class DocsForm(forms.ModelForm):
     class Meta:
         model=models.Docs
-        fields=['title','video','content','slug','user']
+        fields=['title','content','slug','name']
+

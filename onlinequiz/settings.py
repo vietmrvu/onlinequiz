@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'student',
     'parents',
     'widget_tweaks',
-    'ckeditor'
+    'froala_editor',
+
 
 ]
 

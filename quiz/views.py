@@ -33,10 +33,18 @@ def is_parents(user):
     return user.groups.filter(name='parents').exists()
 
 def afterlogin_view(request):
-    if is_student(request.user):      
-        return redirect('student/student-dashboard')
+    if is_student(request.user):   
+        accountapproval=SMODEL.Student.objects.all().filter(user_id=request.user.id,status=True)
+        if accountapproval:
+            return redirect('student/student-dashboard')
+        else:
+            return render(request,'student/student_wait_for_approval.html')   
     if is_parents(request.user):
-        return redirect('parents/parents-dashboard')
+        accountapproval=PMODEL.Parents.objects.all().filter(user_id=request.user.id,status=True)
+        if accountapproval:
+            return redirect('parents/parents-dashboard')
+        else:
+            return render(request,'parents/parents_wait_for_approval.html')
     if is_teacher(request.user):
         accountapproval=TMODEL.Teacher.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:

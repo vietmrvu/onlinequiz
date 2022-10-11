@@ -38,6 +38,9 @@ def student_signup_view(request):
 
 def is_student(user):
     return user.groups.filter(name='STUDENT').exists()
+# All subscribe subscribe through "my_group" will get a web push notification.
+# A ttl of 1000 is passed so the web push server will store
+# the data maximum 1000 seconds if any user is not online
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
