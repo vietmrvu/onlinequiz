@@ -174,6 +174,24 @@ def admin_view_parents_view(request):
     return render(request,'quiz/admin_view_parents.html',{'parents':parents})
 
 @login_required(login_url='adminlogin')
+def update_parents_view(request,pk):
+    parents=PMODEL.Parents.objects.get(id=pk)
+    user=PMODEL.User.objects.get(id=parents.user_id)
+    userForm=PFORM.ParentsUserForm(instance=user)
+    parentsForm=PFORM.ParentsUserForm(request.FILES,instance=student)
+    mydict={'userForm':userForm,'studentForm':studentForm}
+    if request.method=='POST':
+        userForm=PFORM.ParentsUserForm(request.POST,instance=user)
+        parentsForm=PFORM.ParentsUserForm(request.POST,request.FILES,instance=student)
+        if userForm.is_valid() and parentsForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            parentsForm.save()
+            return redirect('admin-view-parents')
+    return render(request,'quiz/update_parents.html',context=mydict)
+
+@login_required(login_url='adminlogin')
 def update_student_view(request,pk):
     student=SMODEL.Student.objects.get(id=pk)
     user=SMODEL.User.objects.get(id=student.user_id)
@@ -192,7 +210,6 @@ def update_student_view(request,pk):
     return render(request,'quiz/update_student.html',context=mydict)
 
 
-
 @login_required(login_url='adminlogin')
 def delete_student_view(request,pk):
     student=SMODEL.Student.objects.get(id=pk)
@@ -201,6 +218,13 @@ def delete_student_view(request,pk):
     student.delete()
     return HttpResponseRedirect('/admin-view-student')
 
+@login_required(login_url='adminlogin')
+def delete_parents_view(request,pk):
+    parents=PMODEL.Parents.objects.get(id=pk)
+    user=User.objects.get(id=parents.user_id)
+    user.delete()
+    parents.delete()
+    return HttpResponseRedirect('/admin-view-parents')
 
 @login_required(login_url='adminlogin')
 def admin_course_view(request):

@@ -43,14 +43,15 @@
       {% for t in parents %}
       <tr>
 
-        <td> {{t.get_name}}</td>
+        <td> {{t.user}}</td>
         <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{t.mobile}}</td>
-         <td>{{t.student_model}}</td>
-        <td>{{t.address}}</td>
         
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update-student' t.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-student' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+        <td>{{t.address}}</td>
+         <td>{{t.student_model}}</td>
+        
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-parents' t.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-parents' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
       </tr>
       {% endfor %}
     </table>
