@@ -10,8 +10,6 @@ from quiz import models as QMODEL
 from student import models as SMODEL
 from parents import models as PMODEL
 from quiz import forms as QFORM
-
-
 #for showing signup/login button for teacher
 def teacherclick_view(request):
     if request.user.is_authenticated:
@@ -54,6 +52,7 @@ def teacher_dashboard_view(request):
     'total_question':QMODEL.Question.objects.all().count(),
     'total_student':SMODEL.Student.objects.all().count(),
     }
+
     return render(request,'teacher/teacher_dashboard.html',context=dict)
 
 @login_required(login_url='teacherlogin')
@@ -79,7 +78,7 @@ def teacher_add_exam_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_exam_view(request):
-    courses = QMODEL.Course.objects.all()
+    courses = QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'teacher/teacher_view_exam.html',{'courses':courses})
 
 @login_required(login_url='teacherlogin')
@@ -89,7 +88,7 @@ def delete_exam_view(request,pk):
     course.delete()
     return HttpResponseRedirect('/teacher/teacher-view-exam')
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='teacherlogin')
 def teacher_question_view(request):
     return render(request,'teacher/teacher_question.html')
 
@@ -112,13 +111,13 @@ def teacher_add_question_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_question_view(request):
-    courses= QMODEL.Course.objects.all()
+    courses= QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'teacher/teacher_view_question.html',{'courses':courses})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def see_question_view(request,pk):
-    questions=QMODEL.Question.objects.all().filter(course_id=pk)
+    questions=QMODEL.Question.objects.all().order_by('-created_at').filter(course_id=pk)
     return render(request,'teacher/see_question.html',{'questions':questions})
 
 @login_required(login_url='teacherlogin')
@@ -187,15 +186,34 @@ def teacher_docs_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_add_docs_view(request):
-    courseForm=QFORM.DocsForm()
-    if request.method=='POST':
-        courseForm=QFORM.DocsForm()
-        # if courseForm.is_valid():        
-        courseForm.save()
-        # else:
-        #     print("form is invalid")
-        return HttpResponseRedirect('/teacher/teacher-view-docs')
-    return render(request,'teacher/teacher_add_docs.html',{'courseForm':courseForm})
+    context = {'courseForm': QFORM.DocsForm}
+    try:
+        if request.method == 'POST':
+            form = QFORM.DocsForm(request.POST)
+            title = request.POST.get('title')
+            name = request.POST.get('name')
+
+            if form.is_valid():
+                print('Valid')
+                content = form.cleaned_data['content']
+
+            blog_obj = QMODEL.Docs.objects.create(
+                title=title, name=name,
+                content=content
+            )
+            print(blog_obj)
+            return redirect('/teacher/teacher-view-docs')
+    except Exception as e:
+        print(e)
+
+    return render(request, 'teacher/teacher_add_docs.html', context)
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def delete_docs_view(request,pk):
+    course=QMODEL.Docs.objects.get(id=pk)
+    course.delete()
+    return HttpResponseRedirect('/teacher/teacher-view-docs')
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -203,11 +221,33 @@ def teacher_view_docs_view(request):
     courses = QMODEL.Docs.objects.all().order_by('-created_at')
     return render(request,'teacher/teacher_view_docs.html',{'courses':courses})
 
+
+
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_docs_view_detail(request, slug):
     docs = QMODEL.Docs.objects.get(slug=slug)
-
-
     context = {'docs':docs}
     return render(request, 'teacher/teacher_view_docs_view.html', context)
+# Marks
+@login_required(login_url='teacherlogin')
+def teacher_view_student_marks_view(request):
+    students= SMODEL.Student.objects.all()
+    return render(request,'teacher/teacher_view_student_marks.html',{'students':students})
+
+@login_required(login_url='teacherlogin')
+def teacher_view_marks_view(request,pk):
+    courses = QMODEL.Course.objects.all()
+    response =  render(request,'teacher/teacher_view_marks.html',{'courses':courses})
+    response.set_cookie('student_id',str(pk))
+    return response
+
+@login_required(login_url='teacherlogin')
+def teacher_check_marks_view(request,pk):
+    course = QMODEL.Course.objects.get(id=pk)
+    student_id = request.COOKIES.get('student_id')
+    student= SMODEL.Student.objects.get(id=student_id)
+
+    results= QMODEL.Result.objects.all().filter(exam=course).filter(student=student)
+    return render(request,'teacher/teacher_check_marks.html',{'results':results, 'course':course})
+

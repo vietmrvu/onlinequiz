@@ -10,7 +10,6 @@ from quiz import models as QMODEL
 from student import models as SMODEL
 from quiz import forms as QFORM
 from django.contrib.auth.models import User
-
 #for showing signup/login button for parents
 def parentsclick_view(request):
     if request.user.is_authenticated:
@@ -60,7 +59,7 @@ def parents_view_student_marks_view(request):
 
 @login_required(login_url='parentslogin')
 def parents_view_marks_view(request,pk):
-    courses = QMODEL.Course.objects.all()
+    courses = QMODEL.Course.objects.all().order_by('-created_at')
     response =  render(request,'parents/parents_view_marks.html',{'courses':courses})
     response.set_cookie('student_id',str(pk))
     return response

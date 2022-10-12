@@ -25,26 +25,24 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">Docs</h6>
+      <h6 class="panel-title">Exams</h6>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
 
-          <th>Course Name</th>
-          <th>Created at</th>
-          <th>Upload to</th>
+          <th>Exam Name</th>
+          
+          <th>View Marks</th>
         </tr>
       </thead>
       {% for t in courses %}
       <tr>
 
-        <td> {{t.title}}</td>
-        <td>{{t.created_at}}</td>
-        <td>{{t.upload_to}}</td>
+        <td> {{t.course_name}}</td>
         
-        <td><a class="btn btn-primary btn-xs" href="{% url 'teacher-view-docs-detail' t.slug  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+        
+        <td><a class="btn btn-danger btn-xs" href="{% url 'teacher-check-marks' t.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
       </tr>
       {% endfor %}
     </table>

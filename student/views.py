@@ -55,7 +55,7 @@ def student_dashboard_view(request):
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_exam_view(request):
-    courses=QMODEL.Course.objects.all()
+    courses=QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'student/student_exam.html',{'courses':courses})
 
 @login_required(login_url='studentlogin')
@@ -111,7 +111,7 @@ def calculate_marks_view(request):
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def view_result_view(request):
-    courses=QMODEL.Course.objects.all()
+    courses=QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'student/view_result.html',{'courses':courses})
     
 
@@ -126,6 +126,22 @@ def check_marks_view(request,pk):
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_marks_view(request):
-    courses=QMODEL.Course.objects.all()
+    courses=QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'student/student_marks.html',{'courses':courses})
+
+# Mark
+@login_required(login_url='studentlogin')
+@user_passes_test(is_student)
+def student_view_docs_view(request):
+    courses = QMODEL.Docs.objects.all().order_by('-created_at')
+    return render(request,'student/student_view_docs.html',{'courses':courses})
+
+@login_required(login_url='studentlogin')
+@user_passes_test(is_student)
+def student_view_docs_view_detail(request, slug):
+    docs = QMODEL.Docs.objects.get(slug=slug)
+
+
+    context = {'docs':docs}
+    return render(request, 'student/student_view_docs_view.html', context)
   

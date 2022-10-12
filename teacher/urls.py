@@ -26,5 +26,9 @@ path('reject-parents/<int:pk>', views.reject_parents_view,name='reject-parents')
 path('teacher-view-pending-student', views.teacher_view_pending_student_view,name='teacher-view-pending-student'),
 path('approve-student/<int:pk>', views.approve_student_view,name='approve-student'),
 path('reject-student/<int:pk>', views.reject_student_view,name='reject-student'),
+path('teacher-view-student-marks', views.teacher_view_student_marks_view,name='teacher-view-student-marks'),
+path('teacher-view-marks/<int:pk>', views.teacher_view_marks_view,name='teacher-view-marks'),
+path('teacher-check-marks/<int:pk>', views.teacher_check_marks_view,name='teacher-check-marks'),
+path('delete-docs/<int:pk>', views.delete_docs_view,name='delete-docs'),
 
 ]

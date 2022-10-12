@@ -25,26 +25,28 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">Docs</h6>
+      <h6 class="panel-title">View Marks</h6>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
 
-          <th>Course Name</th>
-          <th>Created at</th>
-          <th>Upload to</th>
+          <th>Exam Name</th>
+          
+          <th>Total Marks</th>
+          <th>Attempt Number</th>
+          <th>Exam Date</th>
         </tr>
       </thead>
-      {% for t in courses %}
+      {% for t in results %}
       <tr>
-
-        <td> {{t.title}}</td>
-        <td>{{t.created_at}}</td>
-        <td>{{t.upload_to}}</td>
-        
-        <td><a class="btn btn-primary btn-xs" href="{% url 'teacher-view-docs-detail' t.slug  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+        {% if course.atempt >= forloop.counter %}
+        <td> {{t.exam}}</td>
+        <td> {{t.marks}}</td>
+        <td>Attemp {{ forloop.counter }}</td>
+        <td> {{t.date}}</td>
+        {% else %}
+        {% endif %}
       </tr>
       {% endfor %}
     </table>

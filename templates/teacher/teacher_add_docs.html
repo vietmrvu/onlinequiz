@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-       <meta name="viewport" content="width=device-width, initial-scale=1">
+           <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+
   a:link {
         text-decoration: none;
       }
@@ -26,10 +27,7 @@
           enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
-            <div class="col-md-12">
-                <label>Enter docs title</label>
-                <input type="text" class="form-control" placeholder="Enter title" name="title">
-            </div>
+
 
             <div class="col-md-12">
                 {{courseForm.media}}
@@ -41,7 +39,6 @@
         <button type="submit" class="btn btn-primary mt-4">Create Docs</button>
 
     </form>
-
 </div>
 <br><br><br>
 {% endblock content %}
