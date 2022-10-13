@@ -237,7 +237,7 @@ def teacher_view_student_marks_view(request):
 
 @login_required(login_url='teacherlogin')
 def teacher_view_marks_view(request,pk):
-    courses = QMODEL.Course.objects.all()
+    courses = QMODEL.Course.objects.all().order_by('-created_at')
     response =  render(request,'teacher/teacher_view_marks.html',{'courses':courses})
     response.set_cookie('student_id',str(pk))
     return response
