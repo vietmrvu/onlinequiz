@@ -52,12 +52,13 @@ def parents_dashboard_view(request):
     return render(request,'parents/parents_dashboard.html',context=dict)
 
 @login_required(login_url='parentslogin')
+@user_passes_test(is_parents)
 def parents_view_student_marks_view(request):
-    students= SMODEL.Student.objects.all()
-    name = models.Parents.objects.all()
-    return render(request,'parents/parents_view_student_marks.html',{'students':students,'name':name})
+    name = models.Parents.objects.get(user=request.user)
+    return render(request,'parents/parents_view_student_marks.html',{'name':name})
 
 @login_required(login_url='parentslogin')
+@user_passes_test(is_parents)
 def parents_view_marks_view(request,pk):
     courses = QMODEL.Course.objects.all().order_by('-created_at')
     response =  render(request,'parents/parents_view_marks.html',{'courses':courses})
@@ -65,6 +66,7 @@ def parents_view_marks_view(request,pk):
     return response
 
 @login_required(login_url='parentslogin')
+@user_passes_test(is_parents)
 def parents_check_marks_view(request,pk):
     course = QMODEL.Course.objects.get(id=pk)
     student_id = request.COOKIES.get('student_id')

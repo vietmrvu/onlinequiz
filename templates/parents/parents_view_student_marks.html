@@ -39,16 +39,14 @@
           
         </tr>
       </thead>
-      {% for ta in name %}
       <tr>
 
-        <td> {{ta.student_model}}</td>      
-        <td> <img src="{% static ta.student_model.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td> {{name.student_model}}</td>      
+        <td> <img src="{% static name.student_model.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         
         
-        <td><a class="btn btn-primary btn-xs" href="{% url 'parents-view-marks' ta.student_model.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'parents-view-marks' name.student_model.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
       </tr>
-      {% endfor %}
     </table>
   </div>
 </div>
