@@ -50,5 +50,16 @@ class Docs(models.Model):
             return False
     def save(self, *args, **kwargs):
         super(Docs, self).save(*args, **kwargs)
+class Comment(models.Model):
+    post = models.ForeignKey(Docs,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)
 

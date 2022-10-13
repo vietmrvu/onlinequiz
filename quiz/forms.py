@@ -32,3 +32,7 @@ class DocsForm(forms.ModelForm):
         model=models.Docs
         fields=['title','content','slug','name']
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment
+        fields = ['name', 'email', 'body']

@@ -13,11 +13,55 @@
     <div class="col-xl-8 col-lg-10 mx-auto">
         <div class="text-content" style="margin-left: 10px">
 
-            {% if docs.name.isnumeric %}
+           {% if docs.name.isnumeric %}
             <iframe style="display: block;margin:auto"src="https://scratch.mit.edu/projects/{{docs.name}}/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
             {{docs.content|safe}}
+             <h2 style="margin-left: 20px">{{ comments.count }} comments</h2>
+                        {% for comment in comments %}
+                            <div class="comments" style="padding: 10px;">
+                              <p class="font-weight-bold">
+                                 Name: {{comment.name }}
+                                <span class=" text-muted font-weight-normal">
+                                  Create at: {{ comment.created_on }}
+                                </span>
+                              </p>
+                              {{ comment.body | linebreaks }}
+                        <hr/>
+                            </div>
+                            {% endfor %}
+                      <div class="card my-4">
+                            <h3 class="card-header">Leave a comment </h5>
+                            <form method="post" style="margin: 1.3em;">
+                              {% csrf_token %}
+                              {{ comment_form.as_p }}
+                              
+                              <button type="submit" class="btn btn-danger">Submit</button>
+                            </form>
+                        </div>
             {% else %}
             {{docs.content|safe}}
+             <h2 style="margin-left: 20px">{{ comments.count }} comments</h2>
+                        {% for comment in comments %}
+                            <div class="comments" style="padding: 10px;">
+                              <p class="font-weight-bold">
+                                 Name: {{comment.name }}
+                                <span class=" text-muted font-weight-normal">
+                                  Create at: {{ comment.created_on }}
+                                </span>
+                              </p>
+                              {{ comment.body | linebreaks }}
+                        <hr/>
+                            </div>
+                            {% endfor %}
+                      <div class="card my-4">
+                            <h3 class="card-header">Leave a comment </h5>
+                            <form method="post" style="margin: 1.3em;">
+                              {% csrf_token %}
+                              {{ comment_form.as_p }}
+                              
+                              <button type="submit" class="btn btn-danger">Submit</button>
+                            </form>
+                        </div>
             {% endif %}
         </div>
 

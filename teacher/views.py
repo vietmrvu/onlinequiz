@@ -227,7 +227,31 @@ def teacher_view_docs_view(request):
 @user_passes_test(is_teacher)
 def teacher_view_docs_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)
-    context = {'docs':docs}
+    comments = docs.comments.all()
+    new_comment = None
+    if request.method == 'POST':
+        form = QFORM.DocsForm(request.POST)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment_form = QFORM.CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            body = comment_form.cleaned_data['body']
+            name = comment_form.cleaned_data['name']
+            email = comment_form.cleaned_data['email']
+            # Create Comment object but don't save to database yet
+            # Assign the current post to the comment
+            # Save the comment to the database
+        comment_object = QMODEL.Comment.objects.create(
+            email=email, name=name,
+            body=body, post_id=pk
+        )
+    else:
+        comment_form = QFORM.CommentForm()
+
+    context = {'docs':docs,
+                'comments': comments,
+               'new_comment': new_comment,
+               'comment_form': comment_form}
     return render(request, 'teacher/teacher_view_docs_view.html', context)
 # Marks
 @login_required(login_url='teacherlogin')

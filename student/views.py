@@ -140,8 +140,24 @@ def student_view_docs_view(request):
 @user_passes_test(is_student)
 def student_view_docs_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)
+    comments = docs.comments.all()
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = QFORM.CommentForm(data=request.POST)
+        if comment_form.is_valid():
 
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.docs = docs
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = QFORM.CommentForm()
 
-    context = {'docs':docs}
+    context = {'docs':docs,
+                'comments': comments,
+               'new_comment': new_comment,
+               'comment_form': comment_form}
     return render(request, 'student/student_view_docs_view.html', context)
   
