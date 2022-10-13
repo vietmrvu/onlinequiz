@@ -16,6 +16,6 @@ path('view-result', views.view_result_view,name='view-result'),
 path('check-marks/<int:pk>', views.check_marks_view,name='check-marks'),
 path('student-marks', views.student_marks_view,name='student-marks'),
 path('student-view-docs', views.student_view_docs_view,name='student-view-docs'),
-path('student-view-docs-detail/<slug:slug>/', views.student_view_docs_view_detail, name="student-view-docs-detail"),
+path('student-view-docs-detail/<int:pk>/', views.student_view_docs_view_detail, name="student-view-docs-detail"),
 
 ]

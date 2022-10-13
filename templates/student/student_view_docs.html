@@ -43,7 +43,7 @@
         <td>{{t.created_at}}</td>
         <td>{{t.upload_to}}</td>
         
-        <td><a class="btn btn-primary btn-xs" href="{% url 'student-view-docs-detail' t.slug  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'student-view-docs-detail' t.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
       </tr>
       {% endfor %}
     </table>

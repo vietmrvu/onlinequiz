@@ -138,8 +138,8 @@ def student_view_docs_view(request):
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
-def student_view_docs_view_detail(request, slug):
-    docs = QMODEL.Docs.objects.get(slug=slug)
+def student_view_docs_view_detail(request, pk):
+    docs = QMODEL.Docs.objects.get(id=pk)
 
 
     context = {'docs':docs}

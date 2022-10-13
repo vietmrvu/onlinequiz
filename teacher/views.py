@@ -225,8 +225,8 @@ def teacher_view_docs_view(request):
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def teacher_view_docs_view_detail(request, slug):
-    docs = QMODEL.Docs.objects.get(slug=slug)
+def teacher_view_docs_view_detail(request, pk):
+    docs = QMODEL.Docs.objects.get(id=pk)
     context = {'docs':docs}
     return render(request, 'teacher/teacher_view_docs_view.html', context)
 # Marks
