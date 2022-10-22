@@ -165,4 +165,4 @@ def student_view_docs_view_detail(request, pk):
                 'comments': comments,
                'new_comment': new_comment,
                'comment_form': comment_form}
-    return render(request, 'teacher/teacher_view_docs_view.html', context)
+    return render(request, 'student/student_view_docs_view.html', context)
