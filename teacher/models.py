@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from quiz.models import *
+from quiz.models import SchoolClass
 # TAG = ((0, "LSĐL"), (1, "Toán"), (2, "Văn"), (3, "Anh"))
 CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 class Tag(models.Model):

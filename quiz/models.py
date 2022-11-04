@@ -1,5 +1,4 @@
 from django.db import models
-from teacher import models as TMODEL
 from student.models import Student
 from teacher.models import Teacher
 from froala_editor.fields import FroalaField
