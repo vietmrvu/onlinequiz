@@ -4,6 +4,7 @@ from student.models import Student
 from teacher.models import Teacher
 from froala_editor.fields import FroalaField
 import datetime
+CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 
 class Course(models.Model):
     course_name = models.CharField(max_length=500)
@@ -62,4 +63,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+class SchoolClass(models.Model):
+    name = models.CharField(max_length=120)
+    about = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
 
