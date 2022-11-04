@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from quiz.models import SchoolClass 
 CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 class Tag(models.Model):
     name = models.CharField(max_length=2000,null=False, default=True)
@@ -15,7 +14,7 @@ class Teacher(models.Model):
     salary=models.PositiveIntegerField(null=True)
     class_model=models.ForeignKey(Tag,on_delete=models.CASCADE,default=True)
     grade=models.IntegerField(choices=CLASS, default=0)
-    class_name = models.ForeignKey(SchoolClass,on_delete=models.CASCADE,default=True)
+    class_name = models.ForeignKey('quiz.SchoolClass',on_delete=models.CASCADE,default=True)
 
     @property
     def get_name(self):
