@@ -2,7 +2,6 @@ from django.db import models
 from student.models import Student
 from teacher.models import Teacher
 from froala_editor.fields import FroalaField
-import datetime
 CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 
 class Course(models.Model):
@@ -67,6 +66,9 @@ class SchoolClass(models.Model):
     name = models.CharField(max_length=120)
     about = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    @property
+    def get_instance(self):
+        return self
     def __str__(self):
         return self.name
 
