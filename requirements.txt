@@ -90,8 +90,9 @@ pipenv==2022.7.24
 platformdirs==2.5.2
 platformshconfig==2.4.0
 postgres==4.0
-psycopg2-binary==2.9.6
-psycopg2-pool==1.1
+promise==2.3
+protobuf==3.20.1
+psycopg2==2.9.3
 ptyprocess==0.7.0
 py-vapid==1.8.2
 pycparser==2.21
@@ -99,11 +100,13 @@ pydantic==1.10.2
 pygame==2.1.2
 Pygments==2.12.0
 pyinstaller==5.2
+pyinstaller-hooks-contrib==2022.8
 PyJWT==2.4.0
 pymongo==3.12.1
 pyodbc==4.0.34
 pyparsing==3.0.9
 pyserial==3.5
+PySimpleGUI==4.60.1
 python-dotenv==0.21.0
 python3-openid==3.2.0
 pytoml==0.1.21
@@ -140,3 +143,5 @@ watchfiles==0.18.0
 websockets==10.3
 whitenoise==6.2.0
 wrapt==1.14.1
+zipp==3.8.1
+zstandard==0.18.0
