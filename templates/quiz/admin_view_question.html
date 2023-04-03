@@ -3,9 +3,14 @@
 {%load static%}
 
 <head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
   <style media="screen">
     a:link {
@@ -19,6 +24,22 @@
     .row {
       margin: 100px;
     }
+
+    .panel {
+
+      border: 1px solid rgb(188, 188, 188);
+      border-radius: 20px;
+    }
+
+    .panel-title {
+      padding-top: 10px;
+      background-color: rgb(3, 69, 135);
+      color: white;
+      padding-bottom: 10px;
+      margin-bottom: 0px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
   </style>
 </head>
 <br><br>
@@ -26,6 +47,9 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h6 class="panel-title">Select Course To View Questions</h6>
+      <a href="{% url 'admin-add-question'  %}"
+        style="  color: white; float: right; background: green;margin-top: -20px" class="btn btn-xs" href=""><span
+          class="glyphicon glyphicon-plus"></span></a>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
@@ -43,8 +67,9 @@
         <td> {{c.course_name}}</td>
         <td>{{c.question_number}}</td>
         <td>{{c.total_marks}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'view-question' c.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-        
+        <td><a class="btn btn-primary btn-xs" href="{% url 'view-question' c.id  %}"><span
+              class="glyphicon glyphicon-eye-open"></span></a></td>
+
       </tr>
       {% endfor %}
     </table>

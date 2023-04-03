@@ -5,16 +5,112 @@
     <meta charset="utf-8">
     <title>Learning System Online</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
-
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Lato);
+ @import url(https://fonts.googleapis.com/css?family=Roboto);
+ @import url('https://fonts.googleapis.com/css?family=Poiret+One');
+ body {
+   font-family: 'Roboto', sans-serif;
+}
+ .background-photo {
+   width: 100%;
+   background-image: url('https://static.pexels.com/photos/173435/pexels-photo-173435.jpeg');
+   background-image: url('https://static.pexels.com/photos/221451/pexels-photo-221451.jpeg');
+   background-size: cover;
+}
+ .jumbotron {
+   height: 50vh;
+   border-bottom: 4px solid #2f1c36;
+   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+ .jumbotron h1 {
+   padding: 5px 0;
+   font-size: 13vh;
+   color: #2f1c36;
+   font-family: 'Poiret One', sans-serif;
+}
+ @media (min-width: 1024px) {
+   .jumbotron h1 {
+     padding: 0.6em 0;
+  }
+}
+ .middle-block .round-class {
+   width: 80px;
+   height: 80px;
+   margin: 5px auto;
+   padding: 15px 10px;
+}
+ .middle-block .round-class:hover {
+   background: #9e8197;
+   color: white;
+   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8);
+}
+ .round-class {
+   cursor: pointer;
+   width: 40px;
+   height: 40px;
+   border-radius: 100%;
+   background: #2f1c36;
+   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+   color: rgba(255, 255, 255, 0.95);
+   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+   padding: 8px 0;
+   text-align: center;
+}
+ .second {
+   padding-top: 15px;
+}
+ .second .row {
+   height: 60px;
+}
+ .second .row .round-class i.fa-mobile {
+   margin-top: -4px;
+}
+ .second .row .right-text {
+   width: calc(100% - 50px);
+   padding: 10px 0;
+   color: white;
+   text-shadow: 1px 1px 2px black;
+}
+ .second .row .ball {
+   margin-right: 10px;
+}
+ 
+    </style>
   </head>
   <body>
     {% include "quiz/navbar.html" %}
-    <br><br><br><br><br>
-<img src="{% static 'image/logout_img.png' %}"  style="width:800px; height:100px; padding-left:400px;">
+  <div class="background-photo">
+    <div class="jumbotron">
+      <div class="container">
+        <h1>See you soon!</h1>
+      </div>
 
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br>
+    </div>
+
+    <div class="second">
+      <div class="container">
+        <div class="col-xs-12 col-sm-6">
+          <div class="row">
+          <div class="round-class ball">
+          <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i></div>
+            <div class="right-text">
+            Thanks to use our website, We hope you liked it.
+          </div>
+          </div>
+          <div class="row">
+             <div class="round-class ball">
+          
+        <i class="fa fa-mobile fa-2x" style="color:white" aria-hidden="true"></i></div>
+            <div class="right-text">
+            You could still in contact in your phone client
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
 {% include "quiz/footer.html" %}
 
   </body>

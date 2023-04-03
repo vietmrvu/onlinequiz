@@ -30,7 +30,7 @@ class QuestionForm(forms.ModelForm):
 class DocsForm(forms.ModelForm):
     class Meta:
         model=models.Docs
-        fields=['title','content','slug','name']
+        fields=['title','name','content','slug']
 
 class CommentForm(forms.ModelForm):
     class Meta:

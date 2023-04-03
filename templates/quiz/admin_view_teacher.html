@@ -3,9 +3,14 @@
 {%load static%}
 
 <head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
   <style media="screen">
     a:link {
@@ -18,6 +23,22 @@
 
     .row {
       margin: 100px;
+    }
+
+    .panel {
+
+      border: 1px solid rgb(188, 188, 188);
+      border-radius: 20px;
+    }
+
+    .panel-title {
+      padding-top: 10px;
+      background-color: rgb(3, 69, 135);
+      color: white;
+      padding-bottom: 10px;
+      margin-bottom: 0px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
     }
   </style>
 </head>
@@ -35,9 +56,12 @@
           <th>Profile Picture</th>
           <th>Mobile</th>
           <th>Address</th>
-         
+
           <th>Update</th>
           <th>Delete</th>
+
+          <th>Status </th>
+          <th>Check </th>
         </tr>
       </thead>
       {% for t in teachers %}
@@ -47,9 +71,15 @@
         <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{t.mobile}}</td>
         <td>{{t.address}}</td>
-        
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-teacher' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"><i class="fas fa-edit"></i></a>
+        </td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-teacher' t.id  %}"><span
+              class="fas fa-trash"></span></a></td>
+
+        <td>{{t.status}}</td>
+        <td><a href="{% url 'approve-student' t.id  %}" style="background: green; color: white" class="btn btn-xs"
+            href=""><span class="fas fa-check"></span></a></td>
       </tr>
       {% endfor %}
     </table>

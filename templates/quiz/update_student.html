@@ -2,6 +2,9 @@
 {% load widget_tweaks %}
 {% block content %}
 <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <style media="screen">
     input[type=text], select,input[type=number] ,input[type=password], textarea{
     width: 100%;
@@ -31,7 +34,13 @@
 
   </style>
 
-
+  <style>
+       
+  a:link {
+        text-decoration: none;
+      }
+    
+  </style>
 </head>
 
 <br><br>
@@ -54,12 +63,18 @@
         {% render_field userForm.password class="form-control" placeholder="Password" %} <br><br>
         <label for="profile_pic">Profile Picture</label>
           {% render_field studentForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+
 <br><br>
     <input type="submit" value="Update">
   </form>
 </div>
 
-
+<script>
+    var mobile = document.getElementById("id_mobile")
+    mobile.value = `{{student.mobile}}`
+    var address = document.getElementById("id_address")
+    address.value = `{{student.address}}`
+</script>
 
 <br><br><br><br><br><br><br><br>
 {% endblock content %}

@@ -33,10 +33,10 @@ class Result(models.Model):
     date = models.DateTimeField(auto_now=True)
 
 class Docs(models.Model):
-    title = models.CharField(max_length=100,  default=True)
+    title = models.CharField(max_length=100,  default="Hướng dẫn sử dụng GeniDev")
     content = FroalaField()
-    slug = models.SlugField(max_length=200,  default=True)
-    name = models.CharField(max_length=1000,  default=True)
+    slug = models.SlugField(max_length=200,  default="huongdansudung")
+    name = models.CharField(max_length=1000,  default="Hướng dẫn sử dụng GeniDev để phục vụ học tập")
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
     def __str__(self):
@@ -62,4 +62,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
-

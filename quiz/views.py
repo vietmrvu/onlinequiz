@@ -16,7 +16,7 @@ from student import forms as SFORM
 from django.contrib.auth.models import User
 
 
-
+# Administrators
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')  
@@ -70,9 +70,18 @@ def admin_dashboard_view(request):
     'total_course':models.Course.objects.all().count(),
     'total_question':models.Question.objects.all().count(),
     'total_parents':PMODEL.Parents.objects.all().count(),
+    'total_docs':models.Docs.objects.all().count(),
     }
     return render(request,'quiz/admin_dashboard.html',context=dict)
-
+@login_required(login_url='adminlogin')
+def admin_user(request):
+    dict={
+    'total_student':SMODEL.Student.objects.all().count(),
+    'total_teacher':TMODEL.Teacher.objects.all().count(),
+    'total_parents':PMODEL.Parents.objects.all().count(),
+    }
+    return render(request,'quiz/admin_users.html',context=dict)
+# Teachers
 @login_required(login_url='adminlogin')
 def admin_teacher_view(request):
     dict={
@@ -87,6 +96,26 @@ def admin_view_teacher_view(request):
     teachers= TMODEL.Teacher.objects.all().filter(status=True)
     return render(request,'quiz/admin_view_teacher.html',{'teachers':teachers})
 
+@login_required(login_url='adminlogin')
+def add_teacher_view(request):
+    userForm=TFORM.TeacherUserForm()
+    teacherForm=TFORM.TeacherForm()
+    mydict={'userForm':userForm,'teacherForm':teacherForm}
+    if request.method=='POST':
+        userForm=TFORM.TeacherUserForm(request.POST)
+        teacherForm=TFORM.TeacherForm(request.POST,request.FILES)
+        if userForm.is_valid() and teacherForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            teacher=teacherForm.save(commit=False)
+            teacher.user=user
+            teacher.save()
+            my_teacher_group = Group.objects.get_or_create(name='TEACHER')
+            my_teacher_group[0].user_set.add(user)
+            print(my_teacher_group[0])
+        return HttpResponseRedirect('teacherlogin')
+    return render(request,'teacher/teachersignup.html',context=mydict)
 
 @login_required(login_url='adminlogin')
 def update_teacher_view(request,pk):
@@ -115,8 +144,6 @@ def delete_teacher_view(request,pk):
     user.delete()
     teacher.delete()
     return HttpResponseRedirect('/admin-view-teacher')
-
-
 
 
 @login_required(login_url='adminlogin')
@@ -155,11 +182,12 @@ def admin_view_teacher_salary_view(request):
 
 
 
-
+# Students
 @login_required(login_url='adminlogin')
 def admin_student_view(request):
     dict={
     'total_student':SMODEL.Student.objects.all().count(),
+    'courses':models.Course.objects.all()
     }
     return render(request,'quiz/admin_student.html',context=dict)
 
@@ -167,7 +195,67 @@ def admin_student_view(request):
 def admin_view_student_view(request):
     students= SMODEL.Student.objects.all()
     return render(request,'quiz/admin_view_student.html',{'students':students})
+    
+@login_required(login_url='adminlogin')
+def update_student_view(request,pk):
+    student=SMODEL.Student.objects.get(id=pk)
+    user=SMODEL.User.objects.get(id=student.user_id)
+    userForm=SFORM.StudentUserForm(instance=user)
+    studentForm=SFORM.StudentForm(request.FILES,instance=student)
+    mydict={'userForm':userForm,'studentForm':studentForm, "student":student}
+    if request.method=='POST':
+        userForm=SFORM.StudentUserForm(request.POST,instance=user)
+        studentForm=SFORM.StudentForm(request.POST,request.FILES,instance=student)
+        if userForm.is_valid() and studentForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            studentForm.save()
+            return redirect('admin-view-student')
+    return render(request,'quiz/update_student.html',context=mydict)
 
+@login_required(login_url='adminlogin')
+def add_student_view(request):
+    userForm=SFORM.StudentUserForm()
+    studentForm=SFORM.StudentForm()
+    mydict={'userForm':userForm,'studentForm':studentForm}
+    if request.method=='POST':
+        userForm=SFORM.StudentUserForm(request.POST)
+        studentForm=SFORM.StudentForm(request.POST,request.FILES)
+        if userForm.is_valid() and studentForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            student=studentForm.save(commit=False)
+            student.user=user
+            student.save()
+            my_student_group = Group.objects.get_or_create(name='STUDENT')
+            my_student_group[0].user_set.add(user)
+        return HttpResponseRedirect('studentlogin')
+    return render(request,'student/studentsignup.html',context=mydict)
+
+@login_required(login_url='adminlogin')
+def delete_student_view(request,pk):
+    student=SMODEL.Student.objects.get(id=pk)
+    user=User.objects.get(id=student.user_id)
+    user.delete()
+    student.delete()
+    return HttpResponseRedirect('/admin-view-student') 
+
+@login_required(login_url='adminlogin')
+def approve_student_view(request,pk):
+    student=SMODEL.Student.objects.get(id=pk)
+    user=SMODEL.User.objects.get(id=student.user_id)
+    userForm=SFORM.StudentUserForm(instance=user)
+    studentForm=SFORM.StudentForm(request.FILES,instance=student)
+    mydict={'userForm':userForm,'studentForm':studentForm, "student":student}
+    if request.method=='POST':
+        student= SMODEL.Student.objects.get(id=pk)
+        student.status=True
+        student.save()
+        return HttpResponseRedirect('/admin-view-student')
+    return render(request,'quiz/check_student.html', context=mydict)
+# Parents
 @login_required(login_url='adminlogin')
 def admin_view_parents_view(request):
     parents= PMODEL.Parents.objects.all()
@@ -191,32 +279,6 @@ def update_parents_view(request,pk):
             return redirect('admin-view-parents')
     return render(request,'quiz/update_parents.html',context=mydict)
 
-@login_required(login_url='adminlogin')
-def update_student_view(request,pk):
-    student=SMODEL.Student.objects.get(id=pk)
-    user=SMODEL.User.objects.get(id=student.user_id)
-    userForm=SFORM.StudentUserForm(instance=user)
-    studentForm=SFORM.StudentForm(request.FILES,instance=student)
-    mydict={'userForm':userForm,'studentForm':studentForm}
-    if request.method=='POST':
-        userForm=SFORM.StudentUserForm(request.POST,instance=user)
-        studentForm=SFORM.StudentForm(request.POST,request.FILES,instance=student)
-        if userForm.is_valid() and studentForm.is_valid():
-            user=userForm.save()
-            user.set_password(user.password)
-            user.save()
-            studentForm.save()
-            return redirect('admin-view-student')
-    return render(request,'quiz/update_student.html',context=mydict)
-
-
-@login_required(login_url='adminlogin')
-def delete_student_view(request,pk):
-    student=SMODEL.Student.objects.get(id=pk)
-    user=User.objects.get(id=student.user_id)
-    user.delete()
-    student.delete()
-    return HttpResponseRedirect('/admin-view-student')
 
 @login_required(login_url='adminlogin')
 def delete_parents_view(request,pk):
@@ -225,10 +287,11 @@ def delete_parents_view(request,pk):
     user.delete()
     parents.delete()
     return HttpResponseRedirect('/admin-view-parents')
-
+# Courses
 @login_required(login_url='adminlogin')
 def admin_course_view(request):
-    return render(request,'quiz/admin_course.html')
+    courses = models.Course.objects.all()
+    return render(request,'quiz/admin_course.html',{'courses':courses})
 
 
 @login_required(login_url='adminlogin')
@@ -240,22 +303,17 @@ def admin_add_course_view(request):
             courseForm.save()
         else:
             print("form is invalid")
-        return HttpResponseRedirect('/admin-view-course')
+        return HttpResponseRedirect('/admin-course')
     return render(request,'quiz/admin_add_course.html',{'courseForm':courseForm})
 
-
-@login_required(login_url='adminlogin')
-def admin_view_course_view(request):
-    courses = models.Course.objects.all()
-    return render(request,'quiz/admin_view_course.html',{'courses':courses})
 
 @login_required(login_url='adminlogin')
 def delete_course_view(request,pk):
     course=models.Course.objects.get(id=pk)
     course.delete()
-    return HttpResponseRedirect('/admin-view-course')
+    return HttpResponseRedirect('/admin-course')
 
-
+# Questions
 
 @login_required(login_url='adminlogin')
 def admin_question_view(request):
@@ -294,6 +352,7 @@ def delete_question_view(request,pk):
     question.delete()
     return HttpResponseRedirect('/admin-view-question')
 
+# Marks
 @login_required(login_url='adminlogin')
 def admin_view_student_marks_view(request):
     students= SMODEL.Student.objects.all()
@@ -315,8 +374,95 @@ def admin_check_marks_view(request,pk):
     results= models.Result.objects.all().filter(exam=course).filter(student=student)
     return render(request,'quiz/admin_check_marks.html',{'results':results})
     
+# Docs
+
+@login_required(login_url='adminlogin')
+def admin_docs_view(request):
+    return render(request,'quiz/admin_docs.html')
+
+@login_required(login_url='adminlogin')
+
+def admin_add_docs_view(request):
+    context = {'courseForm': forms.DocsForm}
+    try:
+        if request.method == 'POST':
+            form = forms.DocsForm(request.POST)
+            title = request.POST.get('title')
+            name = request.POST.get('name')
+
+            if form.is_valid():
+                print('Valid')
+                content = form.cleaned_data['content']
+
+            blog_obj = models.Docs.objects.create(
+                title=title, name=name,
+                content=content
+            )
+            print(blog_obj)
+            return redirect('/admin-view-docs')
+    except Exception as e:
+        print(e)
+
+    return render(request, 'quiz/admin_add_docs.html', context)
+
+@login_required(login_url='adminlogin')
+
+def delete_docs_view(request,pk):
+    course=models.Docs.objects.get(id=pk)
+    course.delete()
+    return HttpResponseRedirect('/admin-view-docs')
+
+@login_required(login_url='adminlogin')
+
+def admin_view_docs_view(request):
+    courses = models.Docs.objects.all().order_by('-created_at')
+    return render(request,'quiz/admin_view_docs.html',{'courses':courses})
 
 
+@login_required(login_url="adminlogin")
+def updateDocs(request, pk):
+	course = models.Docs.objects.get(id=pk)
+	form = forms.DocsForm(instance=course)
+	if request.method == 'POST':
+		form = forms.DocsForm(request.POST, request.FILES, instance=course)
+		if form.is_valid():
+			form.save()
+		return redirect('/admin-view-docs')
+
+	context = {'courseForm': form}
+	return render(request, 'quiz/admin_update_docs.html', context)
+
+@login_required(login_url='adminlogin')
+def admin_view_docs_view_detail(request, pk):
+    docs = models.Docs.objects.get(id=pk)
+    comments = docs.comments.all()
+    new_comment = None
+    if request.method == 'POST':
+        form = forms.DocsForm(request.POST)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment_form = forms.CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            body = comment_form.cleaned_data['body']
+            name = comment_form.cleaned_data['name']
+            email = comment_form.cleaned_data['email']
+            # Create Comment object but don't save to database yet
+            # Assign the current post to the comment
+            # Save the comment to the database
+        comment_object = models.Comment.objects.create(
+            email=email, name=name,
+            body=body, post_id=pk
+        )
+    else:
+        comment_form = forms.CommentForm()
+
+    context = {'docs':docs,
+                'comments': comments,
+               'new_comment': new_comment,
+               'comment_form': comment_form}
+    return render(request, 'quiz/admin_view_docs_detail.html', context) 
+
+# Footer
 
 
 def aboutus_view(request):

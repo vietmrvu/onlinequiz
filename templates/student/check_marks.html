@@ -39,12 +39,12 @@
         </tr>
       </thead>
       {% for t in results %}
-      {% if forloop.counter != 0 %}
+      {% if forloop.counter <= course.atempt %}
            
       <tr>
 
         <td> {{t.exam}}</td>
-        <td> {{t.marks}}</td>
+        <td> {{t.marks}}/{{course.total_marks}}</td>
         <td>Attemp {{ forloop.counter }}</td>
 
         <td> {{t.date}}</td>

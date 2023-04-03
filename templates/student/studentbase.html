@@ -10,7 +10,8 @@
   <meta charset="utf-8">
  
 
-  <style media="screen">
+  
+  <style>
     a:link {
       text-decoration: none;
     }
@@ -20,13 +21,18 @@
       padding: 0;
       font-family: "Gill Sans", sans-serif;;
     }
-
     header {
       position: fixed;
-      background: #22242A;
+      background: #2f323a;
       padding: 10px;
       width: 100%;
-      z-index: 1;
+      z-index: 10;
+      height: 53px;
+      line-height: 17px;
+    }
+
+    .left_area {
+      margin-top: -17px;
     }
 
     .left_area h3 {
@@ -36,10 +42,29 @@
       font-size: 22px;
       font-weight: 900;
     }
-
     .left_area span {
       color: #19B3D3;
     }
+
+   div.list-tags{
+    height: 423px;
+
+   }
+       .sidebar::-webkit-scrollbar-track
+      {
+        background-color: #2f323a;
+      }
+
+      .sidebar::-webkit-scrollbar
+      {
+        background-color: #2f323a;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb
+      {
+        background-color: #19B3D3;
+        border: 2px solid #19B3D3;
+      }
 
     .logout_btn {
       padding: 5px;
@@ -62,15 +87,17 @@
 
     .sidebar {
       background: #2f323a;
-      margin-top: 70px;
+      margin-top: 23px;
       padding-top: 30px;
       position: fixed;
       left: 0;
       width: 250px;
-      height: 100%;
+      height: 100vh;
       transition: 0.5s;
       transition-property: left;
-    }
+      overflow-x: hidden;
+
+          }
 
     .sidebar .profile_image {
       width: 100px;
@@ -82,16 +109,15 @@
     .sidebar h4 {
       color: #ccc;
       margin-top: 0;
-      margin-bottom: 20px;
     }
 
     .sidebar a {
       color: #fff;
       display: block;
       width: 100%;
-      line-height: 60px;
+      line-height: 50px;
       text-decoration: none;
-      padding-left: 40px;
+      padding-left: 30px;
       box-sizing: border-box;
       transition: 0.5s;
 
@@ -110,9 +136,7 @@
       color: #fff;
       position: fixed;
       cursor: pointer;
-      left: 300px;
       font-size: 20px;
-      margin: 5px 0;
       transition: 0.5s;
       transition-property: color;
     }
@@ -129,10 +153,12 @@
       display: none;
     }
 
+    /* Khi click vào */#check:checked~.sidebar center {
+      display: none;
+    }
     #check:checked~.sidebar a {
       font-size: 20px;
-      margin-left: 170px;
-      width: 80px;
+      margin-left: 180px;
     }
 
     .content {
@@ -151,89 +177,39 @@
     #check {
       display: none;
     }
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    /* Đơn vị em tốt hơn về Media queries */
+@media (max-width: 46.875em) {
+   .sidebar {
+      left: -190px;
     }
 
-    .notification-drop {
-      font-family: 'Ubuntu', sans-serif;
-      color: #444;
-    }
-    .notification-drop .item {
-      padding: 10px;
-      font-size: 18px;
-      position: relative;
-      border-bottom: 1px solid #ddd;
-    }
-    .notification-drop .item:hover {
-      cursor: pointer;
-    }
-    .notification-drop .item i {
-      margin-left: 10px;
-    }
-    .notification-drop .item ul {
+    .sidebar a span {
       display: none;
-      position: absolute;
-      top: 100%;
-      background: #fff;
-      left: -200px;
-      right: 0;
-      z-index: 1;
-      border-top: 1px solid #ddd;
-    }
-    .notification-drop .item ul li {
-      font-size: 16px;
-      padding: 15px 0 15px 25px;
-    }
-    .notification-drop .item ul li:hover {
-      background: #ddd;
-      color: rgba(0, 0, 0, 0.8);
     }
 
-    @media screen and (min-width: 500px) {
-      .notification-drop {
-        display: flex;
-        justify-content: flex-end;
-      }
-      .notification-drop .item {
-        border: none;
-      }
+    /* Khi click vào */.sidebar center {
+      display: none;
     }
-
-    .notification-bell{
+    .sidebar a {
       font-size: 20px;
+      margin-left: 180px;
     }
 
-    .btn__badge {
-      background: #FF5D5D;
-      color: white;
-      font-size: 12px;
-      position: absolute;
-      top: 0;
-      right: 0px;
-      padding:  3px 10px;
-      border-radius: 50%;
+    .content {
+      margin-left: 250px;
+      background: url(background.png) no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: 0.5s;
     }
 
-    .pulse-button {
-      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
-      -webkit-animation: pulse 1.5s infinite;
+    .content {
+      margin-left: 60px;
     }
 
-    .pulse-button:hover {
-      -webkit-animation: none;
-    }
 
-    .notification-text{
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .notification-text span{
-      float: right;
-    }
+}
   </style>
 
 
@@ -252,7 +228,7 @@
   <!--header area start-->
   <header>
     <label for="check">
-      <i style="left: 350px;margin-top: 22px;"class="fas fa-bars" id="sidebar_btn"></i>
+      <i style="left: 350px;"class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
       <h3 style="color: #ffffff;text-decoration: none; padding:3px"><img src="https://cdn-icons-png.flaticon.com/512/2201/2201570.png" style="position: absolute;"alt="" width="30" ><font style="padding: 35px"face = "Comic sans MS" size =" 5">GeniDev Learning  </font><br /></h3>  
@@ -268,7 +244,7 @@
   <div class="sidebar">
     <center>
 
-      <img src="{% static 'image/student.png' %}" class="profile_image" alt="">
+      <img src="{% static 'images/image/student.png' %}" class="profile_image" alt="">
       <h4>{{request.user}}</h4>
       <h6 style="color: rgb(255, 255, 255);">( Student )</h6>
 

@@ -177,7 +177,7 @@ def reject_student_view(request,pk):
     user.delete()
     teacher.delete()
     return HttpResponseRedirect('/teacher/teacher-view-pending-student')
-# docs
+# Docs
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_docs_view(request):
@@ -218,8 +218,8 @@ def delete_docs_view(request,pk):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_docs_view(request):
-    courses = QMODEL.Docs.objects.all().order_by('-created_at')
-    return render(request,'teacher/teacher_view_docs.html',{'courses':courses})
+    docs = QMODEL.Docs.objects.all().order_by('-created_at')
+    return render(request,'teacher/teacher_view_docs.html',{'docs':docs})
 
 
 
