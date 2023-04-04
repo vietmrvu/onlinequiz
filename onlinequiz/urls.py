@@ -18,6 +18,7 @@ urlpatterns = [
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
     path('afterlogin', views.afterlogin_view,name='afterlogin'),
+    path('comingsoon', views.comingsoon,name='comingsoon'),
     # Admin views
     path('adminusers', views.admin_user,name='adminusers'),
     path('adminclick', views.adminclick_view),
@@ -40,6 +41,7 @@ urlpatterns = [
     path('admin-student', views.admin_student_view,name='admin-student'),
     path("approve-student/<int:pk>", views.approve_student_view, name="approve-student"),
     path('admin-view-student', views.admin_view_student_view,name='admin-view-student'),
+    path('admin-add-student', views.admin_add_student_view,name='admin-add-student'),
     path('admin-view-student-marks', views.admin_view_student_marks_view,name='admin-view-student-marks'),
     path('admin-view-marks/<int:pk>', views.admin_view_marks_view,name='admin-view-marks'),
     path('admin-check-marks/<int:pk>', views.admin_check_marks_view,name='admin-check-marks'),

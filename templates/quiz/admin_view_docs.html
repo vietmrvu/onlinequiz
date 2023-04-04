@@ -32,13 +32,13 @@
     }
 
     .panel-title {
-
       padding-top: 10px;
       background-color: rgb(3, 69, 135);
       color: white;
-      margin-top: -10px;
-      border-radius: 20px;
-
+      padding-bottom: 10px;
+      margin-bottom: 0px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
     }
   </style>
 </head>
@@ -47,8 +47,8 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h6 class="panel-title">Documents</h6><a href="{% url 'admin-add-docs'  %}"
-        style="  color: white; float: right; background: green;margin-top: -20px" class="btn btn-xs" href=""><span
-          class="glyphicon glyphicon-plus"></span></a>
+        style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>

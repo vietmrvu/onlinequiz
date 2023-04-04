@@ -2,11 +2,20 @@
 {% load static %}
 <html lang="en" dir="ltr">
 <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
 <title>Learning System Online</title>
+
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   {%load static%}
 
 
@@ -21,8 +30,10 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: "Gill Sans", sans-serif;;
+      font-family: "Gill Sans", sans-serif;
+      ;
     }
+
     header {
       position: fixed;
       background: #2f323a;
@@ -44,29 +55,28 @@
       font-size: 22px;
       font-weight: 900;
     }
+
     .left_area span {
       color: #19B3D3;
     }
 
-   div.list-tags{
-    height: 423px;
+    div.list-tags {
+      height: 423px;
 
-   }
-       .sidebar::-webkit-scrollbar-track
-      {
-        background-color: #2f323a;
-      }
+    }
 
-      .sidebar::-webkit-scrollbar
-      {
-        background-color: #2f323a;
-      }
+    .sidebar::-webkit-scrollbar-track {
+      background-color: #2f323a;
+    }
 
-      .sidebar::-webkit-scrollbar-thumb
-      {
-        background-color: #19B3D3;
-        border: 2px solid #19B3D3;
-      }
+    .sidebar::-webkit-scrollbar {
+      background-color: #2f323a;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background-color: #19B3D3;
+      border: 2px solid #19B3D3;
+    }
 
     .logout_btn {
       padding: 5px;
@@ -99,7 +109,7 @@
       transition-property: left;
       overflow-x: hidden;
 
-          }
+    }
 
     .sidebar .profile_image {
       width: 100px;
@@ -155,9 +165,11 @@
       display: none;
     }
 
-    /* Khi click vào */#check:checked~.sidebar center {
+    /* Khi click vào */
+    #check:checked~.sidebar center {
       display: none;
     }
+
     #check:checked~.sidebar a {
       font-size: 20px;
       margin-left: 180px;
@@ -179,39 +191,42 @@
     #check {
       display: none;
     }
+
     /* Đơn vị em tốt hơn về Media queries */
-@media (max-width: 46.875em) {
-   .sidebar {
-      left: -190px;
-    }
+    @media (max-width: 46.875em) {
+      .sidebar {
+        left: -190px;
+      }
 
-    .sidebar a span {
-      display: none;
-    }
+      .sidebar a span {
+        display: none;
+      }
 
-    /* Khi click vào */.sidebar center {
-      display: none;
-    }
-    .sidebar a {
-      font-size: 20px;
-      margin-left: 180px;
-    }
+      /* Khi click vào */
+      .sidebar center {
+        display: none;
+      }
 
-    .content {
-      margin-left: 250px;
-      background: url(background.png) no-repeat;
-      background-position: center;
-      background-size: cover;
-      height: 100vh;
-      transition: 0.5s;
+      .sidebar a {
+        font-size: 20px;
+        margin-left: 180px;
+      }
+
+      .content {
+        margin-left: 250px;
+        background: url(background.png) no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        transition: 0.5s;
+      }
+
+      .content {
+        margin-left: 60px;
+      }
+
+
     }
-
-    .content {
-      margin-left: 60px;
-    }
-
-
-}
   </style>
 
 
@@ -226,14 +241,20 @@
   <!--header area start-->
   <header>
     <label for="check">
-      <i style="position: fixed; right: 20px"class="fas fa-bars" id="sidebar_btn"></i>
+      <i style="position: fixed; right: 20px" class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
-       <a style="text-decoration: none"href="{% url  '' %}"><h3 style="color: #ffffff;text-decoration: none;  padding:3px"><img src="https://cdn-icons-png.flaticon.com/512/2201/2201570.png" style="position: absolute; background-color: white; border-radius: 70%; padding: 2px"alt="" width="30" ><font style="padding: 35px"face = "Comic sans MS" size =" 5">GeniDev Learning  </font><br /></h3>  </a>
+      <a style="text-decoration: none" href="{% url  '' %}">
+        <h3 style="color: #ffffff;text-decoration: none;  padding:3px"><img
+            src="https://cdn-icons-png.flaticon.com/512/2201/2201570.png"
+            style="position: absolute; background-color: white; border-radius: 70%; padding: 2px" alt="" width="30">
+          <font style="padding: 35px" face="Comic sans MS" size=" 5">GeniDev Learning </font><br />
+        </h3>
+      </a>
     </div>
     <div class="right_area">
-      <a href="/logout" class="logout_btn">      <i class="fa fa-sign-out" style="color: white"aria-hidden="true"></i>
-</a>
+      <a href="/logout" class="logout_btn"> <i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i>
+      </a>
     </div>
   </header>
   <!--header area end-->
@@ -246,15 +267,15 @@
 
     </center>
     <div class="list-tags" style="text-decoration: none">
-    <a href="/admin-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-    <a href="/admin-teacher"><i class="fas fa-chalkboard-teacher"></i><span>Teacher</span></a>
-    <a href="/admin-student"><i class="fas fa-user-graduate"></i><span>Student</span></a>
-    <a href="/admin-view-parents"><i class="fas fa-user-friends"></i><span>Parents</span></a>
-    <a href="/admin-course"><i class="fas fa-book"></i><span>Courses</span></a>
-    <a href="/admin-view-question"><i class="fas fa-question-circle"></i><span>Questions</span></a>
-    <a href="/admin-view-docs"><i class="fas fa-file"></i><span>Docs</span></a>
-    <a href=""><i class="fab fa-chromecast"></i><span>Online rooms </span></a>
-</div>
+      <a href="/admin-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+      <a href="/admin-teacher"><i class="fas fa-chalkboard-teacher"></i><span>Teacher</span></a>
+      <a href="/admin-student"><i class="fas fa-user-graduate"></i><span>Student</span></a>
+      <a href="/admin-view-parents"><i class="fas fa-user-friends"></i><span>Parents</span></a>
+      <a href="/admin-course"><i class="fas fa-book"></i><span>Courses</span></a>
+      <a href="/admin-view-question"><i class="fas fa-question-circle"></i><span>Questions</span></a>
+      <a href="/admin-view-docs"><i class="fas fa-file"></i><span>Docs</span></a>
+      <a href="/comingsoon"><i class="fab fa-chromecast"></i><span>Online rooms </span></a>
+    </div>
 
   </div>
   <!--sidebar end-->

@@ -97,7 +97,7 @@ def admin_view_teacher_view(request):
     return render(request,'quiz/admin_view_teacher.html',{'teachers':teachers})
 
 @login_required(login_url='adminlogin')
-def add_teacher_view(request):
+def admin_add_teacher_view(request):
     userForm=TFORM.TeacherUserForm()
     teacherForm=TFORM.TeacherForm()
     mydict={'userForm':userForm,'teacherForm':teacherForm}
@@ -202,7 +202,7 @@ def update_student_view(request,pk):
     user=SMODEL.User.objects.get(id=student.user_id)
     userForm=SFORM.StudentUserForm(instance=user)
     studentForm=SFORM.StudentForm(request.FILES,instance=student)
-    mydict={'userForm':userForm,'studentForm':studentForm, "student":student}
+    mydict={'userForm':userForm,'studentForm':studentForm, "student":student, 'content': 'UPDATE'}
     if request.method=='POST':
         userForm=SFORM.StudentUserForm(request.POST,instance=user)
         studentForm=SFORM.StudentForm(request.POST,request.FILES,instance=student)
@@ -215,10 +215,10 @@ def update_student_view(request,pk):
     return render(request,'quiz/update_student.html',context=mydict)
 
 @login_required(login_url='adminlogin')
-def add_student_view(request):
+def admin_add_student_view(request):
     userForm=SFORM.StudentUserForm()
     studentForm=SFORM.StudentForm()
-    mydict={'userForm':userForm,'studentForm':studentForm}
+    mydict={'userForm':userForm,'studentForm':studentForm, 'content': 'ADD'}
     if request.method=='POST':
         userForm=SFORM.StudentUserForm(request.POST)
         studentForm=SFORM.StudentForm(request.POST,request.FILES)
@@ -232,7 +232,7 @@ def add_student_view(request):
             my_student_group = Group.objects.get_or_create(name='STUDENT')
             my_student_group[0].user_set.add(user)
         return HttpResponseRedirect('studentlogin')
-    return render(request,'student/studentsignup.html',context=mydict)
+    return render(request,'quiz/update_student.html',context=mydict)
 
 @login_required(login_url='adminlogin')
 def delete_student_view(request,pk):
@@ -480,4 +480,5 @@ def contactus_view(request):
             return render(request, 'quiz/contactussuccess.html')
     return render(request, 'quiz/contactus.html', {'form':sub})
 
-
+def comingsoon(request):
+    return render(request,'quiz/comingsoon.html')
