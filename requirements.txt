@@ -27,7 +27,7 @@ Django==3.2.16
 django-allauth==0.51.0
 django-autoslug==1.9.8
 django-browser-reload==1.6.0
-django-ckeditor==6.4.2
+django-ckeditor==6.3.2
 django-compression-middleware==0.4.1
 django-cors-headers==3.13.0
 django-crispy-forms==1.14.0
