@@ -40,7 +40,6 @@ django-mptt==0.13.4
 django-recaptcha==3.0.0
 django-storages==1.13.1
 django-taggit==3.0.0
-django-tailwind==3.4.0
 django-tinymce==3.5.0
 django-webpush==0.3.4
 django-widget-tweaks==1.4.12
