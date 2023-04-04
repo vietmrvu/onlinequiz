@@ -23,7 +23,7 @@ defusedxml==0.7.1
 Deprecated==1.2.13
 distlib==0.3.5
 dj-database-url==1.0.0
-Django==4.0.6
+Django==3.2.16
 django-allauth==0.51.0
 django-autoslug==1.9.8
 django-browser-reload==1.6.0
