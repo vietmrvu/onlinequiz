@@ -2,8 +2,10 @@ from django.db import models
 from teacher import models as TMODEL
 from student.models import Student
 from teacher.models import Teacher
+from django.db.models import Sum
 from froala_editor.fields import FroalaField
 import datetime
+
 
 class Course(models.Model):
     course_name = models.CharField(max_length=500)
@@ -13,7 +15,8 @@ class Course(models.Model):
     date = models.TimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.course_name
+        return self.course_name + " " +  str(self.total_marks) + " điểm tối đa"
+        
 
 class Question(models.Model):
     course=models.ForeignKey(Course,on_delete=models.CASCADE)

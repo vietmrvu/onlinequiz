@@ -13,6 +13,7 @@ from student import models as SMODEL
 from parents import models as PMODEL
 from teacher import forms as TFORM
 from student import forms as SFORM
+from parents import forms as PFORM
 from django.contrib.auth.models import User
 
 
@@ -269,8 +270,10 @@ def update_parents_view(request,pk):
     parents=PMODEL.Parents.objects.get(id=pk)
     user=PMODEL.User.objects.get(id=parents.user_id)
     userForm=PFORM.ParentsUserForm(instance=user)
+    student_id = request.COOKIES.get('student_id')
+    student= SMODEL.Student.objects.get(id=student_id)
     parentsForm=PFORM.ParentsUserForm(request.FILES,instance=student)
-    mydict={'userForm':userForm,'studentForm':studentForm}
+    mydict={'userForm':userForm,'parentsForm':parentsForm}
     if request.method=='POST':
         userForm=PFORM.ParentsUserForm(request.POST,instance=user)
         parentsForm=PFORM.ParentsUserForm(request.POST,request.FILES,instance=student)
@@ -331,6 +334,7 @@ def admin_add_question_view(request):
         if questionForm.is_valid():
             question=questionForm.save(commit=False)
             course=models.Course.objects.get(id=request.POST.get('courseID'))
+            print(course)
             question.course=course
             question.save()       
         else:
