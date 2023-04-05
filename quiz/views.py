@@ -93,7 +93,7 @@ def admin_teacher_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_view_teacher_view(request):
-    teachers= TMODEL.Teacher.objects.all().filter(status=True)
+    teachers= TMODEL.Teacher.objects.all()
     return render(request,'quiz/admin_view_teacher.html',{'teachers':teachers})
 
 @login_required(login_url='adminlogin')
