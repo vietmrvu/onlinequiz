@@ -86,7 +86,7 @@ def admin_user(request):
 def admin_teacher_view(request):
     dict={
     'total_teacher':TMODEL.Teacher.objects.all().count(),
-    'pending_teacher':TMODEL.Teacher.objects.all().filter(status=False).count(),
+    'classmodel':TMODEL.Tag.objects.all().count(),
     'salary':TMODEL.Teacher.objects.all().filter(status=True).aggregate(Sum('salary'))['salary__sum'],
     }
     return render(request,'quiz/admin_teacher.html',context=dict)
@@ -136,7 +136,6 @@ def update_teacher_view(request,pk):
     return render(request,'quiz/update_teacher.html',context=mydict)
 
 
-
 @login_required(login_url='adminlogin')
 def delete_teacher_view(request,pk):
     teacher=TMODEL.Teacher.objects.get(id=pk)
@@ -180,6 +179,10 @@ def admin_view_teacher_salary_view(request):
     teachers= TMODEL.Teacher.objects.all().filter(status=True)
     return render(request,'quiz/admin_view_teacher_salary.html',{'teachers':teachers})
 
+@login_required(login_url='adminlogin')
+def admin_view_subject(request):
+    classmodel = TMODEL.Tag.objects.all()
+    return render(request,'quiz/admin_view_subjects.html',{'subjects':classmodel})
 
 
 # Students
@@ -248,13 +251,13 @@ def approve_student_view(request,pk):
     user=SMODEL.User.objects.get(id=student.user_id)
     userForm=SFORM.StudentUserForm(instance=user)
     studentForm=SFORM.StudentForm(request.FILES,instance=student)
-    mydict={'userForm':userForm,'studentForm':studentForm, "student":student}
+    mydict={'userForm':userForm,'studentForm':studentForm, "student":student, 'content': 'APPROVE'}
     if request.method=='POST':
         student= SMODEL.Student.objects.get(id=pk)
         student.status=True
         student.save()
         return HttpResponseRedirect('/admin-view-student')
-    return render(request,'quiz/check_student.html', context=mydict)
+    return render(request,'quiz/update_student.html', context=mydict)
 # Parents
 @login_required(login_url='adminlogin')
 def admin_view_parents_view(request):

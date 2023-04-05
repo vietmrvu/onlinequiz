@@ -59,7 +59,7 @@
 
           <th>Update</th>
           <th>Delete</th>
-
+          <th>Subject </th>
           <th>Status </th>
           <th>Check </th>
         </tr>
@@ -76,7 +76,7 @@
         </td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-teacher' t.id  %}"><span
               class="fas fa-trash"></span></a></td>
-
+        <td>{{t.class_model}}</td>
         <td>{{t.status}}</td>
         <td><a href="{% url 'approve-teacher' t.id  %}" style="background: green; color: white" class="btn btn-xs"
             href=""><span class="fas fa-check"></span></a></td>

@@ -67,11 +67,11 @@
         <td>{{t.upload_to}}</td>
 
         <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-docs-detail' t.id  %}"><span
-              class="glyphicon glyphicon-eye-open"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span
-              class="glyphicon glyphicon-trash"></span></a></td>
+              class="fas fa-eye"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span class="fas fa-trash"></span></a>
+        </td>
         <td><a style="background-color: rgb(42, 119, 63); color: white;" class="btn btn-xs"
-            href="{% url 'update-docs' t.id  %}"><span class="glyphicon glyphicon-wrench"></span></a></td>
+            href="{% url 'update-docs' t.id  %}"><span class="fas fa-wrench"></span></a></td>
 
       </tr>
       {% endfor %}

@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin-view-teacher-salary', views.admin_view_teacher_salary_view,name='admin-view-teacher-salary'),
     path('approve-teacher/<int:pk>', views.approve_teacher_view,name='approve-teacher'),
     path('reject-teacher/<int:pk>', views.reject_teacher_view,name='reject-teacher'),
+    path('view-subjects', views.admin_view_subject, name="view-subjects"),
     # Admin parents
     path('admin-view-parents', views.admin_view_parents_view,name='admin-view-parents'),
     path('update-parents/<int:pk>', views.update_parents_view,name='update-parents'),
