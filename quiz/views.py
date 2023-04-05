@@ -231,7 +231,7 @@ def admin_add_student_view(request):
             student.save()
             my_student_group = Group.objects.get_or_create(name='STUDENT')
             my_student_group[0].user_set.add(user)
-        return HttpResponseRedirect('studentlogin')
+        return redirect('admin-view-student')
     return render(request,'quiz/update_student.html',context=mydict)
 
 @login_required(login_url='adminlogin')
