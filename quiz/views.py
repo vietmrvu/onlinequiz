@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,reverse
 from . import forms,models
 from django.db.models import Sum
 from django.contrib.auth.models import Group
+from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
@@ -258,7 +259,7 @@ def approve_student_view(request,pk):
         student.status=True
         student.save()
         return HttpResponseRedirect('/admin-view-student')
-    return render(request,'quiz/update_student.html', context=mydict)
+    return render(request,'quiz/approve_student.html', context=mydict)
 # Parents
 @login_required(login_url='adminlogin')
 def admin_view_parents_view(request):

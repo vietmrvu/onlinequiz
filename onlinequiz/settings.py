@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'onlinequiz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ruruotwi', 
-        'USER': 'ruruotwi', 
-        'PASSWORD': 'UoqOSbHoKmiuDOJe6GBsBrFsfOSsHvlR',
-        'HOST': 'tiny.db.elephantsql.com', 
+        'NAME': 'xgibkvaf', 
+        'USER': 'xgibkvaf', 
+        'PASSWORD': 'rxQ9E1bkSde-qYlO-F7QhyWK7eIIr6fX',
+        'HOST': 'floppy.db.elephantsql.com', 
         'PORT': '5432'
     }
 }

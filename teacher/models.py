@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from froala_editor.fields import FroalaField
+from django.utils import timezone
+
 # TAG = ((0, "LSĐL"), (1, "Toán"), (2, "Văn"), (3, "Anh"))
 CLASS = ((0, "6"), (1, "7"), (2, "8"), (3, "9"))
 class Tag(models.Model):
@@ -26,3 +29,25 @@ class Teacher(models.Model):
         self.user
         return self.user
     #<iframe allowtransparency=“true” width=“485” height=“402” src="{{}}embed“ frameborder=”0" allowfullscreen></iframe>
+
+class Classroom(models.Model):
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200, default="", blank=True)
+    class_slug = models.SlugField("Class", null=False, blank=False, unique=True)
+    content = FroalaField(blank=True, default="")
+    notes = FroalaField(blank=True, default="")
+    published = models.DateTimeField("Date published", default=timezone.now)
+    modified = models.DateTimeField("Date modified", default=timezone.now)
+    author = models.ForeignKey(Teacher, default=1, on_delete=models.CASCADE)
+    image = models.ImageField(default='profile_pic/Teacher/no_image.jpg', upload_to="profile_pic/Teacher/" ,max_length=255)
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def slug(self):
+        return self.class_slug
+
+    class Meta:
+        verbose_name_plural = "Student"
+        ordering = ['-published']

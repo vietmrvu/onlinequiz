@@ -5,6 +5,8 @@ from teacher.models import Teacher
 from django.db.models import Sum
 from froala_editor.fields import FroalaField
 import datetime
+from django.utils import timezone
+
 
 
 class Course(models.Model):
@@ -65,3 +67,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
