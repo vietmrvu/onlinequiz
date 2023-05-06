@@ -15,15 +15,14 @@
   <style media="screen">
     a:link {
       text-decoration: none;
+      color: white
     }
 
     h6 {
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
+
 
     .panel {
 
@@ -42,7 +41,8 @@
     }
   </style>
 </head>
-<br><br>
+<br><br><br><br>
+
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -53,26 +53,30 @@
         <tr>
 
           <th>Exam Name</th>
-          
+
           <th>Total Marks</th>
           <th>Attempt</th>
           <th>Exam Date</th>
         </tr>
       </thead>
       {% for t in results %}
-      {% if forloop.counter <= course.atempt %}
-           
-      <tr>
-
+      {% if forloop.counter <= course.atempt %} <tr>
         <td> {{t.exam}}</td>
         <td> {{t.marks}}/{{course.total_marks}}</td>
         <td>Attemp {{ forloop.counter }}</td>
-
         <td> {{t.date}}</td>
+        </tr>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+        <!-- {% for a in results %}
+      <tr>
+        <td> {{a.exam}}</td>
+        <td> {{a.marks}}/{{course.total_marks}}</td>
+        <td>Attemp {{ forloop.counter }}</td>
+        <td> {{a.date}}</td>
       </tr>
-      {% else %}
-      {% endif %}
-      {% endfor %}
+      {% endfor %} -->
     </table>
   </div>
 </div>

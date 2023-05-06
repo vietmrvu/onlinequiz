@@ -37,11 +37,39 @@
             color: white;
             padding-bottom: 10px;
             margin-bottom: 0px;
-            border-radius: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
 
         ul.list {
-            min-height: 200px
+            max-height: 200px;
+            padding: 3px;
+            overflow: scroll;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            text-align: center;
+            /* Firefox */
+        }
+
+        ul.list::-webkit-scrollbar {
+            display: none;
+        }
+
+        ul.list li {
+            list-style-type: none;
+            display: inline-flex;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            align-content: center;
+        }
+
+        .fa-times {
+            color: rgb(53, 53, 53);
+            font-size: 1.6em;
+            margin-left: 10px
         }
     </style>
 </head>
@@ -49,10 +77,13 @@
 <div class="container" style="margin: 0">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h6 class="panel-title">Teacher's subjects</h6>
+            <h6 class="panel-title">Teacher's subjects </h6>
         </div>
         <ul class="list">
+            {% for t in subjects %}
+            <li>{{t.name}} <a href="{% url 'delete-subject' t.id %}"><i class="fas fa-times"></i></a> </li>
 
+            {% endfor %}
         </ul>
     </div>
 </div>

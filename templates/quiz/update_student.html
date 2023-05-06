@@ -33,7 +33,8 @@
     {% render_field userForm.password class="form-control" placeholder="Password" %}
     <label for="profile_pic">Profile Picture</label>
     {% render_field studentForm.profile_pic class="form-control" placeholder="Profile Picture" %}
-
+    <label for="classroom">Class room</label>
+    {{studentForm.classroom}}
     <br><br>
     <input class="btn btn-primary" type="submit" value="Update">
 

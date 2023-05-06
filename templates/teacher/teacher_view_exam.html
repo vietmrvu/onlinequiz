@@ -36,9 +36,65 @@
       background-color: rgb(3, 69, 135);
       color: white;
       padding-bottom: 10px;
-      margin-bottom: 0px;
+      margin-bottom: -10px;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
+    }
+
+    a {
+      color: white;
+      display: block;
+    }
+
+    li {
+      text-align: left;
+    }
+
+    ul.box {
+      display: block;
+      position: relative;
+    }
+
+    ul.box li {
+      display: none;
+      position: absolute;
+      width: 150px;
+      background: green;
+      top: 39px;
+      left: -116px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    ul.box:hover li {
+      display: block;
+      cursor: pointer;
+      transition-duration: 1s;
+
+    }
+
+    ul.box:hover span.only {
+      cursor: pointer;
+      transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      transition-duration: 2s;
+    }
+
+    ul.box li::before {
+      content: "";
+      position: absolute;
+      display: block;
+      border-style: solid;
+      border-width: 14px;
+      border-color: transparent transparent green transparent;
+      top: -27px;
+      right: 9px;
+    }
+
+    a:hover {
+      color: white;
+      opacity: 0.9;
     }
   </style>
 </head>
@@ -47,6 +103,14 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h6 class="panel-title">Exams</h6>
+      <ul
+        style="  color: white; float: right; background: green;margin-top: -21px;margin-bottom: 0; border-radius: 2px;margin-right: 15px; padding: 3px 5px"
+        class="box" href=""><span class="only fas fa-plus"></span>
+
+        <li><a href="{% url 'teacher-add-exam'  %}"><span class="fas fa-plus"></span> Add exam</a>
+          <a href="{% url 'teacher-add-question'  %}"><span class="fas fa-plus"></span> Add question</a>
+        </li>
+      </ul>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
@@ -65,8 +129,9 @@
         <td>{{t.question_number}}</td>
         <td>{{t.total_marks}}</td>
         <td>{{t.atempt}}</td>
-        
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-exam' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-exam' t.id  %}"><span class="fas fa-trash"></span></a>
+        </td>
       </tr>
       {% endfor %}
     </table>

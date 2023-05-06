@@ -43,23 +43,22 @@ def is_student(user):
 # A ttl of 1000 is passed so the web push server will store
 # the data maximum 1000 seconds if any user is not online
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_dashboard_view(request):
     dict={
-    
     'total_course':QMODEL.Course.objects.all().count(),
-    'total_question':QMODEL.Question.objects.all().count(),
+    'total_docs':QMODEL.Docs.objects.all().count(),
     }
     return render(request,'student/student_dashboard.html',context=dict)
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_exam_view(request):
     courses=QMODEL.Course.objects.all().order_by('-created_at')
-    return render(request,'student/student_exam.html',{'courses':courses})
+    student = models.Student.objects.get(user_id=request.user.id)
 
-@login_required(login_url='studentlogin')
+    results= QMODEL.Result.objects.all().filter(student=student)
+    return render(request,'student/student_exam.html',{'courses':courses, 'results': results})
+
 @user_passes_test(is_student)
 def take_exam_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
@@ -71,7 +70,6 @@ def take_exam_view(request,pk):
     
     return render(request,'student/take_exam.html',{'course':course,'total_questions':total_questions,'total_marks':total_marks})
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def start_exam_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
@@ -83,7 +81,6 @@ def start_exam_view(request,pk):
     return response
 
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 @csrf_exempt
 def calculate_marks_view(request):
@@ -109,14 +106,12 @@ def calculate_marks_view(request):
         
 
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def view_result_view(request):
     courses=QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'student/view_result.html',{'courses':courses})
     
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def check_marks_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
@@ -124,20 +119,17 @@ def check_marks_view(request,pk):
     results= QMODEL.Result.objects.all().filter(exam=course,student=student)
     return render(request,'student/check_marks.html',{'results':results, 'course': course})
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_marks_view(request):
     courses=QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'student/student_marks.html',{'courses':courses})
 
 # Mark
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_view_docs_view(request):
     courses = QMODEL.Docs.objects.all().order_by('-created_at')
     return render(request,'student/student_view_docs.html',{'courses':courses})
 
-@login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def student_view_docs_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)

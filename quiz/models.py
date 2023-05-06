@@ -14,10 +14,11 @@ class Course(models.Model):
     question_number = models.PositiveIntegerField()
     total_marks = models.PositiveIntegerField()
     atempt = models.PositiveIntegerField(default=2)
-    date = models.TimeField(null=True)
+    date = models.DateTimeField()
+    limited_mins = models.PositiveIntegerField(default=15)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.course_name + " " +  str(self.total_marks) + " điểm tối đa"
+        return self.course_name 
         
 
 class Question(models.Model):
@@ -55,6 +56,7 @@ class Docs(models.Model):
             return False
     def save(self, *args, **kwargs):
         super(Docs, self).save(*args, **kwargs)
+        
 class Comment(models.Model):
     post = models.ForeignKey(Docs,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)

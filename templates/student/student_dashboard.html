@@ -4,112 +4,273 @@
 
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <style type="text/css">
-      a:link {
-        text-decoration: none;
-      }
-  
-      .order-card {
-        color: rgb(255, 255, 255);
-      }
-  
-      .bg-c-blue {
-        background: #04868f;
-      }
-  
-      .bg-c-green {
-        background:#4C51BF;
-      }
-  
-      .bg-c-yellow {
-        background: #F56565;
-      }
-  
-      .bg-c-pink {
-        background: #663a30;
-      }
-  
-  
-      .card {
-        
-        -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-        box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-        border: 1px solid black;
-        margin-bottom: 30px;
-        -webkit-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-      }
-  
-      .card .card-block {
-        padding: 25px;
-      }
-  
-      .order-card i {
-        font-size: 26px;
-      }
-  
-      .f-left {
-        float: left;
-      }
-  
-      .f-right {
-        float: right;
-      }
-      header {
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    a:link {
+      text-decoration: none;
+
+    }
+
+    .m-b-20 a:link {
+      color: white
+    }
+
+    .order-card {
+      color: rgb(255, 255, 255);
+    }
+
+    .bg-c-blue {
+      background: #04868f;
+    }
+
+    .bg-c-green {
+      background: #4C51BF;
+    }
+
+    .bg-c-yellow {
+      background: #F56565;
+    }
+
+    .bg-c-pink {
+      background: #663a30;
+    }
+
+
+    .card {
+
+      -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+      box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+      border: 1px solid black;
+      margin-bottom: 30px;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card .card-block {
+      padding: 25px;
+    }
+
+    .order-card i {
+      font-size: 26px;
+    }
+
+    .f-left {
+      float: left;
+    }
+
+    .f-right {
+      float: right;
+    }
+
+    header {
       left: 0px;
       right: 0px;
+
     }
-    </style>
-  </head>
 
-   <ul class="notification-drop" style=" position: fixed; right: 0px; z-index: 5">
-    <li class="item">
-      <i class="fa fa-bell-o notification-bell" aria-hidden="true"></i> <span class="btn__badge pulse-button ">{{total_course}}</span>     
-      <ul>
-        <a href="/student/student-exam"><li><i class="fas fa-book"></i><span> Mission</span></li></a>
-        <a href="/student/student-view-docs"><li><i class="fas fa-book"></i><span> Docs</span></li></a>
-      </ul>
-    </li>
-  </ul>
-        <br><br><br>
-  <div class="container">
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
 
-    <div class="row">
-      
-  
-      <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-yellow order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Exams Available</h6>
-           <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
-            
-          </div>
+
+
+    .twk-notification {
+      position: relative;
+      font-size: 1em;
+    }
+
+    .twk-notification__bell {
+      position: relative;
+    }
+
+    .twk-notification__count {
+      position: absolute;
+      left: -0.25em;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25em;
+      height: 1.25em;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      background: #f00;
+      border-radius: 50%;
+    }
+
+    .twk-notification__menu {
+      position: absolute;
+      z-index: 1050;
+      padding: 0;
+      margin: 0.25em 0 0 0;
+      overflow: hidden;
+      white-space: nowrap;
+      list-style-type: none;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, .15);
+      border-radius: 0.25em;
+      opacity: 0;
+    }
+
+    .twk-notification__menu.active {
+      opacity: 1;
+    }
+
+    .twk-notification__header {
+      padding: 0.5em;
+      font-size: 1.2em;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.0625em;
+      border-bottom: 1px solid rgba(0, 0, 0, .15);
+    }
+
+    .twk-notification__item {
+      position: relative;
+    }
+
+    .twk-notification__item-count {
+      position: absolute;
+      top: 50%;
+      left: 0.625em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2em;
+      height: 2em;
+      font-size: 0.625em;
+      font-weight: bold;
+      color: #fff;
+      background: #f00;
+      border-radius: 50%;
+      transform: translate(0, -50%);
+    }
+
+    .twk-notification__link {
+      display: block;
+      padding: 0.5em 2em;
+      color: #008;
+      text-decoration: none;
+    }
+
+    .twk-notification__link:hover {
+      background: rgba(128, 128, 128, .4);
+    }
+
+    .twk-notification__right .twk-notification__menu {
+      right: 0;
+    }
+
+    .notification-drop {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<ul class="notification-drop" style=" position: fixed; right: 22px; z-index: 5">
+  <div data-object="notifications" data-count="3" data-direction="right" data-target="#myMenu">
+    <ul id="myMenu" data-header="Notifications">
+      <li data-object="mails" data-count="{{total_docs}}" data-link="/student/student-docs">New Docs</li>
+      <li data-object="reserves" data-count="{{total_course}}" data-link="/student/student-exam">New Exams</li>
+    </ul>
+  </div>
+</ul>
+<br><br><br>
+<div class="container">
+
+  <div class="row">
+
+
+    <div class="col-md-4 col-xl-6">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6 class="m-b-20"> <a style="      color: white  !important" href="/student/student-exam">Total Exams
+              Available</a></h6>
+          <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
+
         </div>
       </div>
-  
-      <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-pink order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Questions</h6>
-            <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{total_question}}</span></h2>
-            
-          </div>
+    </div>
+
+    <div class="col-md-4 col-xl-6">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6 class="m-b-20"><a href="/student/student-view-docs">Total Docs</a></h6>
+          <h2 class="text-right"><i class="fas fa-file f-left"></i><span>{{total_docs}}</span></h2>
+
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
 <br><br><br><br><br><br><br><br><br><br>
+<script>
+  let twkClickNotification = function (obj) {
+    let target = document.querySelector(obj.getAttribute('data-target'));
+    let className = ' ' + target.className + ' ';
+    if (~className.indexOf(' active ')) {
+      target.className = className.replace(' active ', ' ');
+    } else {
+      target.className += ' active';
+    }
+  }
 
+  let initNotifications = function (obj) {
+    const mainClass = 'twk-notification';
+    $(obj).addClass(mainClass);
+    if ($(obj).data('direction'))
+      $(obj).addClass(mainClass + '__' + $(obj).data('direction'));
+    let bellDiv = $('<div></div>');
+    bellDiv.append(
+      $('<i></i>')
+        .addClass(mainClass + '__icon fas fa-bell fa-2x')
+        .attr('data-behavior', "toggleNotifications")
+        .attr('data-target', $(obj).data('target'))
+        .click(function () {
+          twkClickNotification(this);
+        })
+    );
+    bellDiv.append(
+      $('<span></span>').addClass(mainClass + '__count').text($(obj).data('count'))
+    );
+    $(obj).prepend(bellDiv);
+    let menu = $($(obj).data('target'));
+    menu.addClass(mainClass + '__menu');
+    let items = menu.find('li');
+    menu.html('');
+    menu.append('<li class="twk-notification__header">' + menu.data('header') + '</li>');
+    items.each(function () {
+      menu.append(
+        $('<li></li>')
+          .addClass(mainClass + '__item')
+          .attr('data-object', $(this).data('object'))
+          .append(
+            $('<span></span>').addClass(mainClass + '__item-count').text($(this).data('count'))
+          )//append span
+          .append(
+            $('<a href="' + $(this).data('link') + '"></a>').addClass(mainClass + '__link').text($(this).text())
+          )//append link
+      );
+    });
+
+  }
+
+  $(document).ready(() => {
+    initNotifications($('[data-object="notifications"]'));
+  });</script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
 

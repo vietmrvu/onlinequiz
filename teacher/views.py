@@ -51,6 +51,8 @@ def teacher_dashboard_view(request):
     'total_course':QMODEL.Course.objects.all().count(),
     'total_question':QMODEL.Question.objects.all().count(),
     'total_student':SMODEL.Student.objects.all().count(),
+    'total_parent':PMODEL.Parents.objects.all().count(),
+    'teacher': models.Teacher.objects.get(user=request.user)
     }
 
     return render(request,'teacher/teacher_dashboard.html',context=dict)
@@ -58,9 +60,26 @@ def teacher_dashboard_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_exam_view(request):
-    return render(request,'teacher/teacher_exam.html')
+    return render(request,'teacher/teacher_exam.html', {'teacher': models.Teacher.objects.get(user=request.user)})
 
 
+
+@login_required(login_url='teacherlogin')
+def teacher_student_view(request):
+    dict={
+    'students':SMODEL.Student.objects.all(),
+    'teacher': models.Teacher.objects.get(user=request.user)
+    }
+    return render(request,'teacher/teacher_student.html',context=dict)
+
+
+@login_required(login_url='teacherlogin')
+def teacher_parents_view(request):
+    dict={
+    'parents':PMODEL.Parents.objects.all(),
+    'teacher': models.Teacher.objects.get(user=request.user)
+    }
+    return render(request,'teacher/teacher_parents.html',context=dict)
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -73,13 +92,13 @@ def teacher_add_exam_view(request):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/teacher/teacher-view-exam')
-    return render(request,'teacher/teacher_add_exam.html',{'courseForm':courseForm})
+    return render(request,'teacher/teacher_add_exam.html',{'courseForm':courseForm, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_exam_view(request):
     courses = QMODEL.Course.objects.all().order_by('-created_at')
-    return render(request,'teacher/teacher_view_exam.html',{'courses':courses})
+    return render(request,'teacher/teacher_view_exam.html',{'courses':courses , 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -90,7 +109,7 @@ def delete_exam_view(request,pk):
 
 @login_required(login_url='teacherlogin')
 def teacher_question_view(request):
-    return render(request,'teacher/teacher_question.html')
+    return render(request,'teacher/teacher_question.html',  {'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -106,19 +125,19 @@ def teacher_add_question_view(request):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/teacher/teacher-view-question')
-    return render(request,'teacher/teacher_add_question.html',{'questionForm':questionForm})
+    return render(request,'teacher/teacher_add_question.html',{'questionForm':questionForm, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_question_view(request):
     courses= QMODEL.Course.objects.all().order_by('-created_at')
-    return render(request,'teacher/teacher_view_question.html',{'courses':courses})
+    return render(request,'teacher/teacher_view_question.html',{'courses':courses,'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def see_question_view(request,pk):
     questions=QMODEL.Question.objects.all().order_by('-created_at').filter(course_id=pk)
-    return render(request,'teacher/see_question.html',{'questions':questions})
+    return render(request,'teacher/see_question.html',{'questions':questions, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -132,61 +151,64 @@ def remove_question_view(request,pk):
 @user_passes_test(is_teacher)
 def teacher_view_pending_parents_view(request):
     parents= PMODEL.Parents.objects.all().filter(status=False)
-    return render(request,'teacher/teacher_pending_parents.html',{'parents':parents})
+    return render(request,'teacher/teacher_pending_parents.html',{'parents':parents, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def approve_parents_view(request,pk):
+    parents= PMODEL.Parents.objects.all().filter()
     if request.method=='POST':
         parents= PMODEL.Parents.objects.get(id=pk)
         parents.status=True
         parents.save()
         return HttpResponseRedirect('/teacher/teacher-view-pending-parents')
-    return render(request,'teacher/check_parents.html')
+    return render(request,'teacher/check_parents.html',  { 'parents':parents, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 def reject_parents_view(request,pk):
     parents= PMODEL.Parents.objects.get(id=pk)
-    user=User.objects.get(id=parents.user_id)
+    user=models.User.objects.get(id=parents.user_id)
     user.delete()
-    teacher.delete()
+    parents.delete()
     return HttpResponseRedirect('/teacher/teacher-view-pending-parents')
 # approve student
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_pending_student_view(request):
     student= SMODEL.Student.objects.all().filter(status=False)
-    return render(request,'teacher/teacher_pending_student.html',{'student':student})
+    return render(request,'teacher/teacher_pending_student.html',{'student':student,  'teacher': models.Teacher.objects.get(user=request.user)})
 
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def approve_student_view(request,pk):
+    student= SMODEL.Student.objects.all().filter()
+
     if request.method=='POST':
         student= SMODEL.Student.objects.get(id=pk)
         student.status=True
         student.save()
         return HttpResponseRedirect('/teacher/teacher-view-pending-student')
-    return render(request,'teacher/check_student.html')
+    return render(request,'teacher/check_student.html',  {'student':student,'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 def reject_student_view(request,pk):
     student= SMODEL.Student.objects.get(id=pk)
-    user=User.objects.get(id=student.user_id)
+    user=models.User.objects.get(id=student.user_id)
     user.delete()
-    teacher.delete()
+    student.delete()
     return HttpResponseRedirect('/teacher/teacher-view-pending-student')
 # Docs
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_docs_view(request):
-    return render(request,'teacher/teacher_docs.html')
+    return render(request,'teacher/teacher_view_docs.html', {'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_add_docs_view(request):
-    context = {'courseForm': QFORM.DocsForm}
+    context = {'courseForm': QFORM.DocsForm,  'teacher': models.Teacher.objects.get(user=request.user)}
     try:
         if request.method == 'POST':
             form = QFORM.DocsForm(request.POST)
@@ -219,7 +241,7 @@ def delete_docs_view(request,pk):
 @user_passes_test(is_teacher)
 def teacher_view_docs_view(request):
     docs = QMODEL.Docs.objects.all().order_by('-created_at')
-    return render(request,'teacher/teacher_view_docs.html',{'docs':docs})
+    return render(request,'teacher/teacher_view_docs.html',{'docs':docs,  'teacher': models.Teacher.objects.get(user=request.user)})
 
 
 
@@ -251,18 +273,19 @@ def teacher_view_docs_view_detail(request, pk):
     context = {'docs':docs,
                 'comments': comments,
                'new_comment': new_comment,
-               'comment_form': comment_form}
+               'comment_form': comment_form,
+                'teacher': models.Teacher.objects.get(user=request.user)}
     return render(request, 'teacher/teacher_view_docs_view.html', context)
 # Marks
 @login_required(login_url='teacherlogin')
 def teacher_view_student_marks_view(request):
     students= SMODEL.Student.objects.all()
-    return render(request,'teacher/teacher_view_student_marks.html',{'students':students})
+    return render(request,'teacher/teacher_view_student_marks.html',{'students':students, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 def teacher_view_marks_view(request,pk):
     courses = QMODEL.Course.objects.all().order_by('-created_at')
-    response =  render(request,'teacher/teacher_view_marks.html',{'courses':courses})
+    response =  render(request,'teacher/teacher_view_marks.html',{'courses':courses,'teacher': models.Teacher.objects.get(user=request.user)})
     response.set_cookie('student_id',str(pk))
     return response
 
@@ -273,5 +296,18 @@ def teacher_check_marks_view(request,pk):
     student= SMODEL.Student.objects.get(id=student_id)
 
     results= QMODEL.Result.objects.all().filter(exam=course).filter(student=student)
-    return render(request,'teacher/teacher_check_marks.html',{'results':results, 'course':course})
+    return render(request,'teacher/teacher_check_marks.html',{'results':results, 'course':course, 'teacher': models.Teacher.objects.get(user=request.user)})
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def teacher_view_class_view(request):
+    teacher = models.Teacher.objects.get(user=request.user)
+    matching_article =  models.Classroom.objects.get(author=teacher)
+    form = forms.ClassroomCreateForm(instance=matching_article)
+    return render(
+        request=request,
+        template_name='teacher/teacher_view_class.html',
+        context={"object": matching_article,  'teacher': teacher, 'form':form}
+        )
+
 

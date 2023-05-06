@@ -21,10 +21,6 @@
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
-
     .panel {
 
       border: 1px solid rgb(188, 188, 188);
@@ -43,17 +39,20 @@
   </style>
 </head>
 <br><br>
+<br> <br>
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">Courses</h6>
+      <h6 class="panel-title"><i class="fas fa-book"></i> Exams </h6>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
 
           <th>Exam Name</th>
-          
+
+
+          <th> The course end on:</th>
           <th>Take Exam</th>
         </tr>
       </thead>
@@ -61,13 +60,28 @@
       <tr>
 
         <td> {{t.course_name}}</td>
-        
-        <td><a class="btn btn-danger btn-xs" href="{% url 'take-exam' t.id  %}"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
+
+
+        <td>{{t.date}}</td>
+        <td><a id="take_exam" class="btn btn-danger btn-xs" href="{% url 'take-exam' t.id  %}"><span
+              class="fas fa-arrow-right"></span></a>
+        </td>
+
+
+        <!-- {% for a in results %}
+        <td> {{a.exam}}</td>
+        <td> {{a.marks}}/{{t.total_marks}}</td>
+        <td>Attemp {{ forloop.counter }}</td>
+        <td> {{a.date}}</td>
+        {% endfor %} -->
+        {% endfor %}
       </tr>
-      {% endfor %}
     </table>
   </div>
 </div>
+<script>
+  exam_btn = document.getElementById("take_exam")
 
+</script>
 <br><br><br><br><br><br>
 {% endblock content %}

@@ -29,13 +29,17 @@ path('teacher-view-docs-detail/<int:pk>/', views.teacher_view_docs_view_detail, 
 path('teacher-view-pending-parents', views.teacher_view_pending_parents_view,name='teacher-view-pending-parents'),
 path('approve-parents/<int:pk>', views.approve_parents_view,name='approve-parents'),
 path('reject-parents/<int:pk>', views.reject_parents_view,name='reject-parents'),
+path('teacher-view-parents', views.teacher_parents_view, name="teacher-view-parents"),
 # Students
 path('teacher-view-pending-student', views.teacher_view_pending_student_view,name='teacher-view-pending-student'),
 path('approve-student/<int:pk>', views.approve_student_view,name='approve-student'),
 path('reject-student/<int:pk>', views.reject_student_view,name='reject-student'),
+path('teacher-view-student', views.teacher_student_view, name="teacher-view-student"),
 # Marks
 path('teacher-view-student-marks', views.teacher_view_student_marks_view,name='teacher-view-student-marks'),
 path('teacher-view-marks/<int:pk>', views.teacher_view_marks_view,name='teacher-view-marks'),
 path('teacher-check-marks/<int:pk>', views.teacher_check_marks_view,name='teacher-check-marks'),
+# Class room
+path('teacher-class', views.teacher_view_class_view,  name="teacher-class"),
 
 ]

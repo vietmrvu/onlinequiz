@@ -1,0 +1,85 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+        h6 {
+            text-align: center;
+        }
+
+        .row {
+            margin: 100px;
+        }
+
+        .panel {
+
+            border: 1px solid rgb(188, 188, 188);
+            border-radius: 20px;
+        }
+
+        .panel-title {
+            padding-top: 10px;
+            background-color: rgb(3, 69, 135);
+            color: white;
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+    </style>
+</head>
+<br><br>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h6 class="panel-title">Parents</h6>
+        </div>
+        <table class="table table-hover" id="dev-table">
+            <thead>
+                <tr>
+
+                    <th>Name</th>
+                    <th>Profile Picture</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>Your child</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            {% for t in parents %}
+            <tr>
+
+                <td> {{t.user}}</td>
+                <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+                <td>{{t.mobile}}</td>
+
+                <td>{{t.address}}</td>
+                <td>{{t.student_model}}</td>
+
+                <td><a class="btn btn-primary btn-xs" href="{% url 'update-parents' t.id  %}"><span
+                            class="glyphicon glyphicon-edit"></span></a></td>
+                <td><a class="btn btn-danger btn-xs" href="{% url 'delete-parents' t.id  %}"><span
+                            class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

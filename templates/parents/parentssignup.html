@@ -1,78 +1,77 @@
 <!DOCTYPE html>
 {% load widget_tweaks %}
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Learning System Online</title>
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
-    <style>
 
-        form{
-           margin: 50px; 
-          
-        }
+<head>
+  <meta charset="utf-8">
+  <title>Learning System Online</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
+  <style>
+    form {
+      margin: 50px;
 
-    </style>
-  </head>
-  <body>
-    {% include "quiz/navbar.html" %}
- 
+    }
+  </style>
+</head>
 
+<body>
+  {% include "quiz/navbar.html" %}
 
-<br><br><br>
-<h3 style="text-align: center;color: red;">PARENTS SIGNUP</h3>
-<form method="POST" autocomplete="off" enctype="multipart/form-data">
+  <br><br><br>
+  <br>
+  <h3 style="text-align: center;color: red;">PARENTS SIGNUP</h3>
+  <form method="POST" autocomplete="off" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="username">Username</label>
-        {% render_field userForm.username|attr:'required:true'  class="form-control" placeholder="username" %}
+        {% render_field userForm.username|attr:'required:true' class="form-control" placeholder="username" %}
       </div>
       <div class="form-group col-md-6">
         <label for="inputPassword4">Password</label>
-        {% render_field userForm.password|attr:'required:true'  class="form-control" placeholder="password" %}
+        {% render_field userForm.password|attr:'required:true' class="form-control" placeholder="password" %}
       </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="first_name">First Name</label>
-          {% render_field userForm.first_name|attr:'required:true'  class="form-control" placeholder="First Name" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="last_name">Last Name</label>
-          {% render_field userForm.last_name|attr:'required:true'  class="form-control" placeholder="Last Name" %}
-        </div>
+      <div class="form-group col-md-6">
+        <label for="first_name">First Name</label>
+        {% render_field userForm.first_name|attr:'required:true' class="form-control" placeholder="First Name" %}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="last_name">Last Name</label>
+        {% render_field userForm.last_name|attr:'required:true' class="form-control" placeholder="Last Name" %}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="mobile">Mobile</label>
+        {% render_field parentsForm.mobile|attr:'required:true' class="form-control" placeholder="Mobile" %}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="address">Address</label>
+        {% render_field parentsForm.address|attr:'required:true' class="form-control" placeholder="Address" %}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="profile_pic">Profile Picture</label>
+        {% render_field parentsForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
       </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="mobile">Mobile</label>
-          {% render_field parentsForm.mobile|attr:'required:true'  class="form-control" placeholder="Mobile" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="address">Address</label>
-          {% render_field parentsForm.address|attr:'required:true'  class="form-control" placeholder="Address" %}
-        </div>
-      </div>
+    </div>
+    <div class="form-row">
+      <label for="student_model">Your child</label>
+      <div class="form-group col-md-12">
 
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="profile_pic">Profile Picture</label>
-          {% render_field parentsForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
-        </div>
-        
-      </div>
-       <div class="form-row">
-        <label for="student_model">Your child</label>
-        <div class="form-group col-md-12">
-          
-          {{parentsForm.student_model }}
+        {{parentsForm.student_model }}
 
 
-        </div>
-        
       </div>
+
+    </div>
 
 
 
@@ -80,7 +79,8 @@
   </form>
 
 
-<br><br>
-{% include "quiz/footer.html" %}
-  </body>
+  <br><br>
+  {% include "quiz/footer.html" %}
+</body>
+
 </html>

@@ -15,3 +15,16 @@ class TeacherForm(forms.ModelForm):
         model=models.Teacher
         fields=['address','mobile','profile_pic','class_model','grade']
 
+class ClassroomCreateForm(forms.ModelForm):
+    class Meta:
+        model = models.Classroom
+
+        fields = [
+            "title",
+            "subtitle",
+            "class_slug",
+            "content",
+            "notes",
+            "image",
+            "author"
+        ]

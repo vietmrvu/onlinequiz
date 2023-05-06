@@ -33,7 +33,7 @@ SECRET_KEY = '@k0#p3kidu)yaaa3u1hplxz)f@^6xiy384*(+n@@s5x#1bx@m5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
+USE_TZ = True 
 ALLOWED_HOSTS = ['0.0.0.0','genidevlms.onrender.com','127.0.0.1']
 
 
@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'onlinequiz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'xgibkvaf', 
-        'USER': 'xgibkvaf', 
-        'PASSWORD': 'rxQ9E1bkSde-qYlO-F7QhyWK7eIIr6fX',
-        'HOST': 'floppy.db.elephantsql.com', 
+        'NAME': 'fwcgcbqf', 
+        'USER': 'fwcgcbqf', 
+        'PASSWORD': 'H_Dz5ELPj8-qV6wVbvfIZ8jGmY_Cb1iA',
+        'HOST': 'arjuna.db.elephantsql.com', 
         'PORT': '5432'
     }
 }

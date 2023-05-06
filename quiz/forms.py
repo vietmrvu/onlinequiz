@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from . import models
+from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
+
 
 class ContactusForm(forms.Form):
     Name = forms.CharField(max_length=30)
@@ -10,10 +12,16 @@ class ContactusForm(forms.Form):
 class TeacherSalaryForm(forms.Form):
     salary=forms.IntegerField()
 
+
+
+
 class CourseForm(forms.ModelForm):
+    date = forms.SplitDateTimeField(widget=AdminSplitDateTime())
     class Meta:
         model=models.Course
-        fields=['course_name','question_number','total_marks','atempt']
+        fields=['course_name','question_number','total_marks','atempt','date','limited_mins']
+        
+
 
 class QuestionForm(forms.ModelForm):
     

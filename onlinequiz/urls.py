@@ -4,6 +4,7 @@ from quiz import views
 from django.contrib.auth.views import LogoutView,LoginView
 from django.views.static import serve
 from django.conf import settings
+from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = [
     # Apps
@@ -13,7 +14,7 @@ urlpatterns = [
     path('parents/',include('parents.urls')),
     path('videocall/',include('videocall.urls')),
     # Homepages
-    path('',views.home_view,name=''),
+    path('',LoginView.as_view(template_name='quiz/index.html'),name=''),
     path('logout', LogoutView.as_view(template_name='quiz/logout.html'),name='logout'),
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
@@ -34,6 +35,8 @@ urlpatterns = [
     path('approve-teacher/<int:pk>', views.approve_teacher_view,name='approve-teacher'),
     path('reject-teacher/<int:pk>', views.reject_teacher_view,name='reject-teacher'),
     path('view-subjects', views.admin_view_subject, name="view-subjects"),
+    path('admin-add-teacher', views.admin_add_teacher_view, name="admin-add-teacher"),
+    path('delete-subject/<int:pk>', views.admin_delete_subject,name='delete-subject'),
     # Admin parents
     path('admin-view-parents', views.admin_view_parents_view,name='admin-view-parents'),
     path('update-parents/<int:pk>', views.update_parents_view,name='update-parents'),
@@ -65,8 +68,13 @@ urlpatterns = [
     path('admin-view-question', views.admin_view_question_view,name='admin-view-question'),
     path('view-question/<int:pk>', views.view_question_view,name='view-question'),
     path('delete-question/<int:pk>', views.delete_question_view,name='delete-question'),
+    # Admin classroom
+    path('admin-class', views.admin_view_class_view, name="admin-class"),
+    path('admin-add-class', views.admin_add_class, name="admin-add-class"),
+    path("admin-view-class/<slug>", views.admin_view_class_detail, name="admin-view-class"),
     # Static URL
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    path('jsi18n', JavaScriptCatalog.as_view(), name='js-catlog'),
 
 ]

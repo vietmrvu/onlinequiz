@@ -18,8 +18,8 @@
   {% include "quiz/navbar.html" %}
 
 
-
   <br><br><br>
+  <br>
   <h3 style="text-align: center;color: red;">STUDENT SIGNUP</h3>
   <form method="POST" autocomplete="off" enctype="multipart/form-data">
     {% csrf_token %}
@@ -65,7 +65,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-12">
-        <label for="profile_pic">Class room</label>
+        <label for="classroom">Class room</label>
         {{ studentForm.classroom }}
       </div>
     </div>

@@ -3,239 +3,458 @@
 
 <head>
 
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
     <title>Learning System Online</title>
     <style>
-        /*---------------------------------------
-   Social section
------------------------------------------*/
+        .footer-section {
+            background: #151414;
+            position: relative;
+        }
 
-        footer.footer a {
+        .footer-cta {
+            border-bottom: 1px solid #373636;
+            padding-bottom: 8px !important;
+        }
+
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: white;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
             color: white;
         }
 
-        footer.footer {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: tahoma;
-            margin-top: 85px;
-            position: relative;
-            width: 100%;
-            height: auto;
-            padding: 50px 100px;
-            background: #111;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: white;
         }
 
-        footer.footer .container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            flex-direction: row;
+        .single-cta i {
+            color: #ff5e14;
+            font-size: 30px;
+            float: left;
+            margin-top: 8px;
         }
 
-        footer.footer .container .noi-dung {
-            margin-right: 30px;
-        }
-
-        footer.footer .container .noi-dung.about {
-            width: 60%;
-        }
-
-        footer.footer .container .noi-dung.about h2 {
-            position: relative;
-            color: #fff;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        footer.footer .container .noi-dung.about h2:before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: #f00;
-        }
-
-        footer.footer .container .noi-dung.about p {
-            color: #999;
-        }
-
-        footer.footer .about .social-icon {
-            margin-top: 20px;
-            display: flex;
-        }
-
-        footer.footer .about .social-icon li {
-            list-style: none;
-        }
-
-        footer.footer .about .social-icon li a {
+        .cta-text {
+            padding-left: 15px;
             display: inline-block;
+        }
+
+        .cta-text h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .cta-text span {
+            color: #757575;
+            font-size: 15px;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-pattern img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 330px;
+            background-size: cover;
+            background-position: 100% 100%;
+        }
+
+        .footer-logo img {
+            max-width: 120px;
+        }
+
+        .footer-text p {
+            margin-bottom: 14px;
+            font-size: 14px;
+            color: #7e7e7e;
+            line-height: 21px;
+        }
+
+        .footer-social-icon span {
+            color: #fff;
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .footer-social-icon a {
+            color: #fff;
+            font-size: 16px;
+            margin-right: 15px;
+        }
+
+        .footer-social-icon i {
+            height: 40px;
+            width: 40px;
+            text-align: center;
+            line-height: 38px;
+            border-radius: 50%;
+        }
+
+        .facebook-bg {
+            background: #3b5998;
+        }
+
+        .twitter-bg {
+            background: #55acee;
+        }
+
+        .google-bg {
+            background: #dd4b39;
+        }
+
+        .footer-widget-heading h3 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .footer-widget-heading h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            height: 2px;
+            width: 50px;
+            background: #ff5e14;
+        }
+
+        .footer-widget ul li {
+            display: inline-block;
+            float: left;
+            width: 50%;
+            margin-bottom: 12px;
+        }
+
+        .footer-widget ul li a:hover {
+            color: #ff5e14;
+        }
+
+        .footer-widget ul li a {
+            color: #878787;
+            text-transform: capitalize;
+        }
+
+        .subscribe-form {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscribe-form input {
+            width: 100%;
+            padding: 14px 28px;
+            background: #2e2e2e;
+            border: 1px solid #2e2e2e;
+            color: #fff;
+        }
+
+        .subscribe-form button {
+            position: absolute;
+            right: 0;
+            background: #ff5e14;
+            padding: 13px 20px;
+            border: 1px solid #ff5e14;
+            top: 0;
+        }
+
+        .subscribe-form button i {
+            color: #fff;
+            font-size: 22px;
+            transform: rotate(-6deg);
+        }
+
+        .copyright-area {
+            background: #202020;
+            padding: 25px 0;
+        }
+
+        .copyright-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #878787;
+        }
+
+        .copyright-text p a {
+            color: #ff5e14;
+        }
+
+        .footer-menu li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .footer-menu li:hover a {
+            color: #ff5e14;
+        }
+
+        .footer-menu li a {
+            font-size: 14px;
+            color: #878787;
+        }
+
+        .footer-cta .row .col-xl-4:nth-child(1) .single-cta i {
+            position: absolute;
+            color: #ff5e14;
+        }
+
+        .footer-cta .row .col-xl-4:nth-child(1) .single-cta .cta-text {
+            padding-left: 45px;
+        }
+
+        .footer-cta .row .col-xl-4:nth-child(2) .single-cta i {
+            color: #14ffa7;
+        }
+
+        .footer-cta .row .col-xl-4:nth-child(3) .single-cta i {
+            color: #ffd700;
+        }
+
+        .footer-social-icon .social_icon {
+            text-align: left;
+        }
+
+        .footer-social-icon .social_icon li {
+            float: inherit !important;
+            display: inline-block !important;
+            width: inherit;
+        }
+
+        .footer-social-icon .social_icon li a i {
+            font-size: 15px;
+            line-height: 39px;
+        }
+
+        .footer-social-icon .social_icon li a {
             width: 40px;
             height: 40px;
-            background: #222;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            text-decoration: none;
-            border-radius: 4px;
         }
 
-        footer.footer .about .social-icon li a:hover {
-            background: #f00;
+        .social_icon {
+            text-align: right;
+            margin: 0;
+            margin-top: 3px;
         }
 
-        footer.footer .about .social-icon li a .fa {
-            color: #fff;
-            font-size: 20px;
-        }
-
-        .links h2 {
-            position: relative;
-            color: #fff;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .links h2 {
-            position: relative;
-            color: #fff;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .links h2::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: #f00;
-        }
-
-        .links {
-            position: relative;
-            width: 25%;
-        }
-
-        .links ul li {
-            list-style: none;
-        }
-
-        .links ul li a {
-            color: #999;
-            text-decoration: none;
-            margin-bottom: 10px;
+        .social_icon li {
             display: inline-block;
+            margin: 0 5px;
         }
 
-        .links ul li a:hover {
+        .social_icon li a {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #fff;
+            color: #000;
+            text-align: center;
+            border-radius: 100%;
+            transition: 0.2s ease-in-out;
+        }
+
+        .social_icon li a i {
+            font-size: 15px;
+            line-height: 20px;
+        }
+
+        .social_icon li:nth-child(1) a {
+            background: #4267b2;
             color: #fff;
         }
 
-        .contact h2 {
-            position: relative;
+        .social_icon li:nth-child(2) a {
+            background: #1da1f2;
             color: #fff;
-            font-weight: 500;
-            margin-bottom: 15px;
         }
 
-        .contact h2::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: #f00;
-        }
-
-        .contact {
-            width: calc(35% - 60px);
-            margin-right: 0 !important;
-        }
-
-        .contact .info {
-            position: relative;
-        }
-
-        .contact .info li {
-            display: flex;
-            margin-bottom: 16px;
-        }
-
-        .contact .info li span:nth-child(1) {
+        .social_icon li:nth-child(3) a {
+            background: #f09433;
+            background: -moz-linear-gradient(45deg,
+                    #f09433 0%,
+                    #e6683c 25%,
+                    #dc2743 50%,
+                    #cc2366 75%,
+                    #bc1888 100%);
+            background: -webkit-linear-gradient(45deg,
+                    #f09433 0%,
+                    #e6683c 25%,
+                    #dc2743 50%,
+                    #cc2366 75%,
+                    #bc1888 100%);
+            background: linear-gradient(45deg,
+                    #f09433 0%,
+                    #e6683c 25%,
+                    #dc2743 50%,
+                    #cc2366 75%,
+                    #bc1888 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
             color: #fff;
-            font-size: 20px;
-            margin-right: 10px;
         }
 
-        .contact .info li span {
-            color: #999;
+        .social_icon li:nth-child(4) a {
+            background: #ff0000;
+            color: #fff;
         }
 
-        .contact .info li a {
-            color: #999;
-            text-decoration: none;
+        .social_icon li:nth-child(1):hover a {
+            background: #fff;
+            color: #4267b2;
         }
 
+        .social_icon li:nth-child(2):hover a {
+            background: #fff;
+            color: #1da1f2;
+        }
 
-        @media (max-width: 768px) {
-            footer.footer {
-                padding: 40px;
+        .social_icon li:nth-child(3):hover a {
+            background: #fff;
+            color: #bc1888;
+        }
 
-            }
-
-            footer.footer .container {
-                flex-direction: column;
-            }
-
-            footer.footer .container .noi-dung {
-                margin-right: 0;
-                margin-bottom: 40px;
-            }
-
-            footer.footer .container,
-            .noi-dung.about,
-            .links,
-            .contact {
-                width: 100%;
-            }
+        .social_icon li:nth-child(4):hover a {
+            background: #fff;
+            color: #ff0000;
         }
     </style>
 </head>
-<footer>
-    <div class="footer-container" id="footer" style="margin-top: -85px">
-        <footer class="footer">
-            <div class="container">
-                <!--Bắt Đầu Nội Dung Giới Thiệu-->
-                <div class="noi-dung about">
-                    <h2>About us</h2>
-                    <p> I'm a developer and I hope you guys like to visit my site. It's just a personal blog, all things
-                        in this blog about I and my knowledge from technology. Also this webpage can be my fanpage if
-                        you want to communicate with me. More information, click at the social link. </p>
-                    <p><a>Email: vuviet.thd@gmail.com</a></p>
-                    <ul class="social-icon">
-                        <li><a href="http://vietmrvu.github.io/intro/"><img width="25" height="25"
-                                    src="data:image/png;base64,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"
-                                    class="lazyloaded" data-ll-status="loaded"></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCG4b8a0cvRGbJ96IXuV45AA"><img width="25"
-                                    height="25" src="https://quattran.vn/wp-content/uploads/2021/09/youtube_icon.png"
-                                    class="lazyloaded" data-ll-status="loaded"></i></a></li>
-                    </ul>
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 ">
+            <div class="row">
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="cta-text">
+                            <h4>Find us</h4>
+                            <span>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016 </span>
+                        </div>
+                    </div>
                 </div>
-        </footer>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="fas fa-phone"></i>
+                        <div class="cta-text">
+                            <h4>Call us</h4>
+                            <span>+91 1234567890</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="far fa-envelope-open"></i>
+                        <div class="cta-text">
+                            <h4>Mail us</h4>
+                            <span>contact@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-1">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html"><img width="40"
+                                    src="https://cdn-icons-png.flaticon.com/512/2201/2201570.png" alt="">
+                            </a>
+                            <div style="display:inline-block" class="footer-widget-heading">
+                                <h3>About me</h3>
+                            </div>
+
+                        </div>
+                        <div class="footer-text">
+                            <p>I'm a developer and I hope you guys like to visit my site. It's my first learning system,
+                                all things
+                                in this site to help you learning. More information, click at the social link.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <ul class="social_icon" style="padding-left:0px">
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Useful Links</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Our Gallery</a></li>
+                            <li><a href="#">Selection Process</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Sponsorship</a></li>
+                            <li><a href="#">Our Policies</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#" style="margin:0">
+                                <input type="text" placeholder="Email Address">
+                                <button><i class="fab fa-telegram-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="copyright-text">
+                        <p>Copyright &copy; 2023, All Right Reserved <a href="#">GeniDev</a></p>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
 </footer>
 
 </html>

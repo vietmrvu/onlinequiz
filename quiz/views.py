@@ -16,6 +16,7 @@ from teacher import forms as TFORM
 from student import forms as SFORM
 from parents import forms as PFORM
 from django.contrib.auth.models import User
+from django import  forms as DJFORM
 
 
 # Administrators
@@ -73,6 +74,7 @@ def admin_dashboard_view(request):
     'total_question':models.Question.objects.all().count(),
     'total_parents':PMODEL.Parents.objects.all().count(),
     'total_docs':models.Docs.objects.all().count(),
+    'total_class':TMODEL.Classroom.objects.all().count(),
     }
     return render(request,'quiz/admin_dashboard.html',context=dict)
 @login_required(login_url='adminlogin')
@@ -102,7 +104,7 @@ def admin_view_teacher_view(request):
 def admin_add_teacher_view(request):
     userForm=TFORM.TeacherUserForm()
     teacherForm=TFORM.TeacherForm()
-    mydict={'userForm':userForm,'teacherForm':teacherForm}
+    mydict={'userForm':userForm,'teacherForm':teacherForm,'content': 'ADD'}
     if request.method=='POST':
         userForm=TFORM.TeacherUserForm(request.POST)
         teacherForm=TFORM.TeacherForm(request.POST,request.FILES)
@@ -116,8 +118,8 @@ def admin_add_teacher_view(request):
             my_teacher_group = Group.objects.get_or_create(name='TEACHER')
             my_teacher_group[0].user_set.add(user)
             print(my_teacher_group[0])
-        return HttpResponseRedirect('teacherlogin')
-    return render(request,'teacher/teachersignup.html',context=mydict)
+            return HttpResponseRedirect('/admin-view-teacher')
+    return render(request,'quiz/update_teacher.html',context=mydict)
 
 @login_required(login_url='adminlogin')
 def update_teacher_view(request,pk):
@@ -125,7 +127,7 @@ def update_teacher_view(request,pk):
     user=TMODEL.User.objects.get(id=teacher.user_id)
     userForm=TFORM.TeacherUserForm(instance=user)
     teacherForm=TFORM.TeacherForm(request.FILES,instance=teacher)
-    mydict={'userForm':userForm,'teacherForm':teacherForm}
+    mydict={'userForm':userForm,'teacherForm':teacherForm, 'teacher':teacher, "content":"UPDATE"}
     if request.method=='POST':
         userForm=TFORM.TeacherUserForm(request.POST,instance=user)
         teacherForm=TFORM.TeacherForm(request.POST,request.FILES,instance=teacher)
@@ -155,18 +157,10 @@ def admin_view_pending_teacher_view(request):
 
 @login_required(login_url='adminlogin')
 def approve_teacher_view(request,pk):
-    teacherSalary=forms.TeacherSalaryForm()
-    if request.method=='POST':
-        teacherSalary=forms.TeacherSalaryForm(request.POST)
-        if teacherSalary.is_valid():
-            teacher=TMODEL.Teacher.objects.get(id=pk)
-            teacher.salary=teacherSalary.cleaned_data['salary']
-            teacher.status=True
-            teacher.save()
-        else:
-            print("form is invalid")
-        return HttpResponseRedirect('/admin-view-pending-teacher')
-    return render(request,'quiz/salary_form.html',{'teacherSalary':teacherSalary})
+    teacher=TMODEL.Teacher.objects.get(id=pk)
+    teacher.status = True
+    teacher.save()
+    return HttpResponseRedirect('/admin-view-teacher')
 
 @login_required(login_url='adminlogin')
 def reject_teacher_view(request,pk):
@@ -185,6 +179,13 @@ def admin_view_teacher_salary_view(request):
 def admin_view_subject(request):
     classmodel = TMODEL.Tag.objects.all()
     return render(request,'quiz/admin_view_subjects.html',{'subjects':classmodel})
+
+@login_required(login_url='adminlogin')
+def admin_delete_subject(request, pk):
+    subject=TMODEL.Tag.objects.get(id=pk)
+    subject.delete()
+    return HttpResponseRedirect('/view-subjects')
+
 
 
 # Students
@@ -294,7 +295,9 @@ def delete_parents_view(request,pk):
     user.delete()
     parents.delete()
     return HttpResponseRedirect('/admin-view-parents')
-# Courses
+
+
+
 @login_required(login_url='adminlogin')
 def admin_course_view(request):
     courses = models.Course.objects.all()
@@ -389,7 +392,6 @@ def admin_docs_view(request):
     return render(request,'quiz/admin_docs.html')
 
 @login_required(login_url='adminlogin')
-
 def admin_add_docs_view(request):
     context = {'courseForm': forms.DocsForm}
     try:
@@ -414,14 +416,12 @@ def admin_add_docs_view(request):
     return render(request, 'quiz/admin_add_docs.html', context)
 
 @login_required(login_url='adminlogin')
-
 def delete_docs_view(request,pk):
     course=models.Docs.objects.get(id=pk)
     course.delete()
     return HttpResponseRedirect('/admin-view-docs')
 
 @login_required(login_url='adminlogin')
-
 def admin_view_docs_view(request):
     courses = models.Docs.objects.all().order_by('-created_at')
     return render(request,'quiz/admin_view_docs.html',{'courses':courses})
@@ -469,6 +469,42 @@ def admin_view_docs_view_detail(request, pk):
                'new_comment': new_comment,
                'comment_form': comment_form}
     return render(request, 'quiz/admin_view_docs_detail.html', context) 
+
+# Classroom 
+@login_required(login_url='adminlogin')
+def admin_view_class_view(request):
+    classroom = TMODEL.Classroom.objects.all().order_by('-published')
+    return render(request,'quiz/admin_view_class.html',{'classroom':classroom})
+
+@login_required(login_url='adminlogin')
+def admin_add_class(request):
+    if request.method == "POST":
+        form = TFORM.ClassroomCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin-class')
+
+    else:
+         form =TFORM.ClassroomCreateForm(request.POST, request.FILES)
+
+    return render(
+        request=request,
+        template_name='quiz/admin_add_class.html',
+        context={
+            "object": "Classroom",
+            "form": form
+            }
+        )
+
+@login_required(login_url='adminlogin')
+def admin_view_class_detail(request, slug):
+    matching_article = TMODEL.Classroom.objects.filter(class_slug=slug).first()
+    
+    return render(
+        request=request,
+        template_name='quiz/admin_view_class_detail.html',
+        context={"object": matching_article}
+        )
 
 # Footer
 
