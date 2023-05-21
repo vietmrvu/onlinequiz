@@ -95,10 +95,31 @@ def teacher_add_exam_view(request):
     return render(request,'teacher/teacher_add_exam.html',{'courseForm':courseForm, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
+def teacher_view_exam_detail(request, pk):
+    course = QMODEL.Course.objects.get(id=pk)
+    questions=QMODEL.Question.objects.filter(course=course)
+    return render(
+        request=request,
+        template_name='teacher/teacher_view_exam_detail.html',
+        context={"course": course,"questions": questions, 'teacher': models.Teacher.objects.get(user=request.user)}
+        )
+
+@login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_exam_view(request):
     courses = QMODEL.Course.objects.all().order_by('-created_at')
     return render(request,'teacher/teacher_view_exam.html',{'courses':courses , 'teacher': models.Teacher.objects.get(user=request.user)})
+
+@login_required(login_url='teacherlogin')
+def teacher_update_course_view(request, pk):
+    course = QMODEL.Course.objects.get(id=pk)
+    courseForm=QFORM.CourseForm(instance=course)
+    if request.method=='POST':
+        courseForm=QFORM.CourseForm(request.POST, instance=course)
+        if courseForm.is_valid():        
+            courseForm.save()
+            return HttpResponseRedirect('/teacher/teacher-view-exam')
+    return render(request,'teacher/teacher_update_course.html',{'courseForm':courseForm, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)

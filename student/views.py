@@ -80,6 +80,16 @@ def start_exam_view(request,pk):
     response.set_cookie('course_id',course.id)
     return response
 
+@user_passes_test(is_student)
+def student_view_exam_detail(request,pk):
+    course = QMODEL.Course.objects.get(id=pk)
+    questions=QMODEL.Question.objects.filter(course=course)
+    return render(
+        request=request,
+        template_name='teacher/teacher_view_exam_detail.html',
+        context={"course": course,"questions": questions, 'teacher': models.Teacher.objects.get(user=request.user)}
+        )
+
 
 @user_passes_test(is_student)
 @csrf_exempt

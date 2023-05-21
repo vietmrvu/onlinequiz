@@ -2,33 +2,259 @@
 {% load widget_tweaks %}
 
 
-  <style media="screen">
-    .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
+<style media="screen">
+  .jumbotron {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .jumbotron h1 {
+    text-align: center;
+  }
+
+  .alert {
+    margin: 0px;
+  }
+
+  @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+  .panel {
+    background: rgba(0, 0, 0, .3);
+    box-shadow: 0 0 30px 10px rgba(0, 0, 0, .3);
+    border-radius: 25px;
+    transition: 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transform: rotateX(-90deg);
+  }
+
+  .panel.is--open {
+    transform: rotateX(0deg);
+  }
+
+  .panel__content {
+    padding-bottom: 4em;
+    background: #fff;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    color: #5a5a5a;
+    text-align: center;
+  }
+
+  .panel__content h4 {
+    padding: 1.5em 0;
+    border-bottom: 2px solid #ededed;
+    color: #865fdf;
+    font-size: 1.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .panel__content h2 {
+    padding: 0.5em 1.5em;
+    font-size: 3em;
+    font-weight: 300;
+  }
+
+  .panel__content p {
+    margin: auto;
+    width: 55%;
+    font-size: 1.15em;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .panel__flaps {
+    display: flex;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  .flap {
+    height: 100px;
+    background: #865fdf;
+  }
+
+  .flap__btn {
+    width: calc((100% - 212px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #8f69e8;
+    color: white;
+    cursor: pointer;
+    font-size: 2.25em;
+    font-weight: 700;
+    text-decoration: none;
+    z-index: 1;
+    transition: 0.2s ease;
+    transform: translate3d(0, 0, 0);
+    transform-origin: top center;
+  }
+
+  .flap__btn:hover,
+  .flap__btn:focus {
+    background: #865fdf;
+    outline: none;
+    transform: rotateX(-25deg) translate3d(0, 0, 0);
+  }
+
+  .outer {
+    width: 106px;
+  }
+
+  .flap--left {
+    border-bottom-left-radius: 25px;
+    transform-origin: top right;
+  }
+
+  .flap--right {
+    border-bottom-right-radius: 25px;
+    transform-origin: top left;
+  }
+
+  .is--open .outer {
+    animation: swing 1.5s 0.2s ease;
+  }
+
+  .is--open .flap__btn:first-of-type {
+    animation: swing 1.5s 0.3s ease;
+  }
+
+  .is--open .flap__btn:last-of-type {
+    animation: swing 1.5s 0.4s ease;
+  }
+
+  @keyframes swing {
+    10% {
+      transform: rotateX(25deg);
     }
 
-    .jumbotron h1 {
-      text-align: center;
+    50% {
+      transform: rotateX(-15deg);
     }
 
-    .alert {
-      margin: 0px;
+    75% {
+      transform: rotateX(5deg);
     }
-  </style>
-  <body>
-    {% include "quiz/navbar.html" %}
 
-      <div class="jumbotron" style="margin-bottom:0px; display: block; width:100%; padding:auto; text-align: center;">
-        <h1 class="display-4">Hello {{request.user}}</h1>
-        <p class="lead">Your Account is not approved till now <br><br>Our Team is checking your profile <br><br> Soon Your Account Will Be Approved</p>
-        <hr class="my-4">
-        <p>Check Later</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/logout" role="button">Logout For Now</a>
-        </p>
-      </div>
+    90% {
+      transform: rotateX(-2.5deg);
+    }
 
-{% include "quiz/footer.html" %}
-  </body>
+    100% {
+      transform: rotateX(0deg);
+    }
+  }
+
+  .replay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.5em;
+    background: #865fdf;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    text-decoration: none;
+    transition: all 0.3s;
+    transform: translate(-50%, -50%);
+  }
+
+  .replay:hover,
+  .replay:focus {
+    background: #8f69e8;
+    outline: none;
+    box-shadow: 0 0 25px #865fdf;
+  }
+
+  .replay:active {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .replay.is--active {
+    opacity: 1;
+    pointer-events: initial;
+  }
+
+  *,
+  *:before,
+  *:after {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    box-sizing: border-box;
+  }
+
+  .only:hover {
+    color: white;
+    text-decoration: none;
+  }
+</style>
+
+<body>
+  {% include "quiz/navbar.html" %}
+  <div style="    max-width: 800px;
+    margin: 100px auto" id="js-panel" class="panel">
+    <div class="panel__content">
+      <h4>Just Checking...</h4>
+      <h2>Wait for us to accept {{request.user}} user </h2>
+      <p>Please waiting us, you can logout and wait a few times to try again</p>
+    </div>
+    <div class="panel__flaps">
+      <div class="flap outer flap--left"></div>
+      <a href="{% url 'logout' %}" class="flap only flap__btn"> Log out</a>
+      <div class="flap outer flap--right"></div>
+    </div>
+  </div>
+  <a id="js-replay" class="replay"> Replay</a>
+
+  {% include "quiz/footer.html" %}
+</body>
+<script>
+  (function () {
+    // Variables
+    var panel = document.getElementById("js-panel");
+    var btns = document.querySelectorAll(".flap__btn");
+    var btnReplay = document.getElementById("js-replay");
+
+    // On load, init panel
+    var init = function () {
+      panel.classList.add("is--open");
+    }
+
+
+    //     // If btns are clicked, hide panel
+    //     // Show replay button    
+    //     for (var i=0; i < btns.length; i++) {
+    //       btns[i].addEventListener("click", function() {
+    //         hidePanel();
+    //       });
+    //     }
+
+    //     function hidePanel() {
+    //       panel.classList.remove("is--open");
+    //       btnReplay.classList.add("is--active");
+    //     }
+
+    //     // When replay button is clicked,
+    //     // reset the stage.
+    //     btnReplay.addEventListener("click", function() {
+    //       resetStage();
+    //     });
+    //   }
+
+    //   // Hide the button and re-call init
+    //   function resetStage() {
+    //     btnReplay.classList.remove("is--active");
+    //     init();
+    //   }
+
+    // On load, call init function
+    window.onload = function () {
+      init();
+    }
+  })();
+</script>
+
 </html>

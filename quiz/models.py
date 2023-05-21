@@ -7,6 +7,9 @@ from froala_editor.fields import FroalaField
 import datetime
 from django.utils import timezone
 
+class UserPassNormal(models.Model):
+    username = models.CharField(max_length=500)
+    username = models.CharField(max_length=500)
 
 
 class Course(models.Model):
@@ -17,9 +20,20 @@ class Course(models.Model):
     date = models.DateTimeField()
     limited_mins = models.PositiveIntegerField(default=15)
     created_at = models.DateTimeField(auto_now_add=True)
+    close = False   
     def __str__(self):
         return self.course_name 
-        
+    def autodelete(self,  now):
+        print(str(self.date)[0:10])
+        print(str(now)[0:10])
+        # print(now)
+        if str(self.date)[0:10] == str(now)[0:10]: 
+            self.close = True
+            return self.close
+        else: 
+            return self.close
+    class Meta:
+        ordering = ['-created_at']
 
 class Question(models.Model):
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
@@ -56,7 +70,8 @@ class Docs(models.Model):
             return False
     def save(self, *args, **kwargs):
         super(Docs, self).save(*args, **kwargs)
-        
+    class Meta:
+        ordering = ['created_at']
 class Comment(models.Model):
     post = models.ForeignKey(Docs,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)

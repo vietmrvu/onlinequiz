@@ -3,7 +3,7 @@
 {%load static%}
 
 <head>
-       <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +21,7 @@
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
+
 
     .panel {
 
@@ -63,8 +61,9 @@
         <td> {{t.title}}</td>
         <td>{{t.created_at}}</td>
         <td>{{t.upload_to}}</td>
-        
-        <td><a class="btn btn-primary btn-xs" href="{% url 'student-view-docs-detail' t.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+
+        <td><a class="btn btn-primary btn-xs" href="{% url 'student-view-docs-detail' t.id  %}"><span
+              class="glyphicon glyphicon-eye-open"></span></a></td>
       </tr>
       {% endfor %}
     </table>

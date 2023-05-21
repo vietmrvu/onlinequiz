@@ -65,6 +65,15 @@
         <td> {{t.marks}}/{{course.total_marks}}</td>
         <td>Attemp {{ forloop.counter }}</td>
         <td> {{t.date}}</td>
+        <td> The exam isn't closed yet</td>
+        </tr>
+        {% elif t.close %}<tr>
+          <td> {{t.exam}}</td>
+          <td> {{t.marks}}/{{course.total_marks}}</td>
+          <td>Attemp {{ forloop.counter }}</td>
+          <td> {{t.date}}</td>
+          <td><a class="btn btn-info btn-xs" href="{% url 'view-exam' t.id  %}"><span class="fas fa-eye"></span></a>
+          </td>
         </tr>
         {% else %}
         {% endif %}

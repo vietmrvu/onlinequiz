@@ -44,17 +44,39 @@
     .fas {
       color: white
     }
+
+    .bigtable::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bigtable {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow: scroll;
+    }
+
+    .panel-heading {
+      width: 100%;
+      position: relative;
+      top: 40px;
+    }
+
+    #dev-table {
+      margin-top: 39px
+    }
   </style>
 </head>
 <br><br>
 <div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Teachers</h6>
-      <a href="{% url 'admin-add-teacher'  %}"
-        style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
-        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
-    </div>
+  <div class="panel-heading">
+    <h6 class="panel-title">Teachers</h6>
+    <a href="{% url 'admin-add-teacher'  %}"
+      style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+      class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
+  </div>
+  <div class="panel panel-primary bigtable">
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
@@ -63,11 +85,11 @@
           <th>Profile Picture</th>
           <th>Mobile</th>
           <th>Address</th>
-
-          <th>Update</th>
-          <th>Delete</th>
           <th>Subject </th>
           <th>Status </th>
+          <th>Update</th>
+          <th>Delete</th>
+
           <th>Check </th>
         </tr>
       </thead>
@@ -78,13 +100,13 @@
         <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{t.mobile}}</td>
         <td>{{t.address}}</td>
-
+        <td>{{t.class_model}}</td>
+        <td>{{t.status}}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"><i class="fas fa-edit"></i></a>
         </td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-teacher' t.id  %}"><span
               class="fas fa-trash"></span></a></td>
-        <td>{{t.class_model}}</td>
-        <td>{{t.status}}</td>
+
         <td><a href="{% url 'approve-teacher' t.id  %}" style="background: green; color: white" class="btn btn-xs"
             href=""><span class="fas fa-check"></span></a></td>
       </tr>

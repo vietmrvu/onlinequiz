@@ -5,6 +5,7 @@ from django.contrib.auth.views import LogoutView,LoginView
 from django.views.static import serve
 from django.conf import settings
 from django.views.i18n import JavaScriptCatalog
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # Apps
@@ -13,6 +14,10 @@ urlpatterns = [
     path('student/',include('student.urls')),
     path('parents/',include('parents.urls')),
     path('videocall/',include('videocall.urls')),
+    path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
+    path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
+    path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     # Homepages
     path('',LoginView.as_view(template_name='quiz/index.html'),name=''),
     path('logout', LogoutView.as_view(template_name='quiz/logout.html'),name='logout'),
@@ -38,9 +43,11 @@ urlpatterns = [
     path('admin-add-teacher', views.admin_add_teacher_view, name="admin-add-teacher"),
     path('delete-subject/<int:pk>', views.admin_delete_subject,name='delete-subject'),
     # Admin parents
+    path('approve-parents/<int:pk>', views.approve_parents_view,name='approve-parents'),
     path('admin-view-parents', views.admin_view_parents_view,name='admin-view-parents'),
     path('update-parents/<int:pk>', views.update_parents_view,name='update-parents'),
     path('delete-parents/<int:pk>', views.delete_parents_view,name='delete-parents'),
+    path('admin-add-parents', views.admin_add_parents_view,name='admin-add-parents'),
     # Admin students
     path('admin-student', views.admin_student_view,name='admin-student'),
     path("approve-student/<int:pk>", views.approve_student_view, name="approve-student"),
@@ -55,6 +62,8 @@ urlpatterns = [
     path('admin-course', views.admin_course_view,name='admin-course'),
     path('admin-add-course', views.admin_add_course_view,name='admin-add-course'),
     path('delete-course/<int:pk>', views.delete_course_view,name='delete-course'),
+    path('admin-update-course/<int:pk>', views.admin_update_course_view,name='admin-update-course'),
+    path('admin-view-course-detail/<int:pk>', views.admin_course_view_detail,name='admin-view-course-detail'),
     # Admin docs
     path('admin-docs', views.admin_docs_view,name='admin-docs'),
     path('admin-add-docs', views.admin_add_docs_view,name='admin-add-docs'),
@@ -72,6 +81,10 @@ urlpatterns = [
     path('admin-class', views.admin_view_class_view, name="admin-class"),
     path('admin-add-class', views.admin_add_class, name="admin-add-class"),
     path("admin-view-class/<slug>", views.admin_view_class_detail, name="admin-view-class"),
+    path("admin-update-class/<slug>", views.admin_update_class, name="admin-update-class"),
+    path('delete-class/<slug>', views.delete_class_view,name='delete-class'),
+    path("admin-view-class-student/<slug>", views.admin_view_student_class, name="admin-view-class-student"),
+
     # Static URL
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

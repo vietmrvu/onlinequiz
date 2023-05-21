@@ -31,7 +31,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = '@k0#p3kidu)yaaa3u1hplxz)f@^6xiy384*(+n@@s5x#1bx@m5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 USE_TZ = True 
 ALLOWED_HOSTS = ['0.0.0.0','genidevlms.onrender.com','127.0.0.1']
@@ -53,7 +53,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'froala_editor',
     'videocall',
-    'psycopg2'
+    'psycopg2',
+        'crispy_bootstrap4', 
+            'crispy_forms',
+
+
 
 ]
 
@@ -69,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'onlinequiz.urls'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -130,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Saigon'
 
 USE_I18N = True
 
@@ -147,11 +152,15 @@ LOGIN_REDIRECT_URL='/afterlogin'
 
 #for contact us give your gmail id and password
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+# EMAIL_HOST_USER = '740ac5be37fca5'
+# EMAIL_HOST_PASSWORD = '5c379888a68401'
+# EMAIL_PORT = '2525'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'vuviet.thd@gmail.com' # this email will be used to send emails
-EMAIL_HOST_PASSWORD = '123456@Mk' # host email password required
+EMAIL_HOST_PASSWORD = 'mfbdqziaxqlwdzhc' # host email password required
 # now sign in with your host gmail account in your browser
 # open following link and turn it ON
 # https://myaccount.google.com/lesssecureapps

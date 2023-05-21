@@ -30,6 +30,10 @@
       text-decoration: none;
     }
 
+    select {
+      height: 39px;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -250,7 +254,7 @@
       <i style="position: fixed; right: 20px" class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
-      <a style="text-decoration: none" href="{% url  '' %}">
+      <a style="text-decoration: none">
         <h3 style="color: #ffffff;text-decoration: none;  padding:3px"><img
             src="https://cdn-icons-png.flaticon.com/512/2201/2201570.png"
             style="position: absolute; background-color: white; border-radius: 70%; padding: 2px" alt="" width="30">
@@ -269,7 +273,7 @@
     <center>
 
       <img src="{% static 'images/image/admin.png' %}" class="profile_image" alt="">
-      <h4>Admin</h4>
+      <h4>{{request.user}}</h4>
 
     </center>
     <div class="list-tags" style="text-decoration: none">
@@ -277,7 +281,7 @@
           class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
       <a style="text-decoration: none" href="/admin-teacher"><i
           class="fas fa-chalkboard-teacher"></i><span>Teacher</span></a>
-      <a style="text-decoration: none" href="/admin-student"><i
+      <a style="text-decoration: none" href="/admin-view-student"><i
           class="fas fa-user-graduate"></i><span>Student</span></a>
       <a style="text-decoration: none" href="/admin-view-parents"><i
           class="fas fa-user-friends"></i><span>Parents</span></a>
@@ -364,7 +368,7 @@
               <circle cx="342.07" cy="390.821" r="34.198" />
             </g>
           </g>
-        </svg> <span>Your class</span></a>
+        </svg> <span>Class room</span></a>
     </div>
 
   </div>

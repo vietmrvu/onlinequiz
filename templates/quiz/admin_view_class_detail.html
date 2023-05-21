@@ -51,7 +51,7 @@ color:black;
             line-height: 1.4;
         }
 
-        .container {
+        .detail {
             width: 825px;
             margin: 50px auto;
         }
@@ -160,7 +160,6 @@ color:black;
 
         .add-cart {
             background-color: black;
-            border: none;
             border-top: 4px solid black;
             color: white;
             font-size: 20px;
@@ -171,7 +170,7 @@ color:black;
         }
 
         .add-cart:hover {
-            color: black;
+            color: black !important;
             background-color: white;
             width: 100%;
         }
@@ -225,10 +224,14 @@ color:black;
         .product {
             width: 100%;
         }
+
+        .row {
+            margin: 0px
+        }
     </style>
 </head>
 <br><br>
-<div class="container">
+<div class="detail">
     <article class="product">
         <h2 style="padding-top: -20px ;margin-top: 20px" class="product-title">{{object.subtitle}}</h2>
         <p class="sale">{{object.title}}</ps>
@@ -246,11 +249,12 @@ color:black;
                         </strong></p>
                     <p class="ship">Your class</p>
                 </div>
-                <p style="height: 200px; margin-left: 10px; overflow: scroll; border: 1px solid black ">{{object.content
-                    | safe }}</p>
+                <ul style="height: 200px; margin-left: 10px; overflow: scroll; border: 1px solid black "
+                    class="details-list">
+                    {{object.content | safe }}
+                </ul>
 
             </div>
-
         </div>
         <div class="product-box">
             <h3 style=" margin-left: 10px;" class="details">Ghi chú </h3>
@@ -259,7 +263,10 @@ color:black;
                 {{object.notes | safe}}
             </ul>
         </div>
-        <button class="add-cart">More Information &rarr;</button>
+        <a href="{% url 'admin-view-class-student' object.class_slug %}" class="add-cart btn btn-hover"
+            style="color: white; border-radius:0px">More
+            Information
+            &rarr;</a>
     </article>
 </div>
 <br><br><br><br><br><br>

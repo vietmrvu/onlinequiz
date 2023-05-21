@@ -8,6 +8,10 @@
 <title>Learning System Online</title>
 
 <head>
+  <script src="{% url 'js-catlog' %}"></script>
+  <script src="{% static 'admin/js/core.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -16,15 +20,13 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  {%load static%}
-
-
-
-
-
   <style>
     a:link {
       text-decoration: none;
+    }
+
+    select {
+      height: 39px;
     }
 
     body {
@@ -32,6 +34,10 @@
       padding: 0;
       font-family: "Gill Sans", sans-serif;
       ;
+    }
+
+    .fas {
+      color: white
     }
 
     header {
@@ -61,7 +67,7 @@
     }
 
     div.list-tags {
-      height: 423px;
+      height: 503px;
 
     }
 
@@ -224,7 +230,6 @@
       .content {
         margin-left: 60px;
       }
-
 
     }
   </style>

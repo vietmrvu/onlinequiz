@@ -13,6 +13,8 @@ path('teacher-exam', views.teacher_exam_view,name='teacher-exam'),
 path('teacher-add-exam', views.teacher_add_exam_view,name='teacher-add-exam'),
 path('teacher-view-exam', views.teacher_view_exam_view,name='teacher-view-exam'),
 path('delete-exam/<int:pk>', views.delete_exam_view,name='delete-exam'),
+path('update-exam/<int:pk>', views.teacher_update_course_view, name="update-exam"),
+path('view-exam/<int:pk>', views.teacher_view_exam_detail, name="view-exam"),
 # Questions
 path('teacher-question', views.teacher_question_view,name='teacher-question'),
 path('teacher-add-question', views.teacher_add_question_view,name='teacher-add-question'),

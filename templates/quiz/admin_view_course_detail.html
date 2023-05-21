@@ -1,0 +1,413 @@
+{% extends 'quiz/adminbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style media="screen">
+        /* article {border: 2px solid black;
+      font-family:sans-serif;}
+    h2{text-align:center;
+      font-size:15px;
+      font-weight:bold;
+      background-color:#e2e2e2;
+    }
+    h3{font-size:13px;
+    font-weight:bold}
+    h2,h3,.ship,button{text-transform: uppercase}
+    .price{font-size:22px}
+    .ship{font-size:10px}
+    .ready{font-size:14px}
+    a:link{color:black;
+    font-size:12px}
+    a:visited{color:black;
+    font-size:12px}
+    a:hover{text-decoration:none;
+    font-size:12px}
+    li{list-style:square;
+    font-size:12px}
+    button{background-color:black;
+    color:white;
+    border:none}
+    button:hover{background-color:white;
+    color:black;
+    } */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.4;
+        }
+
+        .detail {
+            width: 825px;
+            margin: 50px auto;
+        }
+
+        .product {
+            border: 4px solid black;
+            position: relative;
+        }
+
+        .product-title {
+            text-align: center;
+            font-size: 22px;
+            text-transform: uppercase;
+            background-color: #f7f7f7;
+            padding: 15px 0;
+        }
+
+        .sale {
+            position: absolute;
+            top: -10px;
+            left: -20px;
+            background-color: red;
+            padding: 7px 15px;
+            color: white;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 24px;
+        }
+
+        .ship {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        .ready {
+            margin-bottom: 10px;
+        }
+
+        .link:link,
+        .link:visited {
+            color: black;
+        }
+
+        .link:hover,
+        .link:active {
+            text-decoration: none;
+        }
+
+        .colors {
+            display: flex;
+            gap: 10px;
+        }
+
+        .colors div {
+            height: 25px;
+            width: 25px;
+            margin-top: 40px;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .brown {
+            background-color: brown;
+        }
+
+        .details {
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .details-list {
+            list-style: square;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .details-list li {
+            margin-bottom: 10px;
+        }
+
+        .add-cart {
+            background-color: black;
+            border-top: 4px solid black;
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            padding: 15px 0;
+        }
+
+        .add-cart:hover {
+            color: black !important;
+            background-color: white;
+            width: 100%;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .product.price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .price-box {}
+
+        .product-box {}
+
+        p#isPasted {
+
+            color: rgb(0, 0, 0);
+            font-family: Roboto, Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-weight: 400;
+            line-height: 1.2rem !important;
+            max-height: 9.6rem !important;
+            overflow: hidden !important;
+            display: block !important;
+            text-align: start !important;
+            display: -webkit-box !important;
+            -webkit-box-orient: vertical !important;
+            -webkit-line-clamp: 8 !important;
+        }
+
+        .image-box {
+            position: relative
+        }
+
+        p.text {
+            position: absolute;
+            top: 10px;
+            display: block;
+            left: 34%
+        }
+
+        .product {
+            width: 100%;
+        }
+
+        .row {
+            margin: 0px
+        }
+
+        .filterDiv {
+
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .rightans {
+            display: none
+        }
+    </style>
+</head>
+<br><br>
+<div class="container">
+
+
+    <div class="form">
+        <h1 style="text-align: center;">{{course.course_name}}</h1>
+        {% for q in questions%}
+        <h3 class="text-info">{{ forloop.counter }}. {{q.question}}</h3>
+        <h4 style="text-align: right;">[Marks {{q.marks}}]</h4>
+
+        <div class="quest" id="{{ forloop.counter }}.a">
+            <p class="rightans" id="{{ forloop.counter }}">{{q.answer}}</p>
+
+
+            <div style="display:flex" class="form-check mx-4  Option1">
+                <input class="form-check-input " type="radio" name="{{ forloop.counter }}" id="{{q.option1}}"
+                    value="Option1">
+                <label class="form-check-label" for="Option1">
+                    {{q.option1}}
+                </label>
+                <img class="filterDiv Option1" style="
+                                    position: absolute;
+                                    width: 27px;
+                                    z-index: 2;
+                                    margin: -3px 0px;
+                                    left: -3px;
+                                " src="https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_1280.png"
+                    alt="">
+            </div>
+
+
+            <div style="display:flex" class="form-check mx-4  Option2">
+                <input class="form-check-input " type="radio" name="{{ forloop.counter }}" id="{{q.option2}}"
+                    value="Option2">
+                <label class="form-check-label" for="Option2">
+                    {{q.option2}}
+                </label>
+                <img class="filterDiv Option2" style="
+                                    position: absolute;
+                                    width: 27px;
+                                    z-index: 2;
+                                    margin: -3px 0px;
+                                    left: -3px;
+                                " src="https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_1280.png"
+                    alt="">
+            </div>
+
+
+            <div style="display:flex" class="form-check mx-4  Option3">
+
+                <input class="form-check-input " type="radio" name="{{ forloop.counter }}" id="{{q.option3}}"
+                    value="Option3">
+                <label class="form-check-label" for="Option3">
+                    {{q.option3}}
+                </label>
+                <img class="filterDiv Option3" style="
+    position: absolute;
+    width: 27px;
+    z-index: 2;
+    margin: -3px 0px;
+    left: -3px;
+" src="https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_1280.png" alt="">
+            </div>
+
+
+            <div style="display:flex" class="form-check mx-4  Option4">
+                <input class="form-check-input " type="radio" name="{{ forloop.counter }}" id="{{q.option4}}"
+                    value="Option4">
+                <label class="form-check-label" for="Option4">
+                    {{q.option4}}
+                </label>
+                <img class="filterDiv Option4" style="
+                                    position: absolute;
+                                    width: 27px;
+                                    z-index: 2;
+                                    margin: -3px 0px;
+                                    left: -3px;
+                                " src="https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_1280.png"
+                    alt="">
+            </div>
+        </div>
+        <button style="margin:20px; text-align: center;" class="btn btn-info"
+            onclick="filterSelection(document.getElementById('{{ forloop.counter }}.a'),document.getElementById('{{forloop.counter }}').innerHTML)">Check
+            answer</button>
+        {% endfor %}
+        <div style="display:none" id="hello" class="filterDiv">BMW</div>
+
+    </div>
+</div>
+
+<script>
+    // var rightans = document.getElementsByClassName("rightans")
+    // var option1 = document.getElementsByClassName("Option1")
+    // var option2 = document.getElementsByClassName("Option2")
+    // var option3 = document.getElementsByClassName("Option3")
+    // var option4 = document.getElementsByClassName("Option4")
+    // var options = option1 + option2 + option3 + option4
+    // var allitems = [];
+    // allitems = Array.prototype.concat.apply(allitems, document.getElementsByClassName("Option1"));
+    // allitems = Array.prototype.concat.apply(allitems, document.getElementsByClassName("Option2"));
+    // allitems = Array.prototype.concat.apply(allitems, document.getElementsByClassName("Option3"));
+    // allitems = Array.prototype.concat.apply(allitems, document.getElementsByClassName("Option4"));
+    // console.log(allitems)
+    // for (option in allitems) {
+    //     console.log(allitems[option].className)
+    //     for (only in rightans) {
+    //         if (allitems[option].className.includes(rightans[only].innerHTML)) {
+    //             // const para = document.createElement("img");
+    //             // var input = document.getElementsByClassName("form-check-input")
+    //             // para.src = "https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_1280.png";
+    //             // para.style.width = "27px"
+    //             // para.style.margin = "-3px -127px"
+    //             // para.style.zIndex = "2"
+    //             // allitems[option].appendChild(para)
+    //         }
+    //     }
+
+    // }
+    function filterSelection(h, c) {
+        var x, i;
+        x = h.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
+
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+        }
+    }
+
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+    }
+
+    // // Add active class to the current button (highlight it)
+    // var btnContainer = document.getElementById("myBtnContainer");
+    // var btns = btnContainer.getElementsByClassName("btn");
+    // for (var i = 0; i < btns.length; i++) {
+    //     btns[i].addEventListener("click", function () {
+    //         var current = document.getElementsByClassName("active");
+    //         current[0].className = current[0].className.replace(" active", "");
+    //         this.className += " active";
+    //     });
+    // }
+</script>
+
+</body>
+
+</html>
+
+</script>
+<br><br><br><br><br><br>
+{% endblock content %}

@@ -21,14 +21,32 @@
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
-
     .panel {
 
       border: 1px solid rgb(188, 188, 188);
       border-radius: 20px;
+    }
+
+    .bigtable::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bigtable {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow: scroll;
+    }
+
+    .panel-heading {
+      width: 100%;
+      position: relative;
+      top: 40px;
+    }
+
+    #dev-table {
+      margin-top: 39px
     }
 
     .panel-title {
@@ -48,13 +66,15 @@
   </style>
 </head>
 <br><br>
+
 <div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Courses</h6> <a href="{% url 'admin-add-course'  %}"
-        style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
-        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
-    </div>
+  <div class="panel-heading">
+    <h6 class="panel-title">Courses {{now}}</h6> <a href="{% url 'admin-add-course'  %}"
+      style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+      class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
+  </div>
+  <div class="panel panel-primary bigtable">
+
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
@@ -62,23 +82,102 @@
           <th>Course Name</th>
           <th>Total Question</th>
           <th>Total Marks</th>
+          <th>Attempt </th>
+          <th>View</th>
+          <th>Update</th>
           <th>Delete</th>
+
         </tr>
       </thead>
       {% for t in courses %}
+      {% if t.close %}
       <tr>
-
         <td> {{t.course_name}}</td>
         <td>{{t.question_number}}</td>
-        <td>{{t.total_marks}}</td>
+        <td>{{t.total_marks}}
+        </td>
+        <td>{{t.attempt}}</td>
 
+        <!-- <td>{{t.close}}</td> -->
+        <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-course-detail' t.id  %}"><span
+              class="fas fa-eye"></span></a></td>
+        <td><a class="btn btn-info btn-xs disabled"><span class="fas fa-edit"></span></a>
+        </td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-course' t.id  %}"><span
+              class="fas fa-trash"></span></a>
+        </td>
+
+
+      </tr>
+      {% else %}
+      <tr>
+        <td> {{t.course_name}}</td>
+        <td>{{t.question_number}}</td>
+        <td>{{t.total_marks}}
+        </td>
+        <!-- <td>{{t.close}}</td> -->
+        <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-course-detail' t.id  %}"><span
+              class="fas fa-eye"></span></a></td>
+        <td><a href="{% url 'admin-update-course' t.id  %}" class="btn btn-info btn-xs"><span
+              class="fas fa-edit"></span></a>
+        </td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-course' t.id  %}"><span
               class="fas fa-trash"></span></a></td>
+
+
       </tr>
+      {% endif %}
       {% endfor %}
     </table>
   </div>
 </div>
+<br><br>
+
+<!-- <script>
+  const countdown = document.querySelector('.countdown');
+  var date = document.getElementById('invisible')
+  const course = document.getElementById("course")
+  // Set Launch Date (ms)
+  var datetime = date.innerHTML
+  var real_date = datetime.slice(0, -5);
+  const launchDate = new Date(real_date).getTime();
+
+  // Update every second
+  const intvl = setInterval(() => {
+    // Get todays date and time (ms)
+    const now = new Date().getTime();
+
+    // Distance from now and the launch date (ms)
+    const distance = launchDate - now;
+
+    // Time calculation
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display result
+    countdown.innerHTML = `
+        <p>${days}<span>Days</span></p> 
+        <p>${hours}<span>Hours</span></p>
+        <p>${mins}<span>Minutes</span></p>
+        <p>${seconds}<span>Seconds</span></p>
+        `;
+
+    // If launch date is reached
+    if (distance < 0) {
+      // Stop countdown
+      clearInterval(intvl);
+      // Style and output text
+      countdown.style.color = '#17a2b8';
+      countdown.innerHTML = 'Launched!';
+      course.style.display = "none"
+    }
+  }, 1000);
+
+</script> -->
 
 <br><br><br><br><br><br>
 {% endblock content %}

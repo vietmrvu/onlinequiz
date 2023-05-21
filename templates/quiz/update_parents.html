@@ -11,13 +11,15 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style>
+    select {
+      height: 39px;
+    }
+  </style>
 </head>
 
 <br><br>
-<h3 style="text-align:center;">UPDATE PARENTS</h3>
+<h3 style="text-align:center;">{{content}} PARENTS</h3>
 <div>
   <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
     {% csrf_token %}
@@ -33,15 +35,23 @@
     <label for="username">Username</label>
     {% render_field userForm.username class="form-control" placeholder="Username" %}
     <label for="password">Password</label>
-    {% render_field userForm.password class="form-control" placeholder="Password" %} <br><br>
+    {% render_field userForm.password class="form-control" placeholder="Password" %}
     <label for="profile_pic">Profile Picture</label>
     {% render_field parentsForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+    <br>
+    <label for="student_model">Children for parents</label>
+    {{parentsForm.student_model }}
     <br><br>
     <input type="submit" value="Update">
   </form>
 </div>
 
-
+<script>
+  var mobile = document.getElementById("id_mobile")
+  mobile.value = `{{parents.mobile}}`
+  var address = document.getElementById("id_address")
+  address.value = `{{parents.address}}`
+</script>
 
 <br><br><br><br><br><br><br><br>
 {% endblock content %}

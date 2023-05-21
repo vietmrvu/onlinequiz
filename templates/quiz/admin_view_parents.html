@@ -21,10 +21,6 @@
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
-
     .panel {
 
       border: 1px solid rgb(188, 188, 188);
@@ -40,14 +36,40 @@
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
     }
+
+    .bigtable::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bigtable {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow: scroll;
+    }
+
+    .panel-heading {
+      width: 100%;
+      position: relative;
+      top: 40px;
+    }
+
+    #dev-table {
+      margin-top: 39px
+    }
   </style>
 </head>
 <br><br>
 <div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Parents</h6>
-    </div>
+  <div class="panel-heading">
+    <h6 class="panel-title">Parents</h6>
+    <a href="{% url 'admin-add-parents'  %}"
+      style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+      class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
+  </div>
+  <div class="panel panel-primary bigtable">
+
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
@@ -59,6 +81,7 @@
           <th>Your child</th>
           <th>Update</th>
           <th>Delete</th>
+          <th>Check</th>
         </tr>
       </thead>
       {% for t in parents %}
@@ -72,9 +95,11 @@
         <td>{{t.student_model}}</td>
 
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-parents' t.id  %}"><span
-              class="glyphicon glyphicon-edit"></span></a></td>
+              class="fas fa-edit"></span></a></td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-parents' t.id  %}"><span
-              class="glyphicon glyphicon-trash"></span></a></td>
+              class="fas fa-trash"></span></a></td>
+        <td><a href="{% url 'approve-parents' t.id  %}" style="background: green; color: white" class="btn btn-xs"
+            href=""><span class="fas fa-check"></span></a></td>
       </tr>
       {% endfor %}
     </table>
