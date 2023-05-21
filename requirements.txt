@@ -27,4 +27,3 @@ pymongo==3.12.1
 whitenoise==6.2.0
 crispy-bootstrap4
 django-crispy-forms
-whitenoise
