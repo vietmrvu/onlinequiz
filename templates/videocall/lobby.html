@@ -1,29 +1,52 @@
-{% extends 'base/main.html' %}
+{% extends 'quiz/adminbase.html' %}
 {% load static %}
 {% block content %}
 
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
+<style>
+    #form-container {
+        margin: 30px 90px;
+        width: 400px !important;
+        box-shadow: var(--shaddow) !important;
+        background-color: #fff !important;
+        padding: 30px !important;
+        border-radius: 5px !important;
+        position: relative !important;
+
+        top: 250px;
+        left: 40%;
+
+    }
+</style>
 <main>
 
     <section id="form-container">
 
-        <img id="logo" src="{% static 'images/chat-icon.png' %}"/>
+        <img id="logo" src="{% static 'images/chat-icon.png' %}" />
 
         <div id="welcome-message">
             <h1>Welcome to MyChat</h1>
             <p>A group video calling platform made just for you!</p>
         </div>
 
-        <form id="form">
+        <form id="form" method="post" autocomplete="off" enctype="multipart/form-data">
             <div class="field-wrapper">
-
+                {% csrf_token %}
                 <div class="form-field">
                     <label>Room:</label>
-                    <input name="room" placeholder="Enter a room name..."  style="text-transform:uppercase"/>
+                    <input name="room" placeholder="Enter a room name..." style="text-transform:uppercase" />
                 </div>
 
                 <div class="form-field">
                     <label>Name:</label>
-                    <input name="name" placeholder="Enter your name..."  style="text-transform:uppercase"/>
+                    <input name="name" placeholder="Enter your name..." style="text-transform:uppercase" />
                 </div>
 
                 <div class="form-field">
@@ -53,7 +76,7 @@
         sessionStorage.setItem('room', room)
         sessionStorage.setItem('name', name)
 
-        window.open('/room/', '_self')
+        window.open('/room', '_self')
     }
 
 
@@ -62,4 +85,3 @@
 </script>
 
 {% endblock content %}
-

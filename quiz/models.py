@@ -7,11 +7,6 @@ from froala_editor.fields import FroalaField
 import datetime
 from django.utils import timezone
 
-class UserPassNormal(models.Model):
-    username = models.CharField(max_length=500)
-    username = models.CharField(max_length=500)
-
-
 class Course(models.Model):
     course_name = models.CharField(max_length=500)
     question_number = models.PositiveIntegerField()
@@ -84,4 +79,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+class RoomMember(models.Model):
+    name = models.CharField(max_length=200)
+    uid = models.CharField(max_length=1000)
+    room_name = models.CharField(max_length=200)
+    insession = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
 

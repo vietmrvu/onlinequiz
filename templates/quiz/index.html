@@ -909,9 +909,8 @@ Responsive part start !
           <form class="box" method="post">
             {% csrf_token %}
 
-            {% render_field form.username class="form-control" placeholder="Username" %}
-            {% render_field form.password class="form-control" placeholder="Password" %}
-
+            <input type="text" name="username" placeholder="Username" class="form-control">
+            <input type="password" name="password" placeholder="Password" class="form-control">
             <input type="submit" name="submit" id="submit" value="Log In">
             <a href="{% url 'password_reset' %}" id="forgot" style="text-align:center" class="forgot">Forgotten
               password?</a>

@@ -13,13 +13,12 @@ urlpatterns = [
     path('teacher/',include('teacher.urls')),
     path('student/',include('student.urls')),
     path('parents/',include('parents.urls')),
-    path('videocall/',include('videocall.urls')),
     path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     # Homepages
-    path('',LoginView.as_view(template_name='quiz/index.html'),name=''),
+    path('',views.home_view,name=''),
     path('logout', LogoutView.as_view(template_name='quiz/logout.html'),name='logout'),
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
@@ -84,6 +83,13 @@ urlpatterns = [
     path("admin-update-class/<slug>", views.admin_update_class, name="admin-update-class"),
     path('delete-class/<slug>', views.delete_class_view,name='delete-class'),
     path("admin-view-class-student/<slug>", views.admin_view_student_class, name="admin-view-class-student"),
+    # Online room
+    path('meeting', views.lobby),
+    path('room/', views.room),
+    path('get_token/', views.getToken),
+    path('create_member/', views.createMember),
+    path('get_member/', views.getMember),
+    path('delete_member/', views.deleteMember),
 
     # Static URL
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),

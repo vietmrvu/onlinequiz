@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,reverse
 from . import forms,models
+from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum
 from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import make_password, check_password
@@ -18,15 +19,42 @@ from parents import forms as PFORM
 from django.contrib.auth.models import User
 from django import  forms as DJFORM
 from django.utils import timezone
+from django.http import JsonResponse
+import random
+import time
+from agora_token_builder import RtcTokenBuilder
+from .models import RoomMember
+import json
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Administrators
+# def home_view(request):
+#     try:
+#         return HttpResponseRedirect('/afterlogin')  
+#     except: 
+#         return render(request,'quiz/index.html')
+
+
 def home_view(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('afterlogin')  
-    return render(request,'quiz/index.html')
+	if request.user.is_authenticated:
+		return HttpResponseRedirect('afterlogin')  
+	else:
+		if request.method == 'POST':
+			username = request.POST.get('username')
+			password =request.POST.get('password')
 
+			user = authenticate(request, username=username, password=password)
 
+			if user is not None:
+				login(request, user)
+				return HttpResponseRedirect('afterlogin')
+			else:
+				pass
+
+		context = {}
+		return render(request,'quiz/index.html')
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
 
@@ -600,6 +628,62 @@ def admin_view_student_class(request, slug):
         template_name='quiz/admin_view_class_student.html',
         context={"object": room, "student": student}
         )
+
+
+
+# Create your views here.
+
+def lobby(request):
+    return render(request, 'videocall/lobby.html')
+
+def room(request):
+    return render(request, 'videocall/room.html')
+
+
+def getToken(request):
+    appId = "a3195752a2b349398296e70fe3e0acdc"
+    appCertificate = "6b4b6870da3444db86983c66df8f6800"
+    channelName = request.GET.get('channel')
+    uid = random.randint(1, 230)
+    expirationTimeInSeconds = 3600
+    currentTimeStamp = int(time.time())
+    privilegeExpiredTs = currentTimeStamp + expirationTimeInSeconds
+    role = 1
+
+    token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, role, privilegeExpiredTs)
+
+    return JsonResponse({'token': token, 'uid': uid}, safe=False)
+
+
+@csrf_exempt
+def createMember(request):
+    data = json.loads(request.body)
+    member, created = RoomMember.objects.get_or_create(
+        name=data['name'],
+        uid=data['UID'],
+        room_name=data['room_name']
+    )
+
+    return JsonResponse({'name':data['name']}, safe=False)
+
+
+def getMember(request):
+    uid = request.GET.get('UID')
+    room_name = request.GET.get('room_name')
+
+    member = RoomMember.objects.get(
+        uid=uid,
+        room_name=room_name,
+    )
+    name = member.name
+    return JsonResponse({'name':member.name}, safe=False)
+
+@csrf_exempt
+def deleteMember(request):  
+    members = RoomMember.objects.get(uid=json.loads(request.body)['UID'])
+    members.delete()
+    return  HttpResponseRedirect("/meeting")
+
 # Footer
 
 

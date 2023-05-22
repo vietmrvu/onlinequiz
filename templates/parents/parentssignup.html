@@ -63,6 +63,12 @@
 
     </div>
     <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputPassword4">Email</label>
+        {% render_field userForm.email|attr:'required:true' class="form-control" placeholder="email" %}
+      </div>
+    </div>
+    <div class="form-row">
       <label for="student_model">Your child</label>
       <div class="form-group col-md-12">
 

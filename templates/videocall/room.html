@@ -1,7 +1,20 @@
-{% extends 'base/main.html' %}
+{% extends 'quiz/adminbase.html' %}
 {% load static %}
 {% block content %}
 
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
+<style>
+    .username-wrapper {
+        z-index: 1
+    }
+</style>
 <main>
     <section id="room-name-wrapper">
         <p>Room Name: <span id="room-name"></span></p>
@@ -9,22 +22,22 @@
 
     <section id="video-streams"></section>
 
-    <section id="controls-wrapper">
-        <div class="icon-wrapper">
-            <img class="control-icon" id="mic-btn" src="{% static 'images/microphone.svg' %}" />
-        </div>
+    <section id="controls-wrapper" style="width: 78%; z-index:4">
 
-        <div class="icon-wrapper">
-            <img class="control-icon" id="camera-btn" src="{% static 'images/video.svg' %}" />
-        </div>
+        <img class="control-icon" style="width:  50px; height:50px; z-index:4" id="mic-btn"
+            src="{% static 'images/microphone.svg' %}" />
 
-        <div class="icon-wrapper">
-            <img class="control-icon" id="leave-btn" src="{% static 'images/leave.svg' %}" />
-        </div>
+
+        <img class="control-icon" style="width:  50px; height:50px ; z-index:4" id="camera-btn"
+            src="{% static 'images/video.svg' %}" />
+
+
+        <img class="control-icon" style="width:  50px; height:50px; z-index:4" id="leave-btn"
+            src="{% static 'images/leave.svg' %}" />
     </section>
 </main>
 
 
 <script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/streams.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/streams.js' %}"></script>
 {% endblock content %}

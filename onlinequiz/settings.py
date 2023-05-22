@@ -31,7 +31,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = '@k0#p3kidu)yaaa3u1hplxz)f@^6xiy384*(+n@@s5x#1bx@m5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 USE_TZ = True 
 ALLOWED_HOSTS = ['0.0.0.0','genidevlms.onrender.com','127.0.0.1']
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'parents',
     'widget_tweaks',
     'froala_editor',
-    'videocall',
     'psycopg2',
         'crispy_bootstrap4', 
             'crispy_forms',

@@ -31,8 +31,12 @@
     {% render_field userForm.username class="form-control" placeholder="Username" %}
     <label for="password">Password {{student.user.password}}</label>
     {% render_field userForm.password class="form-control" placeholder="Password" %}
+    <label for="email">Email</label>
+    {% render_field userForm.email|attr:'required:true' class="form-control" placeholder="email" %}
+
     <label for="profile_pic">Profile Picture</label>
     {% render_field teacherForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+
     <br>
     <label for="classroom">Class model</label>
     {{teacherForm.class_model}}

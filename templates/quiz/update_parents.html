@@ -36,8 +36,13 @@
     {% render_field userForm.username class="form-control" placeholder="Username" %}
     <label for="password">Password</label>
     {% render_field userForm.password class="form-control" placeholder="Password" %}
+    <label for="email">Email</label>
+    {% render_field userForm.email|attr:'required:true' class="form-control" placeholder="email" %}
+
     <label for="profile_pic">Profile Picture</label>
     {% render_field parentsForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+
+
     <br>
     <label for="student_model">Children for parents</label>
     {{parentsForm.student_model }}
