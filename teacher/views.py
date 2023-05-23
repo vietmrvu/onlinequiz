@@ -10,6 +10,12 @@ from quiz import models as QMODEL
 from student import models as SMODEL
 from parents import models as PMODEL
 from quiz import forms as QFORM
+from django.http import JsonResponse
+import random
+import time
+from agora_token_builder import RtcTokenBuilder
+import json
+from django.views.decorators.csrf import csrf_exempt
 #for showing signup/login button for teacher
 def teacherclick_view(request):
     if request.user.is_authenticated:
@@ -332,3 +338,65 @@ def teacher_view_class_view(request):
         )
 
 
+
+# Create your views here.
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def lobby(request):
+    return render(request, 'videocall/lobby.html')
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def room(request):
+    return render(request, 'videocall/room.html')
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def getToken(request):
+    appId = "a3195752a2b349398296e70fe3e0acdc"
+    appCertificate = "6b4b6870da3444db86983c66df8f6800"
+    channelName = request.GET.get('channel')
+    uid = random.randint(1, 230)
+    expirationTimeInSeconds = 3600
+    currentTimeStamp = int(time.time())
+    privilegeExpiredTs = currentTimeStamp + expirationTimeInSeconds
+    role = 1
+
+    token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, role, privilegeExpiredTs)
+
+    return JsonResponse({'token': token, 'uid': uid}, safe=False)
+
+
+@csrf_exempt
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def createMember(request):
+    data = json.loads(request.body)
+    member, created = QMODEL.RoomMember.objects.get_or_create(
+        name=data['name'],
+        uid=data['UID'],
+        room_name=data['room_name']
+    )
+
+    return JsonResponse({'name':data['name']}, safe=False)
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def getMember(request):
+    uid = request.GET.get('UID')
+    room_name = request.GET.get('room_name')
+
+    member = QMODEL.RoomMember.objects.get(
+        uid=uid,
+        room_name=room_name,
+    )
+    name = member.name
+    return JsonResponse({'name':member.name}, safe=False)
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+@csrf_exempt
+def deleteMember(request):  
+    members = QMODEL.RoomMember.objects.get(uid=json.loads(request.body)['UID'])
+    members.delete()
+    return  HttpResponseRedirect("/meeting")

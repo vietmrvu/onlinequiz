@@ -52,8 +52,6 @@ def home_view(request):
 				return HttpResponseRedirect('afterlogin')
 			else:
 				pass
-
-		context = {}
 		return render(request,'quiz/index.html')
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
@@ -632,14 +630,15 @@ def admin_view_student_class(request, slug):
 
 
 # Create your views here.
-
+@login_required(login_url='adminlogin')
 def lobby(request):
     return render(request, 'videocall/lobby.html')
 
+@login_required(login_url='adminlogin')
 def room(request):
     return render(request, 'videocall/room.html')
 
-
+@login_required(login_url='adminlogin')
 def getToken(request):
     appId = "a3195752a2b349398296e70fe3e0acdc"
     appCertificate = "6b4b6870da3444db86983c66df8f6800"
@@ -654,7 +653,7 @@ def getToken(request):
 
     return JsonResponse({'token': token, 'uid': uid}, safe=False)
 
-
+@login_required(login_url='adminlogin')
 @csrf_exempt
 def createMember(request):
     data = json.loads(request.body)
@@ -666,7 +665,7 @@ def createMember(request):
 
     return JsonResponse({'name':data['name']}, safe=False)
 
-
+@login_required(login_url='adminlogin')
 def getMember(request):
     uid = request.GET.get('UID')
     room_name = request.GET.get('room_name')
@@ -677,7 +676,7 @@ def getMember(request):
     )
     name = member.name
     return JsonResponse({'name':member.name}, safe=False)
-
+@login_required(login_url='adminlogin')
 @csrf_exempt
 def deleteMember(request):  
     members = RoomMember.objects.get(uid=json.loads(request.body)['UID'])

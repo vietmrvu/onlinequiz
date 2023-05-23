@@ -44,4 +44,12 @@ path('teacher-check-marks/<int:pk>', views.teacher_check_marks_view,name='teache
 # Class room
 path('teacher-class', views.teacher_view_class_view,  name="teacher-class"),
 
+# Online room
+path('meeting', views.lobby),
+path('room/', views.room),
+path('get_token/', views.getToken),
+path('create_member/', views.createMember),
+path('get_member/', views.getMember),
+path('delete_member/', views.deleteMember),
+
 ]
