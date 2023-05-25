@@ -19,7 +19,8 @@ def parentsclick_view(request):
 def parents_signup_view(request):
     userForm=forms.parentsUserForm()
     parentsForm=forms.parentsForm()
-    mydict={'userForm':userForm,'parentsForm':parentsForm}
+    mydict={'userForm':userForm,'parentsForm':parentsForm,     'parents':models.Parents.objects.get(user=request.user)
+}
     if request.method=='POST':
         userForm=forms.parentsUserForm(request.POST)
         parentsForm=forms.parentsForm(request.POST,request.FILES)
@@ -38,7 +39,7 @@ def parents_signup_view(request):
 
 
 def is_parents(user):
-    return user.groups.filter(name='parents').exists()
+    return user.groups.filter(name='PARENTS').exists()
 
 @login_required(login_url='parentslogin')
 @user_passes_test(is_parents)
@@ -48,6 +49,7 @@ def parents_dashboard_view(request):
     'total_course':QMODEL.Course.objects.all().count(),
     'total_question':QMODEL.Question.objects.all().count(),
     'total_student':SMODEL.Student.objects.all().count(),
+    'parents':models.Parents.objects.get(user=request.user)
     }
     return render(request,'parents/parents_dashboard.html',context=dict)
 
@@ -55,13 +57,14 @@ def parents_dashboard_view(request):
 @user_passes_test(is_parents)
 def parents_view_student_marks_view(request):
     name = models.Parents.objects.get(user=request.user)
-    return render(request,'parents/parents_view_student_marks.html',{'name':name})
+    return render(request,'parents/parents_view_student_marks.html',{'name':name,     'parents':models.Parents.objects.get(user=request.user)
+})
 
 @login_required(login_url='parentslogin')
 @user_passes_test(is_parents)
 def parents_view_marks_view(request,pk):
     courses = QMODEL.Course.objects.all().order_by('-created_at')
-    response =  render(request,'parents/parents_view_marks.html',{'courses':courses})
+    response =  render(request,'parents/parents_view_marks.html',{'courses':courses,'parents':models.Parents.objects.get(user=request.user)})
     response.set_cookie('student_id',str(pk))
     return response
 
@@ -73,12 +76,102 @@ def parents_check_marks_view(request,pk):
     student= SMODEL.Student.objects.get(id=student_id)
 
     results= QMODEL.Result.objects.all().filter(exam=course).filter(student=student)
-    return render(request,'parents/parents_check_marks.html',{'results':results})
+    return render(request,'parents/parents_check_marks.html',{'results':results,     'parents':models.Parents.objects.get(user=request.user)
+})
     
 @login_required(login_url='parentslogin')
 @user_passes_test(is_parents)
 def parents_exam_view(request):
     courses = QMODEL.Course.objects.all()
-    return render(request,'parents/parents_view_exam.html',{'courses':courses})
+    return render(request,'parents/parents_view_exam.html',{'courses':courses,     'parents':models.Parents.objects.get(user=request.user)
+})
 
-# Create your views here.
+@login_required(login_url='parentslogin')
+def parents_course_view_detail(request, pk):
+    course = QMODEL.Course.objects.get(id=pk)
+    questions=QMODEL.Question.objects.filter(course=course)
+    return render(
+        request=request,
+        template_name='parents/parents_view_course_detail.html',
+        context={"course": course,"questions": questions,     'parents':models.Parents.objects.get(user=request.user)}
+        )
+
+@login_required(login_url='parentslogin')
+def parents_add_docs_view(request):
+    context = {'courseForm': QFORM.DocsForm,'parents':models.Parents.objects.get(user=request.user)}
+    try:
+        if request.method == 'POST':
+            form = QFORM.DocsForm(request.POST)
+            title = request.POST.get('title')
+            name = request.POST.get('name')
+
+            if form.is_valid():
+                print('Valid')
+                content = form.cleaned_data['content']
+
+            blog_obj = QMODEL.Docs.objects.create(
+                title=title, name=name,
+                content=content
+            )
+            print(blog_obj)
+            return redirect('/parents-view-docs')
+    except Exception as e:
+        print(e)
+
+    return render(request, 'parents/parents_add_docs.html', context)
+
+@login_required(login_url='parentslogin')
+def delete_docs_view(request,pk):
+    course=QMODEL.Docs.objects.get(id=pk)
+    course.delete()
+    return HttpResponseRedirect('/parents-view-docs')
+
+@login_required(login_url='parentslogin')
+def parents_view_docs_view(request):
+    courses = QMODEL.Docs.objects.all().order_by('-created_at')
+    return render(request,'parents/parents_view_docs.html',{'courses':courses,'parents':models.Parents.objects.get(user=request.user)})
+
+
+@login_required(login_url="parentslogin")
+def updateDocs(request, pk):
+	course = QMODEL.Docs.objects.get(id=pk)
+	form = QFORM.DocsForm(instance=course)
+	if request.method == 'POST':
+		form = QFORM.DocsForm(request.POST, request.FILES, instance=course)
+		if form.is_valid():
+			form.save()
+		return redirect('/parents-view-docs')
+
+	context = {'courseForm': form, 'parents':models.Parents.objects.get(user=request.user)}
+	return render(request, 'parents/parents_update_docs.html', context)
+
+@login_required(login_url='parentslogin')
+def parents_view_docs_view_detail(request, pk):
+    docs = QMODEL.Docs.objects.get(id=pk)
+    comments = docs.comments.all()
+    new_comment = None
+    if request.method == 'POST':
+        form = QFORM.DocsForm(request.POST)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment_form = QFORM.CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            body = comment_form.cleaned_data['body']
+            name = comment_form.cleaned_data['name']
+            email = comment_form.cleaned_data['email']
+            # Create Comment object but don't save to database yet
+            # Assign the current post to the comment
+            # Save the comment to the database
+        comment_object = models.Comment.objects.create(
+            email=email, name=name,
+            body=body, post_id=pk
+        )
+    else:
+        comment_form = QFORM.CommentForm()
+
+    context = {'docs':docs,
+                'comments': comments,
+               'new_comment': new_comment,
+               'comment_form': comment_form,
+               'parents':models.Parents.objects.get(user=request.user)}
+    return render(request, 'parents/parents_view_docs_detail.html', context) 

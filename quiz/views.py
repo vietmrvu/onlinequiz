@@ -60,7 +60,7 @@ def is_student(user):
     return user.groups.filter(name='STUDENT').exists()
 
 def is_parents(user):
-    return user.groups.filter(name='parents').exists()
+    return user.groups.filter(name='PARENTS').exists()
 
 def afterlogin_view(request):
     if is_student(request.user):   
@@ -630,15 +630,20 @@ def admin_view_student_class(request, slug):
 
 
 # Create your views here.
-@login_required(login_url='adminlogin')
+
 def lobby(request):
-    return render(request, 'videocall/lobby.html')
+    if request.user.is_authenticated:   
+        return render(request, 'videocall/lobby.html')
+    else: 
+        return HttpResponseRedirect("/afterlogin")
 
-@login_required(login_url='adminlogin')
 def room(request):
-    return render(request, 'videocall/room.html')
+    if request.user.is_authenticated:   
+        return render(request, 'videocall/room.html')
+    else: 
+        return HttpResponseRedirect("/afterlogin")
 
-@login_required(login_url='adminlogin')
+
 def getToken(request):
     appId = "a3195752a2b349398296e70fe3e0acdc"
     appCertificate = "6b4b6870da3444db86983c66df8f6800"
@@ -653,7 +658,7 @@ def getToken(request):
 
     return JsonResponse({'token': token, 'uid': uid}, safe=False)
 
-@login_required(login_url='adminlogin')
+
 @csrf_exempt
 def createMember(request):
     data = json.loads(request.body)
@@ -665,7 +670,7 @@ def createMember(request):
 
     return JsonResponse({'name':data['name']}, safe=False)
 
-@login_required(login_url='adminlogin')
+
 def getMember(request):
     uid = request.GET.get('UID')
     room_name = request.GET.get('room_name')
@@ -676,7 +681,7 @@ def getMember(request):
     )
     name = member.name
     return JsonResponse({'name':member.name}, safe=False)
-@login_required(login_url='adminlogin')
+
 @csrf_exempt
 def deleteMember(request):  
     members = RoomMember.objects.get(uid=json.loads(request.body)['UID'])

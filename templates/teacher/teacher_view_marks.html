@@ -2,7 +2,8 @@
 {% block content %}
 {%load static%}
 
-<head>  <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,9 +21,6 @@
       text-align: center;
     }
 
-    .row {
-      margin: 100px;
-    }
 
     .panel {
 
@@ -52,7 +50,7 @@
         <tr>
 
           <th>Exam Name</th>
-          
+
           <th>View Marks</th>
         </tr>
       </thead>
@@ -60,9 +58,10 @@
       <tr>
 
         <td> {{t.course_name}}</td>
-        
-        
-        <td><a class="btn btn-danger btn-xs" href="{% url 'teacher-check-marks' t.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+
+
+        <td><a class="btn btn-danger btn-xs" href="{% url 'teacher-check-marks' t.id  %}"><span
+              class="fas fa-eye"></span></a></td>
       </tr>
       {% endfor %}
     </table>

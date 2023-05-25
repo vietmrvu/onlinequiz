@@ -15,14 +15,11 @@
   <style media="screen">
     a:link {
       text-decoration: none;
-      color: white
     }
 
     h6 {
       text-align: center;
     }
-
-
 
     .panel {
 
@@ -41,42 +38,39 @@
     }
   </style>
 </head>
-<br><br><br><br>
-
+<br><br>
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">View Marks</h6>
+      <h6 class="panel-title">Documents</h6><a href="{% url 'parents-add-docs'  %}"
+        style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
 
-          <th>Exam Name</th>
-
-          <th>Total Marks</th>
-          <th>Attempt</th>
-          <th>Exam Date</th>
+          <th>Docs name</th>
+          <th>Created at</th>
+          <th>Upload to</th>
         </tr>
       </thead>
-      {% for t in results %}
-      {% if forloop.counter <= course.atempt %} <tr>
-        <td> {{t.exam}}</td>
-        <td> {{t.marks}}/{{course.total_marks}}</td>
-        <td>Attemp {{ forloop.counter }}</td>
-        <td> {{t.date}}</td>
-        </tr>
-        {% else %}
-        {% endif %}
-        {% endfor %}
-        <!-- {% for a in results %}
+      {% for t in courses %}
       <tr>
-        <td> {{a.exam}}</td>
-        <td> {{a.marks}}/{{course.total_marks}}</td>
-        <td>Attemp {{ forloop.counter }}</td>
-        <td> {{a.date}}</td>
+
+        <td> {{t.title}}</td>
+        <td>{{t.created_at}}</td>
+        <td>{{t.upload_to}}</td>
+
+        <td><a class="btn btn-primary btn-xs" href="{% url 'parents-view-docs-detail' t.id  %}"><span
+              class="fas fa-eye"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span class="fas fa-trash"></span></a>
+        </td>
+        <td><a style="background-color: rgb(42, 119, 63); color: white;" class="btn btn-xs"
+            href="{% url 'update-docs' t.id  %}"><span class="fas fa-wrench"></span></a></td>
+
       </tr>
-      {% endfor %} -->
+      {% endfor %}
     </table>
   </div>
 </div>

@@ -14,13 +14,13 @@
 </head>
 
 <br><br>
-<h3 style="text-align:center;">APPROVE STUDENT </h3>
+<h3 style="text-align:center;">APPROVE PARENTS </h3>
 <div style="margin-bottom: 20px">
   <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
     {% csrf_token %}
     <h4 style="text-align:center;">TYPE AGAIN THE USERNAME TO APPROVE</h4>
     <label for="username">Username</label>
-    <input type="text" name="username" maxlength="150" placeholder="{{student.user}}" class="form-control" required=""
+    <input type="text" name="username" maxlength="150" placeholder="{{parents.user}}" class="form-control" required=""
       id="id_username">
     <input class="btn btn-primary" style="margin-top: 10px;" type="submit" value="APPROVE">
 

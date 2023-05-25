@@ -8,7 +8,9 @@ from django.conf import settings
 from datetime import date, timedelta
 from quiz import models as QMODEL
 from student import models as SMODEL
+from student import forms as SFORM
 from parents import models as PMODEL
+from parents import forms as PFORM
 from quiz import forms as QFORM
 from django.http import JsonResponse
 import random
@@ -78,6 +80,44 @@ def teacher_student_view(request):
     }
     return render(request,'teacher/teacher_student.html',context=dict)
 
+    
+@login_required(login_url='adminlogin')
+def update_student_view(request,pk):
+    student=SMODEL.Student.objects.get(id=pk)
+    user=SMODEL.User.objects.get(id=student.user_id)
+    userForm=SFORM.StudentUserForm(instance=user)
+    studentForm=SFORM.StudentForm(request.FILES,instance=student)
+    mydict={'userForm':userForm,'studentForm':studentForm, "student":student, 'content': 'UPDATE','teacher': models.Teacher.objects.get(user=request.user)}
+    if request.method=='POST':
+        userForm=SFORM.StudentUserForm(request.POST,instance=user)
+        studentForm=SFORM.StudentForm(request.POST,request.FILES,instance=student)
+        if userForm.is_valid() and studentForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            studentForm.save()
+            return redirect('admin-view-student')
+    return render(request,'teacher/update_student.html',context=mydict)
+
+@login_required(login_url='adminlogin')
+def add_student_view(request):
+    userForm=SFORM.StudentUserForm()
+    studentForm=SFORM.StudentForm()
+    mydict={'userForm':userForm,'studentForm':studentForm, 'content': 'ADD','teacher': models.Teacher.objects.get(user=request.user)}
+    if request.method=='POST':
+        userForm=SFORM.StudentUserForm(request.POST)
+        studentForm=SFORM.StudentForm(request.POST,request.FILES)
+        if userForm.is_valid() and studentForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            student=studentForm.save(commit=False)
+            student.user=user
+            student.save()
+            my_student_group = Group.objects.get_or_create(name='STUDENT')
+            my_student_group[0].user_set.add(user)
+        return redirect('admin-view-student')
+    return render(request,'teacher/update_student.html',context=mydict)
 
 @login_required(login_url='teacherlogin')
 def teacher_parents_view(request):
@@ -184,12 +224,12 @@ def teacher_view_pending_parents_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def approve_parents_view(request,pk):
-    parents= PMODEL.Parents.objects.all().filter()
+    parents= PMODEL.Parents.objects.get(id=pk)
     if request.method=='POST':
         parents= PMODEL.Parents.objects.get(id=pk)
         parents.status=True
         parents.save()
-        return HttpResponseRedirect('/teacher/teacher-view-pending-parents')
+        return HttpResponseRedirect('/teacher/teacher-view-parents')
     return render(request,'teacher/check_parents.html',  { 'parents':parents, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
@@ -198,7 +238,7 @@ def reject_parents_view(request,pk):
     user=models.User.objects.get(id=parents.user_id)
     user.delete()
     parents.delete()
-    return HttpResponseRedirect('/teacher/teacher-view-pending-parents')
+    return HttpResponseRedirect('/teacher/teacher-view-parents')
 # approve student
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -210,13 +250,13 @@ def teacher_view_pending_student_view(request):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def approve_student_view(request,pk):
-    student= SMODEL.Student.objects.all().filter()
+    student= SMODEL.Student.objects.get(id=pk)
 
     if request.method=='POST':
         student= SMODEL.Student.objects.get(id=pk)
         student.status=True
         student.save()
-        return HttpResponseRedirect('/teacher/teacher-view-pending-student')
+        return HttpResponseRedirect('/teacher/teacher-view-student')
     return render(request,'teacher/check_student.html',  {'student':student,'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
@@ -225,7 +265,7 @@ def reject_student_view(request,pk):
     user=models.User.objects.get(id=student.user_id)
     user.delete()
     student.delete()
-    return HttpResponseRedirect('/teacher/teacher-view-pending-student')
+    return HttpResponseRedirect('/teacher/teacher-view-student')
 # Docs
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -334,69 +374,51 @@ def teacher_view_class_view(request):
     return render(
         request=request,
         template_name='teacher/teacher_view_class.html',
-        context={"object": matching_article,  'teacher': teacher, 'form':form}
+        context={"object": matching_article,  'teacher': teacher, 'form':form,'teacher': models.Teacher.objects.get(user=request.user)}
         )
 
-
-
-# Create your views here.
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def lobby(request):
-    return render(request, 'videocall/lobby.html')
+def teacher_update_class(request, slug):
+    # matching_series = models.Classroom.objects.filter(class_slug=slug).first()
+    # form = forms.ClassroomCreateForm(instance=matching_series)
 
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-def room(request):
-    return render(request, 'videocall/room.html')
+    # if request.method == "POST":
+    #     form = forms.ClassroomCreateForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('/teacher-class')
 
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-def getToken(request):
-    appId = "a3195752a2b349398296e70fe3e0acdc"
-    appCertificate = "6b4b6870da3444db86983c66df8f6800"
-    channelName = request.GET.get('channel')
-    uid = random.randint(1, 230)
-    expirationTimeInSeconds = 3600
-    currentTimeStamp = int(time.time())
-    privilegeExpiredTs = currentTimeStamp + expirationTimeInSeconds
-    role = 1
+    # else:
+    #     form =forms.ClassroomCreateForm(request.POST, request.FILES)
+    matching_series = models.Classroom.objects.filter(class_slug=slug).first()
+    form = forms.ClassroomCreateForm(instance=matching_series)
+    if request.method == 'POST':
+        form = forms.DocsForm(request.POST, request.FILES, instance=matching_series)
+        if form.is_valid():
+            form.save()
+            return redirect('/teacher-class')
+    else:
+        matching_series = models.Classroom.objects.filter(class_slug=slug).first()
+        form = forms.ClassroomCreateForm(instance=matching_series)
 
-    token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, role, privilegeExpiredTs)
+    return render(
+        request=request,
+        template_name='teacher/teacher_update_class.html',
+        context={
+            "object": matching_series,
+            "form": form,
+            'teacher': models.Teacher.objects.get(user=request.user)
+            }
+        )
 
-    return JsonResponse({'token': token, 'uid': uid}, safe=False)
+@login_required(login_url='adminlogin')
+def teacher_view_student_class(request, slug): 
+    room=models.Classroom.objects.filter(class_slug=slug).first() 
+    student = SMODEL.Student.objects.filter(classroom=room)
+    return render(
+        request=request,
+        template_name='teacher/teacher_view_class_student.html',
+        context={"object": room, "student": student,'teacher': models.Teacher.objects.get(user=request.user)}
+        )
 
-
-@csrf_exempt
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-def createMember(request):
-    data = json.loads(request.body)
-    member, created = QMODEL.RoomMember.objects.get_or_create(
-        name=data['name'],
-        uid=data['UID'],
-        room_name=data['room_name']
-    )
-
-    return JsonResponse({'name':data['name']}, safe=False)
-
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-def getMember(request):
-    uid = request.GET.get('UID')
-    room_name = request.GET.get('room_name')
-
-    member = QMODEL.RoomMember.objects.get(
-        uid=uid,
-        room_name=room_name,
-    )
-    name = member.name
-    return JsonResponse({'name':member.name}, safe=False)
-
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-@csrf_exempt
-def deleteMember(request):  
-    members = QMODEL.RoomMember.objects.get(uid=json.loads(request.body)['UID'])
-    members.delete()
-    return  HttpResponseRedirect("/meeting")

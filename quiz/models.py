@@ -6,6 +6,8 @@ from django.db.models import Sum
 from froala_editor.fields import FroalaField
 import datetime
 from django.utils import timezone
+from django.contrib.auth.models import User
+
 
 class Course(models.Model):
     course_name = models.CharField(max_length=500)
@@ -88,4 +90,13 @@ class RoomMember(models.Model):
 
     def __str__(self):
         return self.name
+
+# class Feedback(models.Model):
+#     title = models.CharField(max_length=200)
+#     author = models.ForeignKey(User,on_delete=models.CASCADE)
+#     content = FroalaField()
+#     class_room = models.ForeignKey(TMODEL.Classroom, on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return self.title
 

@@ -37,19 +37,23 @@ path('teacher-view-pending-student', views.teacher_view_pending_student_view,nam
 path('approve-student/<int:pk>', views.approve_student_view,name='approve-student'),
 path('reject-student/<int:pk>', views.reject_student_view,name='reject-student'),
 path('teacher-view-student', views.teacher_student_view, name="teacher-view-student"),
+path('teacher-add-student', views.add_student_view,name='teacher-add-student'),
+path('update-student/<int:pk>', views.update_student_view,name='update-student'),
 # Marks
 path('teacher-view-student-marks', views.teacher_view_student_marks_view,name='teacher-view-student-marks'),
 path('teacher-view-marks/<int:pk>', views.teacher_view_marks_view,name='teacher-view-marks'),
 path('teacher-check-marks/<int:pk>', views.teacher_check_marks_view,name='teacher-check-marks'),
 # Class room
 path('teacher-class', views.teacher_view_class_view,  name="teacher-class"),
+path("teacher-update-class/<slug>", views.teacher_update_class, name="teacher-update-class"),
+path("teacher-view-class-student/<slug>", views.teacher_view_student_class, name="teacher-view-class-student"),
 
-# Online room
-path('meeting', views.lobby),
-path('room/', views.room),
-path('get_token/', views.getToken),
-path('create_member/', views.createMember),
-path('get_member/', views.getMember),
-path('delete_member/', views.deleteMember),
+# # Online room
+# path('meeting', views.lobby),
+# path('room/', views.room),
+# path('get_token/', views.getToken),
+# path('create_member/', views.createMember),
+# path('get_member/', views.getMember),
+# path('delete_member/', views.deleteMember),
 
 ]

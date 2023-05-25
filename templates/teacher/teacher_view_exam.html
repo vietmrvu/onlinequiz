@@ -151,7 +151,7 @@
         <td>{{t.question_number}}</td>
         <td>{{t.total_marks}}</td>
         <td>{{t.atempt}}</td>
-        <td><a class="btn btn-info btn-xs" href="{% url 'view-exam' t.id %}"><span class="fas fa-eye"></span></a>
+        <td><a class="btn btn-info btn-xs" href="/teacher/view-exam/{{t.id}}"><span class="fas fa-eye"></span></a>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-exam' t.id  %}"><span class="fas fa-edit"></span></a>
 
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-exam' t.id  %}"><span class="fas fa-trash"></span></a>

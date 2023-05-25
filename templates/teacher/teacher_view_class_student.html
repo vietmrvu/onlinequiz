@@ -55,7 +55,7 @@
     <div class="panel-heading" style="    width: 100%;
     position: relative;
     top: 40px;">
-        <h6 class="panel-title">Students </h6>
+        <h6 class="panel-title">Students in {{object.title}}</h6>
         <a href="{% url 'teacher-add-student'  %}"
             style="  color: white; float: right; background: green;;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
             class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
@@ -80,7 +80,7 @@
                 </tr>
             </thead>
 
-            {% for t in students %}
+            {% for t in student %}
             <tr>
 
                 <td> {{t.get_name}}</td>
@@ -92,13 +92,13 @@
                         class="btn btn-info btn-xs"><img
                             src="https://image.luatvietnam.vn/uploaded/twebp/images/original/2023/02/01/nhung-noi-dung-bat-buoc-can-co-cua-ban-kiem-diem-hoc-sinh_0102092727.png"
                             width="30" alt=""></a></td>
-                <td><a class="btn btn-primary btn-xs" href="/teacher/update-student/{{t.id}}"><i
+                <td><a class="btn btn-primary btn-xs" href="{% url 'update-student' t.id  %}"><i
                             class="fas fa-edit"></i></a>
                 </td>
                 <td><a class="btn btn-danger btn-xs" href="{% url 'reject-student' t.id  %}"><span
                             class="fas fa-trash"></span></a></td>
 
-                <td><a href="/teacher/approve-student/{{t.id}}" style="background: green; color: white"
+                <td><a href="/teacher/approve-student{{t.id}}" style="background: green; color: white"
                         class="btn btn-xs" href=""><span class="fas fa-check"></span></a></td>
             </tr>
             {% endfor %}
