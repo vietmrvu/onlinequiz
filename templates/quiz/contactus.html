@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    {% include "quiz/navbar.html" %}
+    <br><br>
+
+    <center>
+        <h3 class='alert alert-success'>Send Us Your Valuable Feedback !</h3>
+
+        <form method="POST" autocomplete="off">
+            <!-- Very Important csrf Token -->
+            {% csrf_token %}
+            <div class="form-group">
+                <p>
+                <h3>{{ form.as_p }}</h3>
+                </p>
+                <br>
+                <input type="submit" value="Send Message" class='btn btn-primary btn-lg'>
+            </div>
+        </form>
+    </center>
+
+    {% include "quiz/footer.html" %}
+</body>
+
+</html>
