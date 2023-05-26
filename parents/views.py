@@ -19,8 +19,7 @@ def parentsclick_view(request):
 def parents_signup_view(request):
     userForm=forms.parentsUserForm()
     parentsForm=forms.parentsForm()
-    mydict={'userForm':userForm,'parentsForm':parentsForm,     'parents':models.Parents.objects.get(user=request.user)
-}
+    mydict={'userForm':userForm,'parentsForm':parentsForm,}
     if request.method=='POST':
         userForm=forms.parentsUserForm(request.POST)
         parentsForm=forms.parentsForm(request.POST,request.FILES)
