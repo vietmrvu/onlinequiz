@@ -52,6 +52,8 @@ def home_view(request):
 				return HttpResponseRedirect('afterlogin')
 			else:
 				pass
+		# if request.method == 'GET':
+		# 	email = request.GET.get('email')
 		return render(request,'quiz/index.html')
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
@@ -702,7 +704,7 @@ def contactus_view(request):
             email = sub.cleaned_data['Email']
             name=sub.cleaned_data['Name']
             message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+            send_mail('Title: '+str(name)+' || '+'Email: '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
             return render(request, 'quiz/contactussuccess.html')
     return render(request, 'quiz/contactus.html', {'form':sub})
 

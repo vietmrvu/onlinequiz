@@ -7,9 +7,127 @@
   <title>Learning System Online</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2201/2201570.png">
   <style>
-    form {
-      margin: 50px;
+    html {
+      color: #333;
+      font-family: "Open Sans", sans-serif;
+    }
 
+    .main {
+      background: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      margin: -48px 0px;
+    }
+
+    .form {
+      width: 460px;
+      min-height: 100px;
+      padding: 42px 24px;
+      text-align: center;
+      background: #fff;
+      border-radius: 2px;
+      margin: 50px;
+      align-self: center;
+      box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+    }
+
+    .form .heading {
+      font-size: 2rem;
+    }
+
+    .form .desc {
+      text-align: center;
+      color: #636d77;
+      font-size: 1.6rem;
+      font-weight: lighter;
+      line-height: 2.4rem;
+      margin-top: 16px;
+      font-weight: 300;
+    }
+
+    .form-group {
+      display: flex;
+      margin-bottom: 16px;
+      flex-direction: column;
+    }
+
+    label,
+    .form-message {
+      text-align: left;
+    }
+
+    label {
+      font-weight: 700;
+      padding-bottom: 6px;
+      line-height: 1.8rem;
+      font-size: 1.4rem;
+    }
+
+    .form-control {
+      height: 40px;
+      padding: 8px 12px;
+      border: 1px solid #b3b3b3;
+      border-radius: 3px;
+      outline: none;
+      font-size: 1.4rem;
+      text-align: left;
+    }
+
+    .form-control:hover {
+      border-color: #1dbfaf;
+    }
+
+    .form-group.invalid .form-control {
+      border-color: #f33a58;
+    }
+
+    .form-group.invalid .form-message {
+      color: #f33a58;
+    }
+
+    .form-message {
+      font-size: 1.2rem;
+      line-height: 1.6rem;
+      padding: 4px 0 0;
+    }
+
+    .form-submit {
+      outline: none;
+      background-color: #1dbfaf;
+      margin-top: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: #fff;
+      border: none;
+      width: 100%;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .form-submit:hover {
+      background-color: #1ac7b6;
+    }
+
+    .spacer {
+      margin-top: 36px;
+    }
+
+    #id_profile_pic {
+
+      height: 42px;
+
+    }
+
+    select {
+      height: 40px;
+      padding: 8px 12px;
+      border: 1px solid #b3b3b3;
+      border-radius: 3px;
+      outline: none;
+      font-size: 1.4rem;
+      text-align: left;
     }
   </style>
 </head>
@@ -21,71 +139,75 @@
 
   <br><br><br>
   <br>
-  <h3 style="text-align: center;color: red;">TEACHER SIGNUP</h3>
-  <form method="POST" autocomplete="off" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="form-group col-md-6">
+  <div class="main">
+    <!-- <h3 style="text-align: center;color: red;">STUDENT SIGNUP</h3> -->
+    <form method="POST" autocomplete="off" enctype="multipart/form-data" class="form" id="form-1">
+      {% csrf_token %}
+      <h3 style="text-align: center;color: red;">STUDENT SIGNUP</h3>
+      <p class="desc">Learning together at GeniDev ❤️</p>
+
+      <div class="spacer"></div>
+      <div class="form-group">
         <label for="username">Username</label>
-        {% render_field userForm.username|attr:'required:true' class="form-control" placeholder="username" %}
+        {% render_field userForm.username class="form-control" placeholder="Username" %}
       </div>
-      <div class="form-group col-md-6">
+      <span class="form-message"></span>
+      <div class="form-group">
         <label for="inputPassword4">Password</label>
-        {% render_field userForm.password|attr:'required:true' class="form-control" placeholder="password" %}
+        {% render_field userForm.password class="form-control" placeholder="Password" %}
       </div>
-    </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
+      <span class="form-message"></span>
+      <div class="form-group">
+        <label for="inputPassword4">Confirm Password</label>
+        <input id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" type="password"
+          class="form-control">
+      </div>
+      <span class="form-message"></span>
+
+      <div class="form-group">
         <label for="first_name">First Name</label>
-        {% render_field userForm.first_name|attr:'required:true' class="form-control" placeholder="First Name" %}
+        {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group">
         <label for="last_name">Last Name</label>
-        {% render_field userForm.last_name|attr:'required:true' class="form-control" placeholder="Last Name" %}
+        {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
       </div>
-    </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
+
+      <div class="form-group">
         <label for="mobile">Mobile</label>
-        {% render_field teacherForm.mobile|attr:'required:true' class="form-control" placeholder="Mobile" %}
+        {% render_field teacherForm.mobile class="form-control" placeholder="Mobile" %}
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group">
         <label for="address">Address</label>
-        {% render_field teacherForm.address|attr:'required:true' class="form-control" placeholder="Address" %}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label for="inputPassword4">Email</label>
-        {% render_field userForm.email|attr:'required:true' class="form-control" placeholder="email" %}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label for="profile_pic">Profile Picture</label>
-        {% render_field teacherForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
+        {% render_field teacherForm.address class="form-control" placeholder="Address" %}
       </div>
 
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
+      <div class="form-group">
+        <label for="inputPassword4">Email</label>
+        {% render_field userForm.email class="form-control" placeholder="Email" %}
+      </div>
+      <span class="form-message"></span>
+
+      <div class="form-group">
+        <label for="profile_pic">Profile Picture</label>
+        {% render_field teacherForm.profile_pic class="form-control" placeholder="" %}
+      </div>
+
+      <div class="form-group">
         <label for="profile_pic">Class subjects</label>
         {{ teacherForm.class_model }}
       </div>
 
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label for="profile_pic">Grade </label>
+
+      <div class="form-group">
+        <label for="profile_pic">Grade to teach </label>
         {{ teacherForm.grade }}
       </div>
-
-    </div>
-
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
+      <button type="submit" class="form-submit">Sign Up</button>
+    </form>
+  </div>
 
 
   <br><br>
