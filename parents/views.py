@@ -96,7 +96,7 @@ def parents_course_view_detail(request, pk):
         )
 
 @login_required(login_url='parentslogin')
-def parents_add_docs_view(request):
+def parents_add_blog_view(request):
     context = {'courseForm': QFORM.DocsForm,'parents':models.Parents.objects.get(user=request.user)}
     try:
         if request.method == 'POST':
@@ -106,46 +106,46 @@ def parents_add_docs_view(request):
 
             if form.is_valid():
                 print('Valid')
-                content = form.cleaned_data['content']
-
+                content = form.cleaned_data['content']  
+  
             blog_obj = QMODEL.Docs.objects.create(
                 title=title, name=name,
-                content=content
+                content=content, author=request.user
             )
             print(blog_obj)
-            return redirect('/parents-view-docs')
+            return redirect('/parents/parents-view-blog')
     except Exception as e:
         print(e)
 
     return render(request, 'parents/parents_add_docs.html', context)
 
 @login_required(login_url='parentslogin')
-def delete_docs_view(request,pk):
+def delete_blog_view(request,pk):
     course=QMODEL.Docs.objects.get(id=pk)
     course.delete()
-    return HttpResponseRedirect('/parents-view-docs')
+    return HttpResponseRedirect('/parents/parents-view-blog')
 
 @login_required(login_url='parentslogin')
-def parents_view_docs_view(request):
+def parents_view_blog_view(request):
     courses = QMODEL.Docs.objects.all().order_by('-created_at')
     return render(request,'parents/parents_view_docs.html',{'courses':courses,'parents':models.Parents.objects.get(user=request.user)})
 
 
 @login_required(login_url="parentslogin")
-def updateDocs(request, pk):
+def updateblog(request, pk):
 	course = QMODEL.Docs.objects.get(id=pk)
 	form = QFORM.DocsForm(instance=course)
 	if request.method == 'POST':
 		form = QFORM.DocsForm(request.POST, request.FILES, instance=course)
 		if form.is_valid():
 			form.save()
-		return redirect('/parents-view-docs')
+		return redirect('/parents/parents-view-docs')
 
 	context = {'courseForm': form, 'parents':models.Parents.objects.get(user=request.user)}
 	return render(request, 'parents/parents_update_docs.html', context)
 
 @login_required(login_url='parentslogin')
-def parents_view_docs_view_detail(request, pk):
+def parents_view_blog_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)
     comments = docs.comments.all()
     new_comment = None

@@ -13,9 +13,9 @@ path('parents-view-marks/<int:pk>', views.parents_view_marks_view,name='parents-
 path('parents-check-marks/<int:pk>', views.parents_check_marks_view,name='parents-check-marks'),
 path('parents-view-course-detail/<int:pk>', views.parents_course_view_detail,name='parents-view-course-detail'),
 
-    path('parents-add-docs', views.parents_add_docs_view,name='parents-add-docs'),
-    path('parents-view-docs', views.parents_view_docs_view,name='parents-view-docs'),
-    path('delete-docs/<int:pk>', views.delete_docs_view,name='delete-docs'),
-    path('parents-view-docs-detail/<int:pk>/', views.parents_view_docs_view_detail, name="parents-view-docs-detail"),
-    path('update-docs/<int:pk>', views.updateDocs,name='update-docs'),
+    path('parents-add-blog', views.parents_add_blog_view,name='parents-add-blog'),
+    path('parents-view-blog', views.parents_view_blog_view,name='parents-view-blog'),
+    path('delete-blog/<int:pk>', views.delete_blog_view,name='delete-blog'),
+    path('parents-view-blog-detail/<int:pk>/', views.parents_view_blog_view_detail, name="parents-view-blog-detail"),
+    path('update-blog/<int:pk>', views.updateblog,name='update-blog'),
 ]

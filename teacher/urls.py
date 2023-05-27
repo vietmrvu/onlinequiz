@@ -21,12 +21,13 @@ path('teacher-add-question', views.teacher_add_question_view,name='teacher-add-q
 path('teacher-view-question', views.teacher_view_question_view,name='teacher-view-question'),
 path('see-question/<int:pk>', views.see_question_view,name='see-question'),
 path('remove-question/<int:pk>', views.remove_question_view,name='remove-question'),
-# Docs
-path('teacher-docs', views.teacher_docs_view,name='teacher-docs'),
-path('teacher-add-docs', views.teacher_add_docs_view,name='teacher-add-docs'),
-path('teacher-view-docs', views.teacher_view_docs_view,name='teacher-view-docs'),
-path('delete-docs/<int:pk>', views.delete_docs_view,name='delete-docs'),
-path('teacher-view-docs-detail/<int:pk>/', views.teacher_view_docs_view_detail, name="teacher-view-docs-detail"),
+# blog
+path('teacher-blog', views.teacher_blog_view,name='teacher-blog'),
+path('teacher-add-blog', views.teacher_add_blog_view,name='teacher-add-blog'),
+path('teacher-view-blog', views.teacher_view_blog_view,name='teacher-view-blog'),
+path('delete-blog/<int:pk>', views.delete_blog_view,name='delete-blog'),
+path('update-blog/<int:pk>', views.updateblog,name='update-blog'),
+path('teacher-view-blog-detail/<int:pk>/', views.teacher_view_blog_view_detail, name="teacher-view-blog-detail"),
 # Parents
 path('teacher-view-pending-parents', views.teacher_view_pending_parents_view,name='teacher-view-pending-parents'),
 path('approve-parents/<int:pk>', views.approve_parents_view,name='approve-parents'),

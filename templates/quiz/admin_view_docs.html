@@ -36,23 +36,50 @@
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
     }
+
+    .bigtable::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bigtable {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow: scroll;
+    }
+
+    .panel-heading {
+      width: 100%;
+      position: relative;
+      top: 41px;
+      height: 40px;
+    }
+
+    #dev-table {
+      margin-top: 40px
+    }
   </style>
 </head>
 <br><br>
 <div class="container">
+  <div class="panel-heading">
+    <h6 class="panel-title">Blog Post Center</h6><a href="{% url 'admin-add-blog'  %}"
+      style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+      class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
+  </div>
   <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Documents</h6><a href="{% url 'admin-add-docs'  %}"
-        style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
-        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
-    </div>
-    <table class="table table-hover" id="dev-table">
+
+    <table class="table table-hover bigtable" id="dev-table">
       <thead>
         <tr>
 
-          <th>Docs name</th>
+          <th>Post name</th>
           <th>Created at</th>
           <th>Upload to</th>
+          <th>View</th>
+          <th>Update</th>
+          <th>Delete</th>
         </tr>
       </thead>
       {% for t in courses %}
@@ -62,13 +89,16 @@
         <td>{{t.created_at}}</td>
         <td>{{t.upload_to}}</td>
 
-        <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-docs-detail' t.id  %}"><span
+        <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-blog-detail' t.id  %}"><span
               class="fas fa-eye"></span></a></td>
-        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-docs' t.id  %}"><span class="fas fa-trash"></span></a>
-        </td>
-        <td><a style="background-color: rgb(42, 119, 63); color: white;" class="btn btn-xs"
-            href="{% url 'update-docs' t.id  %}"><span class="fas fa-wrench"></span></a></td>
 
+        <td><a style="background-color: rgb(42, 119, 63); color: white;" class="btn btn-xs "
+            href="update-blog/{{t.id}}"><span class="fas fa-wrench"></span></a></td>
+
+        <td><a class="btn btn-danger btn-xs" href="delete-blog/{{t.id}}"><span class="fas fa-trash"></span></a>
+        </td>
+
+        </td>
       </tr>
       {% endfor %}
     </table>

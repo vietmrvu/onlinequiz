@@ -48,6 +48,7 @@ def student_dashboard_view(request):
     dict={
     'total_course':QMODEL.Course.objects.all().count(),
     'total_docs':QMODEL.Docs.objects.all().count(),
+    'total':  QMODEL.Course.objects.all().count() + QMODEL.Docs.objects.all().count(),
     }
     return render(request,'student/student_dashboard.html',context=dict)
 
@@ -136,12 +137,12 @@ def student_marks_view(request):
 
 # Mark
 @user_passes_test(is_student)
-def student_view_docs_view(request):
+def student_view_blog_view(request):
     courses = QMODEL.Docs.objects.all().order_by('-created_at')
     return render(request,'student/student_view_docs.html',{'courses':courses})
 
 @user_passes_test(is_student)
-def student_view_docs_view_detail(request, pk):
+def student_view_blog_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)
     comments = docs.comments.all()
     new_comment = None
@@ -169,3 +170,47 @@ def student_view_docs_view_detail(request, pk):
                'new_comment': new_comment,
                'comment_form': comment_form}
     return render(request, 'student/student_view_docs_view.html', context)
+
+
+@login_required(login_url='studentlogin')
+def student_add_blog_view(request):
+    context = {'courseForm': QFORM.DocsForm}
+    try:
+        if request.method == 'POST':
+            form = QFORM.DocsForm(request.POST)
+            title = request.POST.get('title')
+            name = request.POST.get('name')
+
+            if form.is_valid():
+                print('Valid')
+                content = form.cleaned_data['content']  
+  
+            blog_obj = QMODEL.Docs.objects.create(
+                title=title, name=name,
+                content=content, author=request.user
+            )
+            print(blog_obj)
+            return redirect('/student/student-view-blog')
+    except Exception as e:
+        print(e)
+
+    return render(request, 'student/student_add_docs.html', context)
+
+@login_required(login_url='studentlogin')
+def delete_blog_view(request,pk):
+    course=QMODEL.Docs.objects.get(id=pk)
+    course.delete()
+    return HttpResponseRedirect('/student/student-view-blog')
+
+@login_required(login_url="studentlogin")
+def updatePost(request, pk):
+	course = QMODEL.Docs.objects.get(id=pk)
+	form = QFORM.DocsForm(instance=course)
+	if request.method == 'POST':
+		form = QFORM.DocsForm(request.POST, request.FILES, instance=course)
+		if form.is_valid():
+			form.save()
+		return redirect('/student-view-docs')
+
+	context = {'courseForm': form}
+	return render(request, 'student/student_update_docs.html', context)

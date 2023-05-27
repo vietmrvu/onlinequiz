@@ -269,12 +269,12 @@ def reject_student_view(request,pk):
 # Docs
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def teacher_docs_view(request):
+def teacher_blog_view(request):
     return render(request,'teacher/teacher_view_docs.html', {'teacher': models.Teacher.objects.get(user=request.user)})
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def teacher_add_docs_view(request):
+def teacher_add_blog_view(request):
     context = {'courseForm': QFORM.DocsForm,  'teacher': models.Teacher.objects.get(user=request.user)}
     try:
         if request.method == 'POST':
@@ -284,37 +284,51 @@ def teacher_add_docs_view(request):
 
             if form.is_valid():
                 print('Valid')
-                content = form.cleaned_data['content']
-
+                content = form.cleaned_data['content']  
+  
             blog_obj = QMODEL.Docs.objects.create(
                 title=title, name=name,
-                content=content
+                content=content, author=request.user
             )
             print(blog_obj)
-            return redirect('/teacher/teacher-view-docs')
+            return redirect('/teacher/teacher-view-blog')
     except Exception as e:
         print(e)
 
     return render(request, 'teacher/teacher_add_docs.html', context)
 
-@login_required(login_url='teacherlogin')
-@user_passes_test(is_teacher)
-def delete_docs_view(request,pk):
-    course=QMODEL.Docs.objects.get(id=pk)
-    course.delete()
-    return HttpResponseRedirect('/teacher/teacher-view-docs')
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def teacher_view_docs_view(request):
+def delete_blog_view(request,pk):
+    course=QMODEL.Docs.objects.get(id=pk)
+    course.delete()
+    return HttpResponseRedirect('/teacher/teacher-view-blog')
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
+def teacher_view_blog_view(request):
     docs = QMODEL.Docs.objects.all().order_by('-created_at')
     return render(request,'teacher/teacher_view_docs.html',{'docs':docs,  'teacher': models.Teacher.objects.get(user=request.user)})
 
+@login_required(login_url="teacherlogin")
+def updateblog(request, pk):
+	course = QMODEL.Docs.objects.get(id=pk)
+	form = QFORM.DocsForm(instance=course)
+	if request.method == 'POST':
+		form = QFORM.DocsForm(request.POST, request.FILES, instance=course)
+		if form.is_valid():
+			form.save()
+		return redirect('/teacher/teacher-view-blog')
+
+	context = {'courseForm': form,  'teacher': models.Teacher.objects.get(user=request.user)}
+	return render(request, 'teacher/teacher_update_docs.html', context)
+
 
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
-def teacher_view_docs_view_detail(request, pk):
+def teacher_view_blog_view_detail(request, pk):
     docs = QMODEL.Docs.objects.get(id=pk)
     comments = docs.comments.all()
     new_comment = None

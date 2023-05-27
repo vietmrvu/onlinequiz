@@ -49,5 +49,5 @@ class Classroom(models.Model):
         return self.class_slug
 
     class Meta:
-        verbose_name_plural = "Student"
+        verbose_name_plural = "Classroom"
         ordering = ['-published']

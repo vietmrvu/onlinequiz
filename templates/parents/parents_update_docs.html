@@ -1,4 +1,4 @@
-{% extends 'teacher/teacherbase.html' %}
+{% extends 'parents/parentsbase.html' %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -15,14 +15,16 @@
     <style>
         a:link {
             text-decoration: none;
+            color: white !important;
         }
+
 
         input {
             width: 100%;
         }
     </style>
 </head>
-<h2 style="text-align:center; color:blue;">ADD POST</h2>
+<h2 style="text-align:center; color:blue;">UPDATE POST</h2>
 
 <div class="container mt-5">
 
@@ -39,7 +41,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Create Post</button>
+        <button type="submit" class="btn btn-primary mt-4">Update Post</button>
 
     </form>
 </div>

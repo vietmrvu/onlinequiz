@@ -15,7 +15,9 @@ path('calculate-marks', views.calculate_marks_view,name='calculate-marks'),
 path('view-result', views.view_result_view,name='view-result'),
 path('check-marks/<int:pk>', views.check_marks_view,name='check-marks'),
 path('student-marks', views.student_marks_view,name='student-marks'),
-path('student-view-docs', views.student_view_docs_view,name='student-view-docs'),
-path('student-view-docs-detail/<int:pk>/', views.student_view_docs_view_detail, name="student-view-docs-detail"),
-
+path('student-view-blog', views.student_view_blog_view,name='student-view-blog'),
+path('student-view-blog-detail/<int:pk>/', views.student_view_blog_view_detail, name="student-view-blog-detail"),
+path('student-add-blog', views.student_add_blog_view,name='student-add-blog'),
+path('delete-blog/<int:pk>', views.delete_blog_view,name='delete-blog'),
+path('update-blog/<int:pk>', views.updatePost,name='update-blog'),
 ]

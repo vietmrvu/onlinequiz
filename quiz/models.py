@@ -7,6 +7,7 @@ from froala_editor.fields import FroalaField
 import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class Course(models.Model):
@@ -56,6 +57,8 @@ class Docs(models.Model):
     name = models.CharField(max_length=1000,  default="Hướng dẫn sử dụng GeniDev để phục vụ học tập")
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(get_user_model(), default=1, on_delete=models.SET_DEFAULT)
+
     def __str__(self):
         return self.title
 
@@ -91,12 +94,4 @@ class RoomMember(models.Model):
     def __str__(self):
         return self.name
 
-# class Feedback(models.Model):
-#     title = models.CharField(max_length=200)
-#     author = models.ForeignKey(User,on_delete=models.CASCADE)
-#     content = FroalaField()
-#     class_room = models.ForeignKey(TMODEL.Classroom, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return self.title
 

@@ -462,11 +462,11 @@ def admin_check_marks_view(request,pk):
 # Docs
 
 @login_required(login_url='adminlogin')
-def admin_docs_view(request):
+def admin_blog_view(request):
     return render(request,'quiz/admin_docs.html')
 
 @login_required(login_url='adminlogin')
-def admin_add_docs_view(request):
+def admin_add_blog_view(request):
     context = {'courseForm': forms.DocsForm}
     try:
         if request.method == 'POST':
@@ -476,33 +476,33 @@ def admin_add_docs_view(request):
 
             if form.is_valid():
                 print('Valid')
-                content = form.cleaned_data['content']
-
+                content = form.cleaned_data['content']  
+  
             blog_obj = models.Docs.objects.create(
                 title=title, name=name,
-                content=content
+                content=content, author=request.user
             )
             print(blog_obj)
-            return redirect('/admin-view-docs')
+            return redirect('/admin-view-blog')
     except Exception as e:
         print(e)
 
     return render(request, 'quiz/admin_add_docs.html', context)
 
 @login_required(login_url='adminlogin')
-def delete_docs_view(request,pk):
+def delete_blog_view(request,pk):
     course=models.Docs.objects.get(id=pk)
     course.delete()
-    return HttpResponseRedirect('/admin-view-docs')
+    return HttpResponseRedirect('/admin-view-blog')
 
 @login_required(login_url='adminlogin')
-def admin_view_docs_view(request):
+def admin_view_blog_view(request):
     courses = models.Docs.objects.all().order_by('-created_at')
     return render(request,'quiz/admin_view_docs.html',{'courses':courses})
 
 
 @login_required(login_url="adminlogin")
-def updateDocs(request, pk):
+def updateblog(request, pk):
 	course = models.Docs.objects.get(id=pk)
 	form = forms.DocsForm(instance=course)
 	if request.method == 'POST':
@@ -515,7 +515,7 @@ def updateDocs(request, pk):
 	return render(request, 'quiz/admin_update_docs.html', context)
 
 @login_required(login_url='adminlogin')
-def admin_view_docs_view_detail(request, pk):
+def admin_view_blog_view_detail(request, pk):
     docs = models.Docs.objects.get(id=pk)
     comments = docs.comments.all()
     new_comment = None

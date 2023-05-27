@@ -64,12 +64,12 @@ urlpatterns = [
     path('admin-update-course/<int:pk>', views.admin_update_course_view,name='admin-update-course'),
     path('admin-view-course-detail/<int:pk>', views.admin_course_view_detail,name='admin-view-course-detail'),
     # Admin docs
-    path('admin-docs', views.admin_docs_view,name='admin-docs'),
-    path('admin-add-docs', views.admin_add_docs_view,name='admin-add-docs'),
-    path('admin-view-docs', views.admin_view_docs_view,name='admin-view-docs'),
-    path('delete-docs/<int:pk>', views.delete_docs_view,name='delete-docs'),
-    path('admin-view-docs-detail/<int:pk>/', views.admin_view_docs_view_detail, name="admin-view-docs-detail"),
-    path('update-docs/<int:pk>', views.updateDocs,name='update-docs'),
+    path('admin-blog', views.admin_blog_view,name='admin-blog'),
+    path('admin-add-blog', views.admin_add_blog_view,name='admin-add-blog'),
+    path('admin-view-blog', views.admin_view_blog_view,name='admin-view-blog'),
+    path('delete-blog/<int:pk>', views.delete_blog_view,name='delete-blog'),
+    path('admin-view-blog-detail/<int:pk>/', views.admin_view_blog_view_detail, name="admin-view-blog-detail"),
+    path('update-blog/<int:pk>', views.updateblog,name='update-blog'),
     # Admin questions
     path('admin-question', views.admin_question_view,name='admin-question'),
     path('admin-add-question', views.admin_add_question_view,name='admin-add-question'),
