@@ -9,103 +9,17 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
     <script src="{% static 'js/main.js' %}"></script>
-    <style>
-        body {
-            background: #ed4264;
-            /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #ed4264, #ffedbc);
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to right, #ed4264, #ffedbc);
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            display: flex;
-            height: 100vh;
-            justify-content: right;
-            margin: 0;
-            width: 100vw;
-        }
 
-        .shadow {
-            position: absolute;
-            margin-top: 2px;
-        }
-
-        .hover {
-            border-radius: 50px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-            cursor: pointer;
-            height: 100px;
-            position: absolute;
-            width: 100px;
-        }
-
-        .clip {
-            background-color: #fff;
-            border-radius: 50px;
-            clip-path: polygon(0% 0%, 0% 52.447069%, 30.844539% 52.447%, 30.844539% 50.237396%, 30.844539% 48.027791%, 30.844539% 45.818186%, 30.844539% 43.608582%, 31.074905% 42.257032%, 31.65035% 40.866508%, 32.397397% 39.609496%, 33.142567% 38.658487%, 35.677378% 36.327021%, 39.127089% 33.663669%, 43.075878% 30.89027%, 47.107926% 28.228662%, 48.519882% 27.751201%, 50.433213% 27.58916%, 52.319085% 27.746871%, 53.648664% 28.228662%, 57.127578% 30.883904%, 60.932631% 33.942292%, 64.454458% 36.928097%, 67.083693% 39.365593%, 67.93372% 40.373944%, 68.477633% 41.419308%, 68.766519% 42.631058%, 68.851461% 44.138564%, 68.851461% 48.469673%, 68.851461% 52.800782%, 68.851461% 57.131891%, 68.851461% 61.463%, 68.394148% 63.593607%, 67.234211% 65.271838%, 65.689655% 66.371396%, 64.078489% 66.765981%, 62.752664% 66.765981%, 61.426839% 66.765981%, 60.101013% 66.765981%, 58.775188% 66.765981%, 57.551799% 66.396236%, 56.538683% 65.455904%, 55.848324% 64.198338%, 55.593208% 62.876894%, 55.593208% 61.595263%, 55.593208% 60.313632%, 55.593208% 59.032001%, 55.593208% 57.75037%, 55.372582% 56.844737%, 54.769169% 56.243166%, 53.870669% 55.909062%, 52.764781% 55.805826%, 51.262179% 55.805826%, 49.759577% 55.805826%, 48.256975% 55.805826%, 46.754373% 55.805826%, 45.512872% 56.016456%, 44.683926% 56.588476%, 44.22729% 57.432085%, 44.102723% 58.457477%, 44.119797% 59.641849%, 44.1179% 60.911742%, 44.108414% 62.368716%, 44.102723% 64.114331%, 43.898513% 65.255375%, 43.351924% 66.213805%, 42.562016% 66.873799%, 41.627849% 67.119535%, 40.257829% 67.119535%, 38.88781% 67.119535%, 37.517791% 67.119535%, 36.147771% 67.119535%, 34.388618% 66.605533%, 32.669023% 65.277485%, 31.362995% 63.456329%, 30.844539% 61.463%, 30.844539% 59.209%, 30.844539% 56.955%, 30.844539% 54.701%, 30.844539% 52.447%, 0% 52.447%, 0% 100%, 100% 100%, 100% 0%);
-            height: 100px;
-            position: absolute;
-            width: 100px;
-        }
-
-        .hover:hover .clip {
-            background-color: #f8f8f8;
-        }
-
-        .hover:active {
-            margin-top: 2px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.23);
-        }
-
-        .container {
-            clip-path: circle(40px at 45px 50%);
-            height: 90px;
-            overflow: hidden;
-            position: relative;
-            width: 90px;
-        }
-
-        #canvas {
-            left: 50px;
-            position: absolute;
-            top: 50px;
-            transform: translateX(-50%) translateY(-50%);
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <canvas id="canvas"></canvas>
-    </div>
-    <div class="hover">
-        <svg class="shadow" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-            <defs>
-                <filter id="a" x="-.024" width="1.048" y="-.024" height="1.048" color-interpolation-filters="sRGB">
-                    <feGaussianBlur stdDeviation="1" />
-                </filter>
-            </defs>
-            <path d="M20 20v32.36h10.845v-8.837c0-1.7 1.383-3.963
-             2.298-4.95
-             2.585-2.79 8.72-7.055 13.965-10.43 1.314-.845 5.374-.86
-             6.54
-             0 4.15 3.06 10.796 8.464 13.436 11.137 1.36 1.377 1.768
-             2.508 1.768 4.773v17.324c0 3.086-2.722 5.303-4.773
-             5.303h-5.304c-1.722
-             0-3.182-2.197-3.182-3.89v-5.126c0-1.426-1.255-1.944-2.83-1.944h-6.01c-1.947
-             0-2.688 1.203-2.65 2.65.04 1.57 0 3.093 0 5.658 0
-             1.592-1.178 3.006-2.476 3.006h-5.48c-2.205
-             0-5.157-3.03-5.303-5.657V52.36H20V80h60V20z" fill="#9eabb0" fill-rule="evenodd" stroke="#9eabb0"
-                filter="url(#a)" />
-        </svg>
-        <div class="clip"></div>
-    </div>
     {% block content %}
 
     {% endblock content %}
 </body>
 <!-- <script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script> -->
-
+<!-- 
 <script>
     // Little Canvas things
     var canvas = document.querySelector("#canvas"),
@@ -262,6 +176,6 @@
 
 // First particle explosion
 //initParticles(config.particleNumber);
-</script>
+</script>-->
 
 </html>
