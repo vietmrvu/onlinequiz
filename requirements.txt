@@ -7,7 +7,7 @@ django-allauth==0.51.0
 django-autoslug==1.9.8
 django-browser-reload==1.6.0
 django-compression-middleware==0.4.1
-django-cors-headers==3.13.0
+django-cors-headers==3.13.0 
 django-filter==22.1
 django-froala-editor==4.0.13
 django-js-asset==2.0.0

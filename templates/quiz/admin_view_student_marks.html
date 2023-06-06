@@ -36,14 +36,38 @@
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
     }
+    
+    .bigtable::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bigtable {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      overflow: scroll;
+    }
+
+    .panel-heading {
+      width: 100%;
+      position: relative;
+      top: 41px;
+      height: 40px;
+    }
+
+    #dev-table {
+      margin-top: 40px
+    }
   </style>
 </head>
 <br><br>
 <div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
+      <div class="panel-heading">
       <h6 class="panel-title">Students</h6>
     </div>
+  <div class="panel panel-primary bigtable">
+
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
