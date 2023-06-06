@@ -1,14 +1,19 @@
 {
+	"version": 2,
 	"builds": [
 		{
-		"src": "onlinequiz/wsgi.py",
-		"use": "@vercel/python"
+			"src": "onlinequiz/wsgi.py",
+			"use": "@vercel/python",
+			"config": {
+				"maxLambdaSize": "15mb",
+				"runtime": "python3.9"
+			}
 		}
 	],
 	"routes": [
 		{
-		"src": "/(.*)",
-		"dest": "onlinequiz/wsgi.py"
+			"src": "/(.*)",
+			"dest": "onlinequiz/wsgi.py"
 		}
 	]
 }
