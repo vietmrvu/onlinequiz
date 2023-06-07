@@ -270,7 +270,9 @@
             </div>
         </form> -->
         <div class="login form">
-            <a href="/room" class="button">New Meeting</a>
+            <a style="font-weight: 500; font-size: 20px; text-decoration:none;" href="/room" class="button"> <i
+                    class="fas fa-plus"></i>
+                New Meeting</a>
             <header>Join Room</header>
             <form action="/room" method="POST">
                 {% csrf_token %}

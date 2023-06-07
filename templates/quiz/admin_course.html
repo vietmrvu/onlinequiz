@@ -94,9 +94,8 @@
       <tr>
         <td> {{t.course_name}}</td>
         <td>{{t.question_number}}</td>
-        <td>{{t.total_marks}}
-        </td>
-        <td>{{t.attempt}}</td>
+        <td>{{t.total_marks}}</td>
+        <td>{{t.atempt}}</td>
 
         <!-- <td>{{t.close}}</td> -->
         <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-course-detail' t.id  %}"><span
@@ -114,6 +113,8 @@
         <td> {{t.course_name}}</td>
         <td>{{t.question_number}}</td>
         <td>{{t.total_marks}}
+        <td>{{t.atempt}}</td>
+
         </td>
         <!-- <td>{{t.close}}</td> -->
         <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-course-detail' t.id  %}"><span
