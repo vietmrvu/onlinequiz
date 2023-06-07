@@ -84,7 +84,7 @@ urlpatterns = [
     path('delete-class/<slug>', views.delete_class_view,name='delete-class'),
     path("admin-view-class-student/<slug>", views.admin_view_student_class, name="admin-view-class-student"),
     # Online room
-    path('meeting', views.lobby),
+    path('meeting/', views.lobby),
     path('room/', views.room),
     path('get_token/', views.getToken),
     path('create_member/', views.createMember),

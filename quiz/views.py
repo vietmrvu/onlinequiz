@@ -641,6 +641,9 @@ def lobby(request):
 
 def room(request):
     if request.user.is_authenticated:   
+        if request.method == 'POST':
+            roomID = request.POST['roomID']
+            return redirect("/meeting?roomID=" + roomID)
         return render(request, 'videocall/room.html')
     else: 
         return HttpResponseRedirect("/afterlogin")
