@@ -21,7 +21,7 @@
       text-align: center;
     }
 
-  .panel {
+    .panel {
 
       border: 1px solid rgb(188, 188, 188);
       border-radius: 20px;
@@ -63,12 +63,12 @@
 </head>
 <br><br>
 <div class="container">
-      <div class="panel-heading">
-      <h6 class="panel-title">Select Course To View Questions</h6>
-      <a href="{% url 'admin-add-question'  %}"
-        style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
-        class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
-    </div>
+  <div class="panel-heading">
+    <h6 class="panel-title">Select Course To View Questions</h6>
+    <a href="{% url 'admin-add-question'  %}"
+      style="  color: white; float: right; background: green;margin-top: -35px; margin-right: 15px; padding: 3px 5px"
+      class="btn btn-xs" href=""><span class="fas fa-plus"></span></a>
+  </div>
   <div class="panel panel-primary bigtable">
 
     <table class="table table-hover" id="dev-table">
@@ -87,7 +87,7 @@
         <td> {{c.course_name}}</td>
         <td>{{c.question_number}}</td>
         <td>{{c.total_marks}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'view-question' c.id  %}"><span
+        <td><a class="btn btn-primary btn-xs" href="{% url 'admin-view-course-detail' c.id  %}"><span
               class="fas fa-eye"></span></a></td>
 
       </tr>
