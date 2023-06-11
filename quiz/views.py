@@ -126,7 +126,7 @@ def admin_teacher_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_view_teacher_view(request):
-    teachers= TMODEL.Teacher.objects.all()
+    teachers= TMODEL.Teacher.objects.all().order_by("-id")
     return render(request,'quiz/admin_view_teacher.html',{'teachers':teachers})
 
 @login_required(login_url='adminlogin')
@@ -235,7 +235,7 @@ def admin_student_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_view_student_view(request):
-    students= SMODEL.Student.objects.all()
+    students= SMODEL.Student.objects.all().order_by("-id")
     return render(request,'quiz/admin_view_student.html',{'students':students})
     
 @login_required(login_url='adminlogin')
@@ -253,7 +253,7 @@ def update_student_view(request,pk):
             user.set_password(user.password)
             user.save()
             studentForm.save()
-            return redirect('admin-view-student')
+        return redirect('admin-view-student')
     return render(request,'quiz/update_student.html',context=mydict)
 
 @login_required(login_url='adminlogin')
@@ -300,7 +300,7 @@ def approve_student_view(request,pk):
 # Parents
 @login_required(login_url='adminlogin')
 def admin_view_parents_view(request):
-    parents= PMODEL.Parents.objects.all()
+    parents= PMODEL.Parents.objects.all().order_by("-id")
     return render(request,'quiz/admin_view_parents.html',{'parents':parents})
 
 @login_required(login_url='adminlogin')
