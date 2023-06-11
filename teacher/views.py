@@ -217,7 +217,7 @@ def remove_question_view(request,pk):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_pending_parents_view(request):
-    parents= PMODEL.Parents.objects.all().filter(status=False)
+    parents= PMODEL.Parents.objects.all().filter(status=False).order_by("_id")
     return render(request,'teacher/teacher_pending_parents.html',{'parents':parents, 'teacher': models.Teacher.objects.get(user=request.user)})
 
 
