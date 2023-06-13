@@ -25,16 +25,20 @@ def student_signup_view(request):
     if request.method=='POST':
         userForm=forms.StudentUserForm(request.POST)
         studentForm=forms.StudentForm(request.POST,request.FILES)
+        print("He1")
         if userForm.is_valid() and studentForm.is_valid():
             user=userForm.save()
+            print("He2")
             user.set_password(user.password)
             user.save()
+            print("He")
             student=studentForm.save(commit=False)
             student.user=user
             student.save()
+            print("He")
             my_student_group = Group.objects.get_or_create(name='STUDENT')
             my_student_group[0].user_set.add(user)
-        return HttpResponseRedirect('studentlogin')
+            return HttpResponseRedirect('studentlogin')
     return render(request,'student/studentsignup.html',context=mydict)
 
 def is_student(user):
