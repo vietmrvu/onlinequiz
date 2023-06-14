@@ -509,7 +509,7 @@ def updateblog(request, pk):
 		form = forms.DocsForm(request.POST, request.FILES, instance=course)
 		if form.is_valid():
 			form.save()
-		return redirect('/admin-view-docs')
+		return redirect('/admin-view-blog')
 
 	context = {'courseForm': form}
 	return render(request, 'quiz/admin_update_docs.html', context)
