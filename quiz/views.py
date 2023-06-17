@@ -622,7 +622,7 @@ def delete_class_view(request, slug):
 @login_required(login_url='adminlogin')
 def admin_view_student_class(request, slug): 
     room=TMODEL.Classroom.objects.filter(class_slug=slug).first() 
-    student = SMODEL.Student.objects.filter(classroom=room)
+    student = SMODEL.Student.objects.filter(classroom=room).order_by("-id")
     return render(
         request=request,
         template_name='quiz/admin_view_class_student.html',

@@ -429,7 +429,7 @@ def teacher_update_class(request, slug):
 @login_required(login_url='adminlogin')
 def teacher_view_student_class(request, slug): 
     room=models.Classroom.objects.filter(class_slug=slug).first() 
-    student = SMODEL.Student.objects.filter(classroom=room)
+    student = SMODEL.Student.objects.filter(classroom=room).order_by("-id")
     return render(
         request=request,
         template_name='teacher/teacher_view_class_student.html',
