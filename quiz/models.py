@@ -21,11 +21,11 @@ class Course(models.Model):
     close = False   
     def __str__(self):
         return self.course_name 
-    def autodelete(self,  now):
+    def autodelete(self):
         print(str(self.date)[0:10])
-        print(str(now)[0:10])
+        print(str(timezone.now())[0:10])
         # print(now)
-        if str(self.date)[0:10] == str(now)[0:10]: 
+        if str(self.date)[0:10] == str(timezone.now())[0:10]: 
             self.close = True
             return self.close
         else: 

@@ -54,10 +54,11 @@
 
 
           <th> The course end on:</th>
-          <th>Take Exam</th>
+          <th>Action</th>
         </tr>
       </thead>
       {% for t in courses %}
+      <a style="display:none"> {{t.autodelete}}</a>
       {% if t.close %}
       <tr>
 
