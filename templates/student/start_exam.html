@@ -362,7 +362,6 @@
     <br><br><br><br><br>
 
     <div class="container" style="    width: 100%;
-    height: 100vh;
     margin-top: -44px;
     margin-bottom: -18px;">
 
@@ -411,109 +410,111 @@
         {% endfor %}
         <input id="submit" class="btn btn-info btn-lg" type="submit" value="Submit">
       </form>
+
+
     </div>
-    <br><br><br><br><br>
+    <br>
+    <br>
 
-    <script>
-
-      $(document).ready(function () {
-        $(".notification-drop .item").on('click', function () {
-          $(this).find('ul').toggle();
-        });
-      });
-      function saveAns() {
-
-        var ele = document.getElementsByTagName('input');
-        for (i = 0; i < ele.length; i++) {
-          if (ele[i].type = "radio") {
-            if (ele[i].checked) {
-              setCookie(ele[i].name, ele[i].value, 3)
-            }
-          }
-        }
-
-      }
-
-      function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      }
-      var minutes = $('#set-time').val();
-
-      var target_date = new Date().getTime() + ((minutes * 60) * 1000); // set the countdown date
-      var time_limit = ((minutes * 60) * 1000);
-      //set actual timer
-      setTimeout(
-        function () {
-          document.getElementById("left").innerHTML = "Timer Stopped";
-          submit_btn = document.getElementById("submit")
-          submit_btn.click()
-        }, time_limit);
-
-      var days, hours, minutes, seconds; // variables for time units
-
-      var countdown = document.getElementById("tiles"); // get tag element
-
-      getCountdown();
-
-      setInterval(function () { getCountdown(); }, 1000);
-
-      function getCountdown() {
-
-        // find the amount of "seconds" between now and target
-        var current_date = new Date().getTime();
-        var seconds_left = (target_date - current_date) / 1000;
-
-        if (seconds_left >= 0) {
-          console.log(time_limit);
-          if ((seconds_left * 1000) < (time_limit / 2)) {
-            $('#tiles').removeClass('color-full');
-            $('#tiles').addClass('color-half');
-
-          }
-          if ((seconds_left * 1000) < (time_limit / 4)) {
-            $('#tiles').removeClass('color-half');
-            $('#tiles').addClass('color-empty');
-          }
-
-          days = pad(parseInt(seconds_left / 86400));
-          seconds_left = seconds_left % 86400;
-
-          hours = pad(parseInt(seconds_left / 3600));
-          seconds_left = seconds_left % 3600;
-
-          minutes = pad(parseInt(seconds_left / 60));
-          seconds = pad(parseInt(seconds_left % 60));
-
-          // format countdown string + set tag value
-          countdown.innerHTML = "<span id='mins'>" + minutes + ":</span><span id='second'>" + seconds + "</span>";
-
-
-
-        }
-
-
-
-      }
-
-      function pad(n) {
-        return (n < 10 ? '0' : '') + n;
-      }
-
-
-
-      radio = document.getElementsByClassName("form-check-input")
-      for (let index in radio) {
-        const element = radio[index].checked;
-
-      }
-    </script>
-    <br><br><br>
     {% include "quiz/footer.html" %}
   </div>
-  <!--content end-->
+
 </body>
 
 </html>
+<script>
+
+  $(document).ready(function () {
+    $(".notification-drop .item").on('click', function () {
+      $(this).find('ul').toggle();
+    });
+  });
+  function saveAns() {
+
+    var ele = document.getElementsByTagName('input');
+    for (i = 0; i < ele.length; i++) {
+      if (ele[i].type = "radio") {
+        if (ele[i].checked) {
+          setCookie(ele[i].name, ele[i].value, 3)
+        }
+      }
+    }
+
+  }
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  var minutes = $('#set-time').val();
+
+  var target_date = new Date().getTime() + ((minutes * 60) * 1000); // set the countdown date
+  var time_limit = ((minutes * 60) * 1000);
+  //set actual timer
+  setTimeout(
+    function () {
+      document.getElementById("left").innerHTML = "Timer Stopped";
+      submit_btn = document.getElementById("submit")
+      submit_btn.click()
+    }, time_limit);
+
+  var days, hours, minutes, seconds; // variables for time units
+
+  var countdown = document.getElementById("tiles"); // get tag element
+
+  getCountdown();
+
+  setInterval(function () { getCountdown(); }, 1000);
+
+  function getCountdown() {
+
+    // find the amount of "seconds" between now and target
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
+
+    if (seconds_left >= 0) {
+      console.log(time_limit);
+      if ((seconds_left * 1000) < (time_limit / 2)) {
+        $('#tiles').removeClass('color-full');
+        $('#tiles').addClass('color-half');
+
+      }
+      if ((seconds_left * 1000) < (time_limit / 4)) {
+        $('#tiles').removeClass('color-half');
+        $('#tiles').addClass('color-empty');
+      }
+
+      days = pad(parseInt(seconds_left / 86400));
+      seconds_left = seconds_left % 86400;
+
+      hours = pad(parseInt(seconds_left / 3600));
+      seconds_left = seconds_left % 3600;
+
+      minutes = pad(parseInt(seconds_left / 60));
+      seconds = pad(parseInt(seconds_left % 60));
+
+      // format countdown string + set tag value
+      countdown.innerHTML = "<span id='mins'>" + minutes + ":</span><span id='second'>" + seconds + "</span>";
+
+
+
+    }
+
+
+
+  }
+
+  function pad(n) {
+    return (n < 10 ? '0' : '') + n;
+  }
+
+
+
+  radio = document.getElementsByClassName("form-check-input")
+  for (let index in radio) {
+    const element = radio[index].checked;
+
+  }
+</script>
